@@ -6,9 +6,11 @@ export function Testimonials() {
 	return (
 		<section className="py-20 bg-gradient-to-b from-pink-50 to-purple-50">
 			<div className="container mx-auto px-4 text-center">
-				<div className="flex items-center justify-center mb-8">
-					<Users className="h-8 w-8 text-pink-600 mr-3" />
-					<h2 className="text-3xl font-bold">Loved by Instagram Users</h2>
+				<div className="flex flex-col sm:flex-row items-center justify-center mb-8">
+					<Users className="size-10 text-pink-600 mr-3" />
+					<h2 className="text-3xl font-bold text-balance">
+						Loved by <br /> Instagram Users
+					</h2>
 				</div>
 				<div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
 					<Testimonial

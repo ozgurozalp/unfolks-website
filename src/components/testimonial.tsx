@@ -10,7 +10,9 @@ interface TestimonialProps {
 export function Testimonial({ quote, author, role, image }: TestimonialProps) {
 	return (
 		<div className="bg-white p-6 rounded-xl shadow-sm">
-			<p className="text-gray-600 mb-4 min-h-[3lh] text-balance ">"{quote}"</p>
+			<p className="text-gray-600 text-2xl md:text-base mb-4 min-h-[3lh] text-balance">
+				"{quote}"
+			</p>
 			<div className="flex items-center justify-center">
 				<Image
 					width={200}
