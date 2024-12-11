@@ -14,8 +14,14 @@ export const metadata: Metadata = {
 			url: "https://ozgurozalp.com",
 		},
 	],
-	openGraph: { title, description },
-	twitter: { title, description },
+	openGraph: { title, description, url: "https://unfolks.com" },
+	twitter: {
+		title,
+		description,
+		card: "summary_large_image",
+		creator: "Özgür ÖZALP",
+		site: "https://unfolks.com",
+	},
 	keywords: [
 		"Instagram",
 		"Unfollow",
