@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ReactNode } from "react";
 import "./globals.css";
 import { Footer } from "@/components/footer";
+import { GoogleTagManager } from "@next/third-parties/google";
 
 const title = "Unfolks - Find who doesn't follow you back on Instagram!";
 const description = `With this Chrome extension, easily find out who doesn’t follow you back on Instagram! Our extension helps you identify non-followers effortlessly. Filter out those who don’t follow you back and unfollow them with a single tap.`;
@@ -43,6 +44,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
+			<GoogleTagManager gtmId="GTM-5Z3GH67S" />
 			<body className="antialiased min-h-dvh bg-gradient-to-b from-pink-50 to-white">
 				{children}
 				<Footer />
