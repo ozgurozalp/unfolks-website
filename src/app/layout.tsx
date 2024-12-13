@@ -45,7 +45,7 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<GoogleTagManager gtmId="GTM-5Z3GH67S" />
-			<body className="antialiased min-h-dvh bg-gradient-to-b from-pink-50 to-white">
+			<body className="antialiased flex flex-col min-h-dvh bg-gradient-to-b from-pink-50 to-white *:shrink-0">
 				{children}
 				<Footer />
 			</body>

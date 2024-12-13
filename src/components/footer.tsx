@@ -3,10 +3,10 @@ import Link from "next/link";
 
 export function Footer() {
 	return (
-		<footer className="bg-gray-900 text-gray-300 py-12">
+		<footer className="mt-auto bg-gray-900 text-gray-300 py-12">
 			<div className="container mx-auto px-4">
 				<div className="flex flex-col md:flex-row justify-between items-center">
-					<div className="flex items-center gap-x-2 mb-4 md:mb-0">
+					<Link href="/" className="flex items-center gap-x-2 mb-4 md:mb-0">
 						<Image
 							className="h-8 w-auto"
 							width={1040}
@@ -15,8 +15,11 @@ export function Footer() {
 							alt="Unfolks"
 						/>
 						<span className="text-xl font-bold">Unfolks</span>
-					</div>
+					</Link>
 					<div className="flex space-x-6">
+						<Link href="/blog" className="hover:text-white transition-colors">
+							Blog
+						</Link>
 						<Link
 							href="/privacy-policy"
 							className="hover:text-white transition-colors"
