@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ReactNode } from "react";
 import "./globals.css";
 import { Footer } from "@/components/footer";
+import { PromoAd } from "@/components/promo-ad-wrapper";
 import { GoogleTagManager } from "@next/third-parties/google";
 
 const title = "Unfolks - Find who doesn't follow you back on Instagram!";
@@ -48,6 +49,7 @@ export default function RootLayout({
 			<body className="antialiased flex flex-col min-h-dvh bg-gradient-to-b from-pink-50 to-white *:shrink-0">
 				{children}
 				<Footer />
+				<PromoAd />
 			</body>
 		</html>
 	);
