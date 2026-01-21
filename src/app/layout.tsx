@@ -35,6 +35,7 @@ export const metadata: Metadata = {
 		"takip",
 		"unfolks",
 		"özgür özalp",
+		"cobanov dev"
 	],
 };
 
