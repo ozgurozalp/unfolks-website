@@ -1,16 +1,25 @@
-import { CodeBlock, CodeInline } from "renoun/components";
-import type { MDXComponents } from "renoun/mdx";
+import type { MDXComponents } from "mdx/types";
+import Link from "next/link";
+import type { ComponentPropsWithoutRef } from "react";
 
-export function useMDXComponents() {
+/**
+ * Required by @next/mdx in the App Router. Prose styling comes from the
+ * Tailwind typography plugin on the page wrapper; this only overrides the
+ * elements that need real behaviour.
+ */
+export function useMDXComponents(components: MDXComponents): MDXComponents {
 	return {
-		code: (props) => {
+		a: ({ href = "", ...props }: ComponentPropsWithoutRef<"a">) => {
+			const isInternal = href.startsWith("/") || href.startsWith("#");
+
+			if (isInternal) {
+				return <Link href={href} {...props} />;
+			}
+
 			return (
-				<CodeInline value={props.children as string} language="typescript" />
+				<a href={href} target="_blank" rel="noopener noreferrer" {...props} />
 			);
 		},
-		pre: (props) => {
-			const { value, language } = CodeBlock.parsePreProps(props);
-			return <CodeBlock allowErrors value={value} language={language} />;
-		},
-	} satisfies MDXComponents;
+		...components,
+	};
 }

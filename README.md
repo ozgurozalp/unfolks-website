@@ -1,36 +1,88 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Unfolks — marketing site
 
-## Getting Started
+Marketing site and blog for [Unfolks](https://unfolks.com), a free Chrome
+extension that shows who doesn't follow you back on Instagram.
 
-First, run the development server:
+## Stack
+
+| Concern      | Choice                                             |
+| ------------ | -------------------------------------------------- |
+| Framework    | Next.js 16 (App Router, Turbopack, React 19)        |
+| Styling      | Tailwind CSS v4 (CSS-first config in `globals.css`) |
+| UI primitives| Radix UI + `class-variance-authority`               |
+| Theming      | `next-themes`, class strategy, light/dark/system    |
+| Content      | MDX via `@next/mdx`, frontmatter validated with Zod |
+| Icons        | `lucide-react`                                      |
+
+Every route is statically prerendered at build time.
+
+## Getting started
+
+```bash
+npm install
+```
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The dev server runs on [http://localhost:3001](http://localhost:3001).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Script              | Purpose                            |
+| ------------------- | ---------------------------------- |
+| `npm run dev`       | Dev server on port 3001            |
+| `npm run build`     | Production build                   |
+| `npm start`         | Serve the production build         |
+| `npm run lint`      | ESLint (flat config)               |
+| `npm run typecheck` | `tsc --noEmit`                     |
 
-## Learn More
+## Project layout
 
-To learn more about Next.js, take a look at the following resources:
+```
+src/
+├── app/                 # Routes, metadata, sitemap, robots
+├── components/
+│   ├── sections/        # Landing page sections
+│   └── ui/              # Reusable primitives
+├── lib/
+│   ├── posts.ts         # MDX blog content layer
+│   ├── site.ts          # Site copy and configuration
+│   └── utils.ts         # cn(), date formatting
+└── posts/               # Blog posts (.mdx)
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Writing a blog post
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Add an `.mdx` file to `src/posts/`. The filename becomes the slug. Frontmatter
+is validated at build time — an invalid post fails the build rather than
+rendering broken.
 
-## Deploy on Vercel
+```mdx
+---
+title: Your post title
+date: 2026-08-22
+summary: One or two sentences used on the index page and in meta tags.
+tags:
+  - Instagram
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Your content here.
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Design tokens
+
+Colours, fonts, radii, and animations live in `src/app/globals.css`:
+
+- `@theme` holds the brand scale and motion primitives.
+- `:root` / `.dark` hold the semantic tokens (`--background`, `--muted`, …).
+- `@theme inline` maps those semantic tokens to Tailwind utilities.
+
+Change a colour in one of those blocks and it propagates through both themes.
+
+## Site copy
+
+Headline copy, navigation, FAQ entries, testimonials, and the "how it works"
+steps live in `src/lib/site.ts` rather than inline in JSX, so content edits
+don't require touching component code.

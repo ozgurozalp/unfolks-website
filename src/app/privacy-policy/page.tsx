@@ -1,113 +1,119 @@
-import Image from "next/image";
-import Link from "next/link";
+import type { Metadata } from "next";
 
-export default function Page() {
+import { siteConfig } from "@/lib/site";
+
+export const metadata: Metadata = {
+	title: "Privacy policy",
+	description: `How ${siteConfig.name} collects, uses, and protects your information.`,
+	alternates: { canonical: "/privacy-policy" },
+};
+
+const EFFECTIVE_DATE = "12 December 2024";
+
+export default function PrivacyPolicyPage() {
 	return (
-		<div className="p-4">
-			<div className="border-b max-w-3xl mx-auto pb-4 mb-4">
-				<Link href="/" className="flex items-center gap-x-2">
-					<Image
-						className="size-10"
-						width={849}
-						height={849}
-						src="/logo.png"
-						alt="Unfolks"
-					/>
-					<p className="text-3xl font-semibold">Unfolks</p>
-				</Link>
-			</div>
-			<div className="prose max-w-3xl mx-auto lg:prose-xl">
-				<p>
-					<strong>Effective Date: 12-12-2024</strong>
+		<div className="px-4 py-14 sm:px-6 sm:py-20">
+			<header className="mx-auto max-w-3xl">
+				<h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
+					Privacy policy
+				</h1>
+				<p className="mt-3 text-muted-foreground">
+					Effective date: {EFFECTIVE_DATE}
 				</p>
+			</header>
+
+			<div className="prose prose-neutral mx-auto mt-10 max-w-3xl dark:prose-invert prose-headings:tracking-tight prose-a:text-brand-600 prose-a:underline-offset-4 hover:prose-a:text-brand-700 dark:prose-a:text-brand-400">
 				<p>
-					This Privacy Policy explains how Unfolks ("we," "our," or "us")
-					collects, uses, and protects your information when you use our
-					services, including our Google extension.
+					This Privacy Policy explains how {siteConfig.name} (&ldquo;we&rdquo;,
+					&ldquo;our&rdquo; or &ldquo;us&rdquo;) collects, uses, and protects
+					your information when you use our services, including our Chrome
+					extension.
 				</p>
-				<h3>
-					<strong>1. Information We Collect</strong>
-				</h3>
+
+				<h2>1. Information we collect</h2>
 				<p>We may collect the following types of information:</p>
 				<ul>
 					<li>
-						<strong>Account Information:</strong> Your Instagram username and
+						<strong>Account information:</strong> your Instagram username and
 						profile data, if you grant permission.
 					</li>
 					<li>
-						<strong>Usage Data:</strong> Information about your interaction with
-						our extension, including follow/unfollow actions.
+						<strong>Usage data:</strong> information about your interaction with
+						our extension, including follow and unfollow actions.
 					</li>
 					<li>
-						<strong>Technical Data:</strong> Browser type, version, and
+						<strong>Technical data:</strong> browser type, version, and
 						operating system.
 					</li>
 				</ul>
-				<h3>
-					<strong>2. How We Use Your Information</strong>
-				</h3>
-				<p>We use your information to:</p>
+
+				<h2>2. How we use your information</h2>
 				<ul>
 					<li>
-						Provide the functionality of the extension, such as identifying
+						To provide the functionality of the extension, such as identifying
 						non-followers.
 					</li>
-					<li>Improve our services and user experience.</li>
-					<li>Maintain the security and integrity of our systems.</li>
+					<li>To improve our services and user experience.</li>
+					<li>To maintain the security and integrity of our systems.</li>
 				</ul>
-				<h3>
-					<strong>3. Sharing Your Information</strong>
-				</h3>
+
+				<h2>3. Sharing your information</h2>
 				<p>
 					We do not sell, rent, or share your personal data with third parties,
 					except as required by law or to protect our rights.
 				</p>
-				<h3>
-					<strong>4. Data Security</strong>
-				</h3>
+
+				<h2>4. Data security</h2>
 				<p>
 					We take reasonable measures to protect your information from
-					unauthorized access, use, or disclosure. However, no internet service
+					unauthorised access, use, or disclosure. However, no internet service
 					is entirely secure, and we cannot guarantee complete security.
 				</p>
-				<h3>
-					<strong>5. Your Choices</strong>
-				</h3>
+
+				<h2>5. Your choices</h2>
 				<ul>
 					<li>You can stop using the extension at any time.</li>
 					<li>
-						You may request deletion of your data by contacting us at [Your
-						Email Address].
+						You may request deletion of your data by contacting us at{" "}
+						<a href={`mailto:${siteConfig.author.email}`}>
+							{siteConfig.author.email}
+						</a>
+						.
 					</li>
 				</ul>
-				<h3>
-					<strong>6. Third-Party Services</strong>
-				</h3>
+
+				<h2>6. Third-party services</h2>
 				<p>
-					Our extension interacts with Instagram. Please review Instagram's
+					Our extension interacts with Instagram. Please review Instagram&apos;s
 					privacy policy to understand how they manage your data.
 				</p>
-				<h3>
-					<strong>7. Changes to This Policy</strong>
-				</h3>
+
+				<h2>7. Changes to this policy</h2>
 				<p>
 					We may update this Privacy Policy from time to time. Changes will be
 					effective immediately upon posting the revised policy.
 				</p>
-				<h3>
-					<strong>8. Contact Us</strong>
-				</h3>
+
+				<h2>8. Contact us</h2>
 				<p>
-					If you have questions about this Privacy Policy, you can reach us at:
+					If you have questions about this Privacy Policy, you can reach us:
 				</p>
 				<ul>
 					<li>
 						<strong>Email:</strong>{" "}
-						<a href="mailto:mail@ozgurozalp.com">mail@ozgurozalp.com</a>
+						<a href={`mailto:${siteConfig.author.email}`}>
+							{siteConfig.author.email}
+						</a>
 					</li>
 					<li>
 						<strong>Website:</strong>{" "}
-						<a href="https://ozgurozalp.com/">https://ozgurozalp.com</a>
+						<a
+							href={siteConfig.author.url}
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							{siteConfig.author.url}
+						</a>
 					</li>
 				</ul>
 			</div>

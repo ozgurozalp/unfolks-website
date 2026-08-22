@@ -1,40 +1,35 @@
 import type { MetadataRoute } from "next";
-import { posts } from "@/collections";
+
+import { getAllPosts } from "@/lib/posts";
+import { siteConfig } from "@/lib/site";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-	const allPosts = await posts.getEntries();
+	const posts = await getAllPosts();
 
-	const mainUrls: MetadataRoute.Sitemap = [
+	return [
 		{
-			url: "https://unfolks.com",
+			url: siteConfig.url,
 			lastModified: new Date(),
 			changeFrequency: "monthly",
 			priority: 1,
 		},
 		{
-			url: "https://unfolks.com/privacy-policy",
-			lastModified: new Date(),
-			changeFrequency: "monthly",
+			url: `${siteConfig.url}/blog`,
+			lastModified: posts[0]?.frontmatter.date ?? new Date(),
+			changeFrequency: "weekly",
 			priority: 0.8,
 		},
 		{
-			url: "https://unfolks.com/blog",
+			url: `${siteConfig.url}/privacy-policy`,
 			lastModified: new Date(),
-			changeFrequency: "monthly",
-			priority: 0.8,
+			changeFrequency: "yearly",
+			priority: 0.4,
 		},
+		...posts.map((post) => ({
+			url: `${siteConfig.url}/blog/${post.slug}`,
+			lastModified: post.frontmatter.date,
+			changeFrequency: "monthly" as const,
+			priority: 0.7,
+		})),
 	];
-
-	for (const post of allPosts) {
-		const path = post.getPath();
-
-		mainUrls.push({
-			url: `https://unfolks.com/blog${path}`,
-			lastModified: new Date(),
-			changeFrequency: "monthly",
-			priority: 0.8,
-		});
-	}
-
-	return mainUrls;
 }
