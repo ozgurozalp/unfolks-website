@@ -79,7 +79,7 @@ export function Hero() {
 										<Image
 											key={person.author}
 											src={person.image}
-											alt=""
+											alt={person.author}
 											width={96}
 											height={96}
 											className="size-9 rounded-full border-2 border-background object-cover"

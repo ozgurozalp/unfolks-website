@@ -36,7 +36,7 @@ export function Testimonials() {
 								<figcaption className="mt-6 flex items-center gap-3">
 									<Image
 										src={testimonial.image}
-										alt=""
+										alt={testimonial.author}
 										width={96}
 										height={96}
 										className="size-11 rounded-full object-cover"
