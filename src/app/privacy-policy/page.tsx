@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 	alternates: { canonical: "/privacy-policy" },
 };
 
-const EFFECTIVE_DATE = "12 December 2024";
+const EFFECTIVE_DATE = "21 September 2026";
 
 export default function PrivacyPolicyPage() {
 	return (
@@ -31,54 +31,38 @@ export default function PrivacyPolicyPage() {
 				</p>
 
 				<h2>1. Information we collect</h2>
-				<p>We may collect the following types of information:</p>
-				<ul>
-					<li>
-						<strong>Account information:</strong> your Instagram username and
-						profile data, if you grant permission.
-					</li>
-					<li>
-						<strong>Usage data:</strong> information about your interaction with
-						our extension, including follow and unfollow actions.
-					</li>
-					<li>
-						<strong>Technical data:</strong> browser type, version, and
-						operating system.
-					</li>
-				</ul>
+				<p>
+					We do not collect, store, or transmit any personal data. The extension
+					works entirely in your browser, and nothing it processes is sent to our
+					servers or to any third party.
+				</p>
 
-				<h2>2. How we use your information</h2>
-				<ul>
-					<li>
-						To provide the functionality of the extension, such as identifying
-						non-followers.
-					</li>
-					<li>To improve our services and user experience.</li>
-					<li>To maintain the security and integrity of our systems.</li>
-				</ul>
+				<h2>2. How the extension works</h2>
+				<p>
+					The extension runs locally in your browser to provide its
+					functionality, such as identifying non-followers. We operate no backend
+					that receives your Instagram data, account details, or activity.
+				</p>
 
 				<h2>3. Sharing your information</h2>
 				<p>
-					We do not sell, rent, or share your personal data with third parties,
-					except as required by law or to protect our rights.
+					Because we do not hold any of your data, we have nothing to sell, rent,
+					or share with third parties.
 				</p>
 
-				<h2>4. Data security</h2>
+				<h2>4. Cookies on this website</h2>
 				<p>
-					We take reasonable measures to protect your information from
-					unauthorised access, use, or disclosure. However, no internet service
-					is entirely secure, and we cannot guarantee complete security.
+					This website sets a single functional cookie,{" "}
+					<code>rps-promo-closed</code>, to remember that you dismissed a
+					promotional banner. It expires after one day and contains no personal
+					information. We do not use analytics or tracking cookies.
 				</p>
 
 				<h2>5. Your choices</h2>
 				<ul>
-					<li>You can stop using the extension at any time.</li>
+					<li>You can stop using or uninstall the extension at any time.</li>
 					<li>
-						You may request deletion of your data by contacting us at{" "}
-						<a href={`mailto:${siteConfig.author.email}`}>
-							{siteConfig.author.email}
-						</a>
-						.
+						You can clear the promo cookie at any time from your browser settings.
 					</li>
 				</ul>
 
