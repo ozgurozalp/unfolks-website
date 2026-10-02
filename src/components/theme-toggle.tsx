@@ -6,7 +6,15 @@ import { Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function ThemeToggle() {
-	const { resolvedTheme, setTheme } = useTheme();
+	const { resolvedTheme, systemTheme, setTheme } = useTheme();
+
+	// Two-state control: follow the OS, or pin the opposite scheme. Toggling
+	// back to whatever the OS currently uses returns to "system" so the site
+	// keeps tracking the OS from then on instead of freezing that value.
+	const toggleTheme = () => {
+		const next = resolvedTheme === "dark" ? "light" : "dark";
+		setTheme(next === systemTheme ? "system" : next);
+	};
 
 	return (
 		<Button
@@ -14,7 +22,7 @@ export function ThemeToggle() {
 			size="icon"
 			className="rounded-full text-muted-foreground hover:text-foreground"
 			aria-label="Toggle colour theme"
-			onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+			onClick={toggleTheme}
 		>
 			{/* Both icons are rendered and swapped with CSS, so the markup matches
 			    on the server and after hydration regardless of the active theme. */}

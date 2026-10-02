@@ -1,9 +1,22 @@
 @import "tailwindcss";
-@import "tw-animate-css";
 
 @plugin "@tailwindcss/typography";
 
-@custom-variant dark (&:is(.dark *));
+/* `dark:` utilities follow the explicit theme class when next-themes has set
+   one, and fall back to the OS preference otherwise — so the site is still
+   themed correctly before hydration and when JavaScript never runs. */
+@custom-variant dark {
+	/* `:is()` keeps the (0,2,0) specificity of the previous `.dark *` variant
+	   so `dark:` utilities keep winning over `hover:` rules on the same property. */
+	&:is(.dark, .dark *) {
+		@slot;
+	}
+	@media (prefers-color-scheme: dark) {
+		&:is(:not(.light, .light *)) {
+			@slot;
+		}
+	}
+}
 
 /* ---------------------------------------------------------------------------
    Brand scale — magenta/violet, derived from the Instagram-adjacent gradient
@@ -31,36 +44,8 @@
 
 	--radius-4xl: 2rem;
 
-	--animate-marquee: marquee 40s linear infinite;
 	--animate-float: float 6s ease-in-out infinite;
-	--animate-shimmer: shimmer 2.5s linear infinite;
-	--animate-accordion-down: accordion-down 0.25s ease-out;
-	--animate-accordion-up: accordion-up 0.25s ease-out;
 
-	@keyframes accordion-down {
-		from {
-			height: 0;
-		}
-		to {
-			height: var(--radix-accordion-content-height);
-		}
-	}
-	@keyframes accordion-up {
-		from {
-			height: var(--radix-accordion-content-height);
-		}
-		to {
-			height: 0;
-		}
-	}
-	@keyframes marquee {
-		from {
-			transform: translateX(0);
-		}
-		to {
-			transform: translateX(-50%);
-		}
-	}
 	@keyframes float {
 		0%,
 		100% {
@@ -70,20 +55,18 @@
 			transform: translateY(-10px);
 		}
 	}
-	@keyframes shimmer {
-		from {
-			background-position: 200% 0;
-		}
-		to {
-			background-position: -200% 0;
-		}
-	}
 }
 
 /* ---------------------------------------------------------------------------
    Semantic tokens
+
+   Light values are the default. The dark set is applied through the `dark`
+   variant above, so it is written once and resolves from either the theme
+   class or `prefers-color-scheme`.
 --------------------------------------------------------------------------- */
 :root {
+	color-scheme: light dark;
+
 	--background: #ffffff;
 	--foreground: #0c0a14;
 	--card: #ffffff;
@@ -105,29 +88,48 @@
 	--ring: #db2777;
 	--surface: #faf9fc;
 	--radius: 0.875rem;
+
+	/* Gradient colour-space hint, only emitted where the syntax is supported
+	   so older browsers still parse the gradient. */
+	--in-oklab: ;
+
+	@variant dark {
+		--background: #08070d;
+		--foreground: #f4f2fa;
+		--card: #100e18;
+		--card-foreground: #f4f2fa;
+		--popover: #100e18;
+		--popover-foreground: #f4f2fa;
+		--primary: #f472b6;
+		--primary-foreground: #2a0715;
+		--secondary: #17151f;
+		--secondary-foreground: #f4f2fa;
+		--muted: #17151f;
+		--muted-foreground: #9b95ae;
+		--accent: #1d1a28;
+		--accent-foreground: #f4f2fa;
+		--destructive: #fb7185;
+		--destructive-foreground: #2a0715;
+		--border: #23202f;
+		--input: #23202f;
+		--ring: #f472b6;
+		--surface: #0d0b13;
+	}
+}
+
+@supports (background: linear-gradient(in oklab, white, black)) {
+	:root {
+		--in-oklab: in oklab;
+	}
+}
+
+/* Pin native UI (scrollbars, form controls) to the theme the user chose. */
+.light {
+	color-scheme: light;
 }
 
 .dark {
-	--background: #08070d;
-	--foreground: #f4f2fa;
-	--card: #100e18;
-	--card-foreground: #f4f2fa;
-	--popover: #100e18;
-	--popover-foreground: #f4f2fa;
-	--primary: #f472b6;
-	--primary-foreground: #2a0715;
-	--secondary: #17151f;
-	--secondary-foreground: #f4f2fa;
-	--muted: #17151f;
-	--muted-foreground: #9b95ae;
-	--accent: #1d1a28;
-	--accent-foreground: #f4f2fa;
-	--destructive: #fb7185;
-	--destructive-foreground: #2a0715;
-	--border: #23202f;
-	--input: #23202f;
-	--ring: #f472b6;
-	--surface: #0d0b13;
+	color-scheme: dark;
 }
 
 @theme inline {
@@ -166,10 +168,14 @@
 	}
 
 	html {
-		scroll-behavior: smooth;
 		/* offset for the sticky header when jumping to an anchor */
 		scroll-padding-top: 6rem;
+		accent-color: var(--color-primary);
 		-webkit-tap-highlight-color: transparent;
+
+		@media (prefers-reduced-motion: no-preference) {
+			scroll-behavior: smooth;
+		}
 	}
 
 	body {
@@ -194,19 +200,6 @@
 
 	p {
 		text-wrap: pretty;
-	}
-
-	@media (prefers-reduced-motion: reduce) {
-		html {
-			scroll-behavior: auto;
-		}
-		*,
-		::before,
-		::after {
-			animation-duration: 0.01ms !important;
-			animation-iteration-count: 1 !important;
-			transition-duration: 0.01ms !important;
-		}
 	}
 }
 
@@ -240,7 +233,7 @@
 
 @utility text-gradient {
 	background-image: linear-gradient(
-		100deg,
+		100deg var(--in-oklab),
 		var(--color-brand-500),
 		var(--color-accent-500) 60%,
 		var(--color-accent-600)
@@ -251,7 +244,7 @@
 
 @utility bg-brand-gradient {
 	background-image: linear-gradient(
-		100deg,
+		100deg var(--in-oklab),
 		var(--color-brand-500),
 		var(--color-accent-600)
 	);
@@ -261,6 +254,134 @@
 @utility bg-dot-grid {
 	background-image: radial-gradient(currentColor 1px, transparent 1px);
 	background-size: 22px 22px;
+}
+
+/* ---------------------------------------------------------------------------
+   Components
+--------------------------------------------------------------------------- */
+@layer components {
+	/* Site header
+	   The <header> is the sticky element and a scroll-state container; the
+	   surface inside it picks up a background and border once the header is
+	   actually stuck. Browsers without scroll-state queries get the same
+	   styling from `data-stuck`, which <SiteHeader> sets from an
+	   IntersectionObserver. */
+	.site-header {
+		position: sticky;
+		top: 0;
+		z-index: 50;
+		container-type: scroll-state;
+		container-name: site-header;
+	}
+
+	.site-header-surface {
+		border-bottom: 1px solid transparent;
+		transition:
+			background-color 0.3s,
+			border-color 0.3s;
+	}
+
+	.site-header:where([data-stuck], [data-menu-open]) .site-header-surface {
+		border-color: var(--color-border);
+		background-color: color-mix(
+			in oklab,
+			var(--color-background) 80%,
+			transparent
+		);
+		backdrop-filter: blur(24px);
+	}
+
+	@container site-header scroll-state(stuck: top) {
+		.site-header-surface {
+			border-color: var(--color-border);
+			background-color: color-mix(
+				in oklab,
+				var(--color-background) 80%,
+				transparent
+			);
+			backdrop-filter: blur(24px);
+		}
+	}
+
+	/* FAQ disclosure
+	   Native <details>, so answers stay searchable with find-in-page, can be
+	   deep-linked, and need no JavaScript. The height animates where
+	   `interpolate-size` is supported and snaps open elsewhere. */
+	.faq-item {
+		interpolate-size: allow-keywords;
+	}
+
+	.faq-item > summary {
+		list-style: none;
+		cursor: pointer;
+	}
+
+	.faq-item > summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.faq-item > summary > svg {
+		transition: rotate 0.2s;
+	}
+
+	.faq-item[open] > summary > svg {
+		rotate: 45deg;
+	}
+
+	.faq-item::details-content {
+		block-size: 0;
+		overflow-y: clip;
+		transition:
+			block-size 0.25s ease-out,
+			content-visibility 0.25s allow-discrete;
+	}
+
+	.faq-item[open]::details-content {
+		block-size: auto;
+	}
+
+	/* Promo card
+	   Rendered as a manual popover where the Popover API exists (top layer,
+	   no z-index juggling) and as a fixed element elsewhere. Entry and exit
+	   are plain CSS transitions; <PromoAd> waits for the exit to finish
+	   before unmounting. */
+	.promo-card {
+		position: fixed;
+		inset: auto 1rem 1rem auto;
+		margin: 0;
+		border: 0;
+		padding: 0;
+		overflow: visible;
+		background: transparent;
+		color: inherit;
+		opacity: 0;
+		translate: 0 1rem;
+		transition:
+			opacity 0.3s ease-out,
+			translate 0.3s ease-out,
+			display 0.3s allow-discrete,
+			overlay 0.3s allow-discrete;
+
+		@media (width >= 48rem) {
+			inset: auto 1.5rem 1.5rem auto;
+		}
+	}
+
+	.promo-card:where(:popover-open, [data-status="visible"]) {
+		opacity: 1;
+		translate: 0;
+
+		@starting-style {
+			opacity: 0;
+			translate: 0 1rem;
+		}
+	}
+
+	.promo-card[data-status="closing"] {
+		opacity: 0;
+		translate: 0 1rem;
+		pointer-events: none;
+	}
 }
 
 /* Progressive scroll reveal. <Reveal> only sets [data-reveal] on elements that
@@ -280,11 +401,37 @@
 		opacity: 1;
 		transform: none;
 	}
+}
 
-	@media (prefers-reduced-motion: reduce) {
-		[data-reveal] {
-			opacity: 1;
-			transform: none;
+/* ---------------------------------------------------------------------------
+   Reduced motion — handled per effect rather than with a blanket
+   `animation-duration: 0.01ms`, which can make some animations more jarring.
+   Opacity fades are kept; movement is removed.
+--------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+	[data-reveal] {
+		opacity: 1;
+		transform: none;
+		transition: none;
+	}
+
+	.faq-item::details-content,
+	.faq-item > summary > svg {
+		transition: none;
+	}
+
+	.promo-card {
+		translate: 0;
+		transition-property: opacity, display, overlay;
+	}
+
+	.promo-card:where(:popover-open, [data-status="visible"]) {
+		@starting-style {
+			translate: 0;
 		}
+	}
+
+	.promo-card[data-status="closing"] {
+		translate: 0;
 	}
 }

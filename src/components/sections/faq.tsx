@@ -1,9 +1,5 @@
-import {
-	Accordion,
-	AccordionContent,
-	AccordionItem,
-	AccordionTrigger,
-} from "@/components/ui/accordion";
+import { Plus } from "lucide-react";
+
 import { Reveal } from "@/components/reveal";
 import { faqs } from "@/lib/site";
 
@@ -24,14 +20,28 @@ export function Faq() {
 				</Reveal>
 
 				<Reveal delay={100}>
-					<Accordion type="single" collapsible className="mt-12 space-y-3">
-						{faqs.map((faq, index) => (
-							<AccordionItem key={faq.question} value={`faq-${index}`}>
-								<AccordionTrigger>{faq.question}</AccordionTrigger>
-								<AccordionContent>{faq.answer}</AccordionContent>
-							</AccordionItem>
+					{/* Native disclosures sharing a name form an exclusive accordion;
+					    answers stay searchable and deep-linkable while closed. */}
+					<div className="mt-12 space-y-3">
+						{faqs.map((faq) => (
+							<details
+								key={faq.question}
+								name="faq"
+								className="faq-item rounded-2xl border border-border bg-card/60 px-5 transition-colors open:bg-card"
+							>
+								<summary className="flex items-center justify-between gap-4 rounded-lg py-5 text-base font-semibold transition-colors hover:text-primary">
+									{faq.question}
+									<Plus
+										aria-hidden
+										className="size-5 shrink-0 text-muted-foreground"
+									/>
+								</summary>
+								<p className="pb-5 pr-8 text-[0.95rem] leading-relaxed text-muted-foreground">
+									{faq.answer}
+								</p>
+							</details>
 						))}
-					</Accordion>
+					</div>
 				</Reveal>
 			</div>
 		</section>

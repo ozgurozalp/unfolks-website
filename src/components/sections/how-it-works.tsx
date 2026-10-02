@@ -17,7 +17,9 @@ export function HowItWorks() {
 					</h2>
 				</Reveal>
 
-				<ol className="mt-14 grid gap-6 md:grid-cols-3">
+				{/* role="list" restores list semantics that Safari drops once
+				    list-style is removed and the list is laid out as a grid. */}
+				<ol role="list" className="mt-14 grid gap-6 md:grid-cols-3">
 					{steps.map((step, index) => (
 						<Reveal key={step.title} delay={index * 100} as="li">
 							<div className="relative h-full rounded-3xl border border-border bg-card p-7">

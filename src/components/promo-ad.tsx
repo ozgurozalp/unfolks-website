@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { X } from "lucide-react";
-
-import { cn } from "@/lib/utils";
 
 const COOKIE_NAME = "rps-promo-closed";
 const COOKIE_MAX_AGE_DAYS = 1;
 const APPEAR_DELAY_MS = 1200;
+/** Matches the `.promo-card` transition in globals.css, plus a little slack. */
+const EXIT_FALLBACK_MS = 400;
 
 function isPromoDismissed() {
 	return document.cookie
@@ -20,11 +20,21 @@ function rememberDismissal() {
 	document.cookie = `${COOKIE_NAME}=true;max-age=${maxAge};path=/;samesite=lax`;
 }
 
+function supportsPopover(element: HTMLElement) {
+	return "showPopover" in element;
+}
+
 type Status = "hidden" | "visible" | "closing";
 
-const EXIT_DURATION_MS = 300;
-
+/**
+ * Promotional card in the bottom corner. Where the Popover API exists the
+ * card is a manual popover, so it lives in the top layer and never fights
+ * the header for stacking order; elsewhere it is a plain fixed element.
+ * Entry and exit animate through CSS; the card is only unmounted once the
+ * exit transition has finished.
+ */
 export function PromoAd() {
+	const cardRef = useRef<HTMLElement>(null);
 	const [status, setStatus] = useState<Status>("hidden");
 
 	// The dismissal cookie is read on the client so that every page can stay
@@ -40,25 +50,57 @@ export function PromoAd() {
 		return () => window.clearTimeout(timer);
 	}, []);
 
+	useEffect(() => {
+		const card = cardRef.current;
+		if (status !== "visible" || !card || !supportsPopover(card)) return;
+
+		card.showPopover();
+	}, [status]);
+
+	useEffect(() => {
+		const card = cardRef.current;
+		if (status !== "closing" || !card) return;
+
+		const finish = () => {
+			if (supportsPopover(card) && card.matches(":popover-open")) {
+				card.hidePopover();
+			}
+			setStatus("hidden");
+		};
+
+		// Only the card's own exit transition counts; hover transitions on the
+		// buttons inside bubble up too and would otherwise end it early.
+		const onTransitionEnd = (event: TransitionEvent) => {
+			if (event.target === card) finish();
+		};
+
+		// The timer covers browsers that skip transitions entirely, so the
+		// card can never get stuck in the closing state.
+		card.addEventListener("transitionend", onTransitionEnd);
+		const timer = window.setTimeout(finish, EXIT_FALLBACK_MS);
+
+		return () => {
+			card.removeEventListener("transitionend", onTransitionEnd);
+			window.clearTimeout(timer);
+		};
+	}, [status]);
+
 	const handleClose = () => {
 		rememberDismissal();
 		setStatus("closing");
-		window.setTimeout(() => setStatus("hidden"), EXIT_DURATION_MS);
 	};
 
 	if (status === "hidden") return null;
 
 	return (
 		<aside
+			ref={cardRef}
+			popover="manual"
+			data-status={status}
 			aria-label="Promotion"
-			className={cn(
-				"fixed bottom-4 right-4 z-50 max-w-[calc(100vw-2rem)] duration-300 ease-out md:bottom-6 md:right-6 md:max-w-xs",
-				status === "closing"
-					? "pointer-events-none animate-out fade-out slide-out-to-bottom-4"
-					: "animate-in fade-in slide-in-from-bottom-4",
-			)}
+			className="promo-card z-50 max-w-[calc(100vw-2rem)] md:max-w-xs"
 		>
-			<div className="relative overflow-hidden rounded-3xl border border-border bg-card p-5 shadow-2xl shadow-black/10 dark:shadow-black/50">
+			<div className="relative overflow-hidden rounded-3xl border border-border bg-card p-5 text-card-foreground shadow-2xl shadow-black/10 dark:shadow-black/50">
 				<div
 					aria-hidden
 					className="pointer-events-none absolute -right-12 -top-12 size-32 rounded-full bg-accent-500/15 blur-2xl"
@@ -68,7 +110,7 @@ export function PromoAd() {
 					type="button"
 					onClick={handleClose}
 					aria-label="Close promotion"
-					className="absolute right-3 top-3 grid size-7 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+					className="absolute right-3 top-3 z-10 grid size-7 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
 				>
 					<X className="size-4" />
 				</button>

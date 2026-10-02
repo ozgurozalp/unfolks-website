@@ -64,6 +64,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
+	colorScheme: "light dark",
 	themeColor: [
 		{ media: "(prefers-color-scheme: light)", color: "#ffffff" },
 		{ media: "(prefers-color-scheme: dark)", color: "#08070d" },
@@ -90,7 +91,7 @@ export default function RootLayout({
 						Skip to content
 					</a>
 					<SiteHeader />
-					<main id="main" className="flex-1">
+					<main id="main" tabIndex={-1} className="flex-1 outline-none">
 						{children}
 					</main>
 					<SiteFooter />

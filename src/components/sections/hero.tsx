@@ -82,6 +82,7 @@ export function Hero() {
 											alt={person.author}
 											width={96}
 											height={96}
+											loading="eager"
 											className="size-9 rounded-full border-2 border-background object-cover"
 										/>
 									))}

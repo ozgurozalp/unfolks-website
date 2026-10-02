@@ -86,7 +86,7 @@ export default async function BlogPostPage({ params }: Props) {
 					<span aria-hidden>·</span>
 					<span>{readingMinutes} min read</span>
 					{frontmatter.tags.length > 0 && (
-						<ul className="flex flex-wrap gap-2">
+						<ul role="list" className="flex flex-wrap gap-2">
 							{frontmatter.tags.map((tag) => (
 								<li
 									key={tag}

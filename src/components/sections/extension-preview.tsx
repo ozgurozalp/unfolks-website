@@ -75,6 +75,7 @@ export function ExtensionPreview({ className }: { className?: string }) {
 					alt=""
 					width={96}
 					height={96}
+					loading="eager"
 					className="size-12 shrink-0 rounded-full object-cover"
 				/>
 				<div className="min-w-0 flex-1">

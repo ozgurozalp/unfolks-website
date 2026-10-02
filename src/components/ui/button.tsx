@@ -5,7 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-	"inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-full text-sm font-semibold transition-[transform,box-shadow,background-color,color] duration-200 outline-none focus-visible:ring-[3px] focus-visible:ring-ring/40 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+	"inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-full text-sm font-semibold transition-[transform,box-shadow,background-color,color] duration-200 disabled:pointer-events-none disabled:opacity-50 forced-colors:border [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
 	{
 		variants: {
 			variant: {
@@ -43,6 +43,7 @@ function Button({
 	variant,
 	size,
 	asChild = false,
+	type = "button",
 	...props
 }: ButtonProps) {
 	const Comp = asChild ? Slot : "button";
@@ -51,6 +52,8 @@ function Button({
 		<Comp
 			data-slot="button"
 			className={cn(buttonVariants({ variant, size, className }))}
+			// Only a real <button> takes a type; Slot forwards props to e.g. <a>.
+			{...(asChild ? {} : { type })}
 			{...props}
 		/>
 	);

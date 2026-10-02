@@ -78,7 +78,7 @@ function FooterColumn({ title, links }: FooterColumnProps) {
 			<h2 className="text-sm font-semibold uppercase tracking-wider">
 				{title}
 			</h2>
-			<ul className="mt-4 space-y-2.5">
+			<ul role="list" className="mt-4 space-y-2.5">
 				{links.map((link) => (
 					<li key={link.href}>
 						{link.external ? (
