@@ -131,6 +131,8 @@ a.cta:active { transform: scale(.97); }
   .headFeature, .headCell { min-height: 72px; }
   .legend { flex-direction: column; }
   .feature { padding-right: var(--space-3); }
+  /* The narrow column cannot fit the label on one line, so let it wrap. */
+  .cta { height: auto; min-height: var(--control-height-sm); padding: 6px var(--space-3); font-size: var(--text-xs); line-height: 1.25; text-align: center; white-space: normal; }
 }
 
 @media (prefers-reduced-motion: reduce) {
