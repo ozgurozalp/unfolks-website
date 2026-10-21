@@ -170,8 +170,9 @@
 	}
 
 	html {
-		/* offset for the sticky header when jumping to an anchor */
-		scroll-padding-top: 6rem;
+		/* Anchors land right under the sticky header: its height plus its
+		   1px bottom border. Sections bring their own top padding. */
+		scroll-padding-top: calc(var(--site-header-height) + 1px);
 		accent-color: var(--color-primary);
 		-webkit-tap-highlight-color: transparent;
 

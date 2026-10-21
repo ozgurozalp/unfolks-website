@@ -16,7 +16,7 @@ export async function HowItWorks() {
 	return (
 		<section
 			id="how-it-works"
-			className="relative scroll-mt-24 overflow-hidden border-y border-border bg-surface py-20 sm:py-28"
+			className="relative overflow-hidden border-y border-border bg-surface py-20 sm:py-28"
 		>
 			<div className="container-page grid items-center gap-14 lg:grid-cols-[1fr_minmax(0,24rem)] lg:gap-20">
 				<div>
