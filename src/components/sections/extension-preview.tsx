@@ -1,5 +1,17 @@
 import Image from "next/image";
-import { BadgeCheck, User } from "lucide-react";
+import {
+	ArrowDownUp,
+	BadgeCheck,
+	ChevronDown,
+	Copy,
+	EyeOff,
+	FileArchive,
+	ListChecks,
+	RefreshCw,
+	Settings2,
+	UserMinus,
+	UserX,
+} from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
@@ -7,117 +19,131 @@ interface Account {
 	name: string;
 	handle: string;
 	verified?: boolean;
-	initials?: string;
-	tone: string;
+	/** Sample photo in /public/sample; omitted for an account without one. */
+	photo?: string;
 }
 
+// Sample accounts only. The photos are AI-generated and belong to no one.
 const accounts: Account[] = [
 	{
-		name: "İpek Deka",
-		handle: "ipekdeka",
+		name: "Coffee Lab Studio",
+		handle: "coffeelab.studio",
 		verified: true,
-		initials: "İD",
-		tone: "from-rose-400 to-orange-300",
+		photo: "coffeelab",
 	},
+	{ name: "Maya Travels", handle: "maya.travels", photo: "maya" },
+	{ name: "Kaan Demir", handle: "kaan.dmr", photo: "kaan" },
 	{
-		name: "3Monkey's Burger İstanbul",
-		handle: "3monkeysburger",
-		initials: "3M",
-		tone: "from-amber-400 to-red-400",
-	},
-	{
-		name: "Studio Lumen",
-		handle: "studio.lumen",
+		name: "Studio Nine",
+		handle: "studio.nine",
 		verified: true,
-		initials: "SL",
-		tone: "from-sky-400 to-indigo-400",
+		photo: "studionine",
 	},
-	{
-		name: "Qexta",
-		handle: "qextahq",
-		tone: "from-zinc-600 to-zinc-700",
-	},
-	{
-		name: "The Daily Grid",
-		handle: "thedailygrid",
-		initials: "DG",
-		tone: "from-emerald-400 to-teal-400",
-	},
-	{
-		name: "Nora Aydın",
-		handle: "nora.builds",
-		verified: true,
-		initials: "NA",
-		tone: "from-violet-400 to-fuchsia-400",
-	},
+	{ name: "Lina Park", handle: "lina.park", photo: "lina" },
+	{ name: "Daily Plants", handle: "daily.plants" },
 ];
 
-const tabs = ["All", "Verified accounts", "Normal accounts"] as const;
+const chips = ["Verified", "Not verified", "Private", "No photo"] as const;
 
 /**
- * Recreation of the extension popup, used to show the product on the landing
- * page. It keeps the extension's own dark palette in both site themes so it
- * reads as a product shot. Decorative — hidden from assistive tech.
+ * Recreation of the extension's side panel, used to show the product on the
+ * landing page. It keeps the extension's own dark palette in both site themes
+ * so it reads as a product shot. Decorative — hidden from assistive tech.
  */
 export function ExtensionPreview({ className }: { className?: string }) {
 	return (
 		<div
 			aria-hidden
 			className={cn(
-				"w-full max-w-100 select-none overflow-hidden rounded-[1.75rem] border border-zinc-800 bg-zinc-950 text-zinc-100 shadow-2xl shadow-brand-900/20 dark:shadow-black/50",
+				"@container w-full min-w-0 max-w-100 select-none overflow-hidden rounded-[1.75rem] border border-zinc-800 bg-zinc-950 text-zinc-100 shadow-2xl shadow-brand-900/20 dark:shadow-black/50",
 				className,
 			)}
 		>
 			{/* Profile header */}
-			<div className="flex items-center gap-3 px-5 pb-5 pt-6">
+			<div className="flex items-center gap-2.5 px-4 pb-4 pt-5 @[21rem]:gap-3 @[21rem]:px-5">
 				<Image
 					src="/ozgur.jpeg"
 					alt=""
 					width={96}
 					height={96}
 					loading="eager"
-					className="size-12 shrink-0 rounded-full object-cover"
+					className="size-10 shrink-0 rounded-full object-cover"
 				/>
 				<div className="min-w-0 flex-1">
-					<p className="truncate text-lg font-bold leading-tight">
+					<p className="truncate text-base font-bold leading-tight">
 						Özgür ÖZALP
 					</p>
-					<p className="truncate text-sm leading-tight text-zinc-400">
+					<p className="truncate text-xs leading-tight text-zinc-400">
 						ozgurozalp
 					</p>
 				</div>
-				<span className="shrink-0 rounded-lg border border-zinc-700 px-3 py-2 text-xs font-medium">
-					Go to Instagram
+				<span className="grid size-9 shrink-0 place-items-center rounded-lg border border-zinc-800">
+					<Settings2 className="size-4" />
+				</span>
+				<span className="inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-zinc-800 px-2.5 py-2 text-xs font-medium @[24rem]:px-3">
+					<RefreshCw className="size-3.5 shrink-0" />
+					<span className="hidden whitespace-nowrap @[24rem]:inline">
+						Refresh the list
+					</span>
 				</span>
 			</div>
 
-			<div className="mx-5 border-t border-zinc-800" />
+			<div className="mx-4 border-t border-zinc-800 @[21rem]:mx-5" />
 
-			<div className="space-y-3 px-5 py-5">
-				{/* Result count */}
-				<p className="text-center text-sm text-zinc-300">
-					There are <strong className="font-bold text-white">20</strong> people
-					not following you back.
-				</p>
+			<div className="space-y-2.5 px-4 pb-5 pt-3 @[21rem]:px-5">
+				{/* Last scan + data file */}
+				<div className="flex items-center justify-between gap-2 text-[0.7rem] text-zinc-400">
+					<span className="truncate">Last scan: 2 minutes ago</span>
+					<span className="inline-flex min-w-0 items-center gap-1">
+						<FileArchive className="size-3 shrink-0" />
+						<span className="whitespace-nowrap @[21rem]:hidden">Data file</span>
+						<span className="hidden whitespace-nowrap @[21rem]:inline">
+							Check with your data file
+						</span>
+					</span>
+				</div>
 
-				{/* Filter tabs */}
-				<div className="flex gap-1 rounded-xl bg-zinc-800/70 p-1">
-					{tabs.map((tab, index) => (
+				{/* Search + sort */}
+				<div className="flex gap-2">
+					<div className="min-w-0 flex-1 truncate rounded-lg border border-zinc-800 px-3 py-2 text-xs text-zinc-500">
+						Search in accounts
+					</div>
+					<span className="inline-flex shrink-0 items-center gap-1 rounded-lg border border-zinc-800 px-2.5 py-2 text-[0.7rem]">
+						<ArrowDownUp className="size-3 shrink-0" />
+						<span className="hidden whitespace-nowrap @[21rem]:inline">
+							Recently followed
+						</span>
+						<ChevronDown className="size-3 shrink-0 text-zinc-500" />
+					</span>
+				</div>
+
+				{/* Filter chips */}
+				<div className="flex flex-wrap gap-1.5">
+					{chips.map((chip) => (
 						<span
-							key={tab}
-							className={cn(
-								"flex-1 whitespace-nowrap rounded-lg px-2 py-2 text-center text-[0.72rem] font-medium",
-								index === 0 ? "bg-zinc-950 text-white" : "text-zinc-400",
-							)}
+							key={chip}
+							className="rounded-full border border-zinc-800 px-2.5 py-1 text-[0.68rem] text-zinc-400"
 						>
-							{tab}
+							{chip}
 						</span>
 					))}
 				</div>
 
-				{/* Search */}
-				<div className="rounded-xl border border-zinc-800 px-4 py-3 text-sm text-zinc-500">
-					Search in accounts
+				{/* Action bar */}
+				<div className="flex items-center gap-2 text-[0.7rem] text-zinc-400">
+					<span className="inline-flex items-center gap-1.5 whitespace-nowrap">
+						<ListChecks className="size-3.5" />
+						Select all
+					</span>
+					<span className="ml-auto inline-flex items-center gap-1">
+						<Copy className="size-3" />
+						<span className="hidden @[21rem]:inline">Copy</span>
+					</span>
+					<span className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-lg border border-zinc-800 px-2.5 py-1.5 font-medium text-zinc-100">
+						<UserX className="size-3.5" />
+						<span className="@[21rem]:hidden">Unfollow (20)</span>
+						<span className="hidden @[21rem]:inline">Unfollow all (20)</span>
+					</span>
 				</div>
 
 				{/* Accounts */}
@@ -125,16 +151,21 @@ export function ExtensionPreview({ className }: { className?: string }) {
 					{accounts.map((account) => (
 						<li
 							key={account.handle}
-							className="flex items-center gap-3 rounded-xl border border-zinc-800 px-3 py-2.5"
+							className="flex items-center gap-2 rounded-xl border border-zinc-800 px-2.5 py-2 @[21rem]:gap-3 @[21rem]:px-3"
 						>
-							<span
-								className={cn(
-									"grid size-11 shrink-0 place-items-center rounded-full bg-gradient-to-br text-xs font-bold text-white/90",
-									account.tone,
-								)}
-							>
-								{account.initials ?? <User className="size-5 text-zinc-400" />}
-							</span>
+							{account.photo ? (
+								<Image
+									src={`/sample/${account.photo}.jpg`}
+									alt=""
+									width={80}
+									height={80}
+									className="size-10 shrink-0 rounded-full object-cover"
+								/>
+							) : (
+								<span className="grid size-10 shrink-0 place-items-center rounded-full bg-zinc-800 text-xs font-semibold text-zinc-300">
+									{account.name.slice(0, 1)}
+								</span>
+							)}
 							<span className="min-w-0 flex-1">
 								<span className="flex items-center gap-1">
 									<span className="truncate text-sm font-bold leading-tight">
@@ -147,6 +178,11 @@ export function ExtensionPreview({ className }: { className?: string }) {
 								<span className="mt-0.5 block truncate text-xs leading-tight text-zinc-400">
 									{account.handle}
 								</span>
+							</span>
+							<EyeOff className="size-4 shrink-0 text-zinc-500" />
+							<span className="grid shrink-0 place-items-center rounded-lg border border-zinc-800 p-1.5 text-[0.7rem] font-medium @[21rem]:px-2.5">
+								<UserMinus className="size-3.5 @[21rem]:hidden" />
+								<span className="hidden @[21rem]:inline">Unfollow</span>
 							</span>
 						</li>
 					))}

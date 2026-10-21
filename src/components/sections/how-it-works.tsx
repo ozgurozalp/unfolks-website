@@ -13,7 +13,7 @@ export function HowItWorks() {
 						How it works
 					</span>
 					<h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">
-						Three steps, about a minute
+						Three steps to a cleaner following list
 					</h2>
 				</Reveal>
 

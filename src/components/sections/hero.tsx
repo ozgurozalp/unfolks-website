@@ -109,8 +109,11 @@ export function Hero() {
 						</Reveal>
 					</div>
 
-					<Reveal delay={200} className="flex justify-center lg:justify-end">
-						<div className="relative w-full max-w-100">
+					<Reveal
+						delay={200}
+						className="flex min-w-0 justify-center lg:justify-end"
+					>
+						<div className="relative w-full min-w-0 max-w-100">
 							<div
 								aria-hidden
 								className="absolute -inset-6 -z-10 rounded-[2.5rem] bg-brand-gradient opacity-15 blur-2xl"

@@ -111,7 +111,7 @@ export default async function BlogPostPage({ params }: Props) {
 							Curious who doesn&apos;t follow you back?
 						</h2>
 						<p className="mt-1.5 text-muted-foreground">
-							Unfolks shows you in under a minute. Free, no password needed.
+							Unfolks shows you right in your browser. Free, no password needed.
 						</p>
 					</div>
 					<Button asChild className="shrink-0">

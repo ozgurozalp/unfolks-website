@@ -1,10 +1,10 @@
 import {
 	EyeOff,
-	Gauge,
+	FileArchive,
+	Hourglass,
 	ListFilter,
+	RotateCcw,
 	Search,
-	ShieldCheck,
-	Zap,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
@@ -19,39 +19,39 @@ interface Feature {
 const features: Feature[] = [
 	{
 		icon: Search,
-		title: "Smart detection",
+		title: "Exact results",
 		description:
-			"Cross-references your full followers and following lists and gives you an exact count of who never followed back.",
+			"Checks every account you follow against your followers and lists only the ones that really don't follow you back.",
 	},
 	{
-		icon: Zap,
-		title: "Bulk unfollow",
+		icon: Hourglass,
+		title: "Unfollow at a safe pace",
 		description:
-			"Select as many accounts as you like and clear them in one batch, instead of tapping through profiles one at a time.",
+			"Select a few accounts or all of them. Unfolks waits between each unfollow and rests every few accounts, and you can slow it down further.",
 	},
 	{
-		icon: ShieldCheck,
-		title: "Safe by design",
+		icon: RotateCcw,
+		title: "Resume where it stopped",
 		description:
-			"Actions are paced to stay inside Instagram's normal limits, so your account is never flagged for automation.",
+			"If Instagram limits a scan, your progress is kept. Unfolks waits it out and picks up where it left off instead of starting over.",
+	},
+	{
+		icon: FileArchive,
+		title: "No-risk data file check",
+		description:
+			"Drop the file from Instagram's \"Download your information\" and see who doesn't follow you back without sending Instagram a single request.",
+	},
+	{
+		icon: ListFilter,
+		title: "Filters and a keep list",
+		description:
+			"Filter by verified, private, or no profile photo, search by name, and hide the accounts you want to keep so they're never unfollowed in bulk.",
 	},
 	{
 		icon: EyeOff,
 		title: "No password, ever",
 		description:
-			"Unfolks uses the Instagram session already open in your browser. There is no login form and no account to create.",
-	},
-	{
-		icon: ListFilter,
-		title: "Verified or normal",
-		description:
-			"Split non-followers into verified and normal accounts, or search by handle to find one specific profile.",
-	},
-	{
-		icon: Gauge,
-		title: "Instant results",
-		description:
-			"The comparison runs locally in your browser, so there's no upload, no queue, and nothing to wait for.",
+			"Unfolks uses the Instagram session already open in your browser. There is no login form, no account to create, and your lists stay on your computer.",
 	},
 ];
 
@@ -64,8 +64,8 @@ export function Features() {
 						Everything you need to clean up your following
 					</h2>
 					<p className="mt-4 text-lg text-muted-foreground">
-						No dashboards, no subscriptions, no data collection. Just the one
-						job, done well.
+						No dashboards, no subscriptions, and your lists stay on your
+						computer. Just the one job, done well.
 					</p>
 				</Reveal>
 
