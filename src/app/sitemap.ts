@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 
 import { getAllPosts } from "@/lib/posts";
-import { siteConfig } from "@/lib/site";
+import { comparePage, siteConfig } from "@/lib/site";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 	const posts = await getAllPosts();
@@ -18,6 +18,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 			lastModified: posts[0]?.frontmatter.date ?? new Date(),
 			changeFrequency: "weekly",
 			priority: 0.8,
+		},
+		{
+			url: `${siteConfig.url}${comparePage.path}`,
+			lastModified: comparePage.checkedOn,
+			changeFrequency: "monthly",
+			priority: 0.7,
 		},
 		{
 			url: `${siteConfig.url}/privacy-policy`,

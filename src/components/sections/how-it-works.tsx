@@ -1,7 +1,9 @@
 import { Reveal } from "@/components/reveal";
-import { steps } from "@/lib/site";
+import { getDictionary } from "@/i18n/server";
 
-export function HowItWorks() {
+export async function HowItWorks() {
+	const { howItWorks } = await getDictionary();
+
 	return (
 		<section
 			id="how-it-works"
@@ -10,17 +12,17 @@ export function HowItWorks() {
 			<div className="container-page">
 				<Reveal className="mx-auto max-w-2xl text-center">
 					<span className="text-sm font-semibold uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400">
-						How it works
+						{howItWorks.eyebrow}
 					</span>
 					<h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">
-						Three steps, about a minute
+						{howItWorks.heading}
 					</h2>
 				</Reveal>
 
 				{/* role="list" restores list semantics that Safari drops once
 				    list-style is removed and the list is laid out as a grid. */}
 				<ol role="list" className="mt-14 grid gap-6 md:grid-cols-3">
-					{steps.map((step, index) => (
+					{howItWorks.steps.map((step, index) => (
 						<Reveal key={step.title} delay={index * 100} as="li">
 							<div className="relative h-full rounded-3xl border border-border bg-card p-7">
 								<span

@@ -7,6 +7,7 @@ import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/logo";
 import { ThemeToggle } from "@/components/theme-toggle";
+import type { Dictionary } from "@/i18n/dictionaries/en";
 import { navLinks, siteConfig } from "@/lib/site";
 
 /**
@@ -41,7 +42,7 @@ function useStuckFallback(
 	}, [headerRef, sentinelRef]);
 }
 
-export function SiteHeader() {
+export function SiteHeader({ text }: { text: Dictionary["nav"] }) {
 	const headerRef = useRef<HTMLElement>(null);
 	const sentinelRef = useRef<HTMLDivElement>(null);
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -84,7 +85,7 @@ export function SiteHeader() {
 						</Link>
 
 						<nav
-							aria-label="Main"
+							aria-label={text.mainLabel}
 							className="ml-6 hidden items-center gap-1 md:flex"
 						>
 							{navLinks.map((link) => (
@@ -93,20 +94,20 @@ export function SiteHeader() {
 									href={link.href}
 									className="rounded-full px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
 								>
-									{link.label}
+									{text[link.key]}
 								</Link>
 							))}
 						</nav>
 
 						<div className="ml-auto flex items-center gap-1.5">
-							<ThemeToggle />
+							<ThemeToggle label={text.toggleTheme} />
 							<Button asChild size="sm" className="hidden sm:inline-flex">
 								<a
 									href={siteConfig.chromeStoreUrl}
 									target="_blank"
 									rel="noopener noreferrer"
 								>
-									Add to Chrome
+									{text.addToChrome}
 								</a>
 							</Button>
 							<Button
@@ -115,7 +116,7 @@ export function SiteHeader() {
 								className="rounded-full md:hidden"
 								aria-expanded={isMenuOpen}
 								aria-controls="mobile-nav"
-								aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+								aria-label={isMenuOpen ? text.closeMenu : text.openMenu}
 								onClick={() => setIsMenuOpen((open) => !open)}
 							>
 								{isMenuOpen ? (
@@ -130,7 +131,7 @@ export function SiteHeader() {
 					{isMenuOpen && (
 						<nav
 							id="mobile-nav"
-							aria-label="Mobile"
+							aria-label={text.mobileLabel}
 							className="border-t border-border px-4 py-4 md:hidden"
 						>
 							<ul role="list" className="flex flex-col gap-1">
@@ -141,7 +142,7 @@ export function SiteHeader() {
 											onClick={() => setIsMenuOpen(false)}
 											className="block rounded-xl px-3 py-3 text-base font-medium transition-colors hover:bg-secondary"
 										>
-											{link.label}
+											{text[link.key]}
 										</Link>
 									</li>
 								))}
@@ -152,7 +153,7 @@ export function SiteHeader() {
 									target="_blank"
 									rel="noopener noreferrer"
 								>
-									Add to Chrome — it&apos;s free
+									{text.addToChromeFree}
 								</a>
 							</Button>
 						</nav>

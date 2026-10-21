@@ -1,4 +1,5 @@
-import { faqs, siteConfig } from "@/lib/site";
+import { getDictionary } from "@/i18n/server";
+import { siteConfig } from "@/lib/site";
 
 function JsonLd({ data }: { data: Record<string, unknown> }) {
 	return (
@@ -10,17 +11,19 @@ function JsonLd({ data }: { data: Record<string, unknown> }) {
 	);
 }
 
-export function SoftwareApplicationJsonLd() {
+export async function SoftwareApplicationJsonLd() {
+	const dict = await getDictionary();
+
 	return (
 		<JsonLd
 			data={{
 				"@context": "https://schema.org",
 				"@type": "SoftwareApplication",
 				name: siteConfig.name,
-				description: siteConfig.description,
+				description: dict.meta.description,
 				url: siteConfig.url,
 				applicationCategory: "BrowserApplication",
-				operatingSystem: "Chrome, Edge, Brave, Opera",
+				operatingSystem: "Chrome, Edge, Brave",
 				downloadUrl: siteConfig.chromeStoreUrl,
 				offers: {
 					"@type": "Offer",
@@ -43,16 +46,24 @@ export function SoftwareApplicationJsonLd() {
 	);
 }
 
-export function FaqJsonLd() {
+interface FaqItem {
+	question: string;
+	answer: string;
+}
+
+/** FAQ rich results. Defaults to the home page FAQ. */
+export async function FaqJsonLd({ items }: { items?: readonly FaqItem[] }) {
+	const questions = items ?? (await getDictionary()).faq.items;
+
 	return (
 		<JsonLd
 			data={{
 				"@context": "https://schema.org",
 				"@type": "FAQPage",
-				mainEntity: faqs.map((faq) => ({
+				mainEntity: questions.map((item) => ({
 					"@type": "Question",
-					name: faq.question,
-					acceptedAnswer: { "@type": "Answer", text: faq.answer },
+					name: item.question,
+					acceptedAnswer: { "@type": "Answer", text: item.answer },
 				})),
 			}}
 		/>

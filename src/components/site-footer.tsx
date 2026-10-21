@@ -1,30 +1,32 @@
 import Link from "next/link";
 
 import { Logo } from "@/components/logo";
-import { siteConfig } from "@/lib/site";
+import { getDictionary } from "@/i18n/server";
+import { comparePage, siteConfig } from "@/lib/site";
 
-const productLinks = [
-	{ href: "/#features", label: "Features" },
-	{ href: "/#how-it-works", label: "How it works" },
-	{ href: "/#faq", label: "FAQ" },
-	{
-		href: siteConfig.chromeStoreUrl,
-		label: "Chrome Web Store",
-		external: true,
-	},
-];
+export async function SiteFooter() {
+	const dict = await getDictionary();
+	const productLinks = [
+		{ href: "/#features", label: dict.nav.features },
+		{ href: "/#how-it-works", label: dict.nav.howItWorks },
+		{ href: "/#faq", label: dict.nav.faq },
+		{
+			href: siteConfig.chromeStoreUrl,
+			label: dict.footer.chromeStore,
+			external: true,
+		},
+	];
+	const resourceLinks = [
+		{ href: "/blog", label: dict.nav.blog },
+		{ href: comparePage.path, label: dict.footer.compare },
+		{ href: "/privacy-policy", label: dict.footer.privacy },
+		{
+			href: `mailto:${siteConfig.author.email}`,
+			label: dict.footer.contact,
+			external: true,
+		},
+	];
 
-const resourceLinks = [
-	{ href: "/blog", label: "Blog" },
-	{ href: "/privacy-policy", label: "Privacy policy" },
-	{
-		href: `mailto:${siteConfig.author.email}`,
-		label: "Contact",
-		external: true,
-	},
-];
-
-export function SiteFooter() {
 	return (
 		<footer className="mt-auto border-t border-border bg-surface">
 			<div className="container-page py-14">
@@ -37,21 +39,20 @@ export function SiteFooter() {
 							</span>
 						</Link>
 						<p className="mt-4 max-w-sm leading-relaxed text-muted-foreground">
-							A free Chrome extension that shows who doesn&apos;t follow you
-							back on Instagram — and lets you do something about it.
+							{dict.footer.blurb}
 						</p>
 					</div>
 
-					<FooterColumn title="Product" links={productLinks} />
-					<FooterColumn title="Resources" links={resourceLinks} />
+					<FooterColumn title={dict.footer.product} links={productLinks} />
+					<FooterColumn title={dict.footer.resources} links={resourceLinks} />
 				</div>
 
 				<div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-border pt-6 text-sm text-muted-foreground sm:flex-row">
 					<p>
-						© {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
+						© {new Date().getFullYear()} {siteConfig.name}. {dict.footer.rights}
 					</p>
 					<p>
-						Built by{" "}
+						{dict.footer.builtBy}{" "}
 						<a
 							href={siteConfig.author.url}
 							target="_blank"

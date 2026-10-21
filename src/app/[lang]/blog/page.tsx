@@ -2,38 +2,42 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
+import { intlLocale } from "@/i18n/config";
+import { format } from "@/i18n/format";
+import { getDictionary, getLocale } from "@/i18n/server";
 import { getAllPosts } from "@/lib/posts";
 import { formatDate } from "@/lib/utils";
 
-export const metadata: Metadata = {
-	title: "Blog",
-	description:
-		"Guides and tips on managing your Instagram followers, cleaning up your following list, and getting more out of Unfolks.",
-	alternates: { canonical: "/blog" },
-};
+export async function generateMetadata(): Promise<Metadata> {
+	const { blog } = await getDictionary();
+	return {
+		title: blog.eyebrow,
+		description: blog.metaDescription,
+		alternates: { canonical: "/blog" },
+	};
+}
 
 export default async function BlogIndexPage() {
-	const posts = await getAllPosts();
+	const [posts, { blog }, locale] = await Promise.all([
+		getAllPosts(),
+		getDictionary(),
+		getLocale(),
+	]);
 
 	return (
 		<div className="container-page py-16 sm:py-20">
 			<header className="mx-auto max-w-2xl text-center">
 				<span className="text-sm font-semibold uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400">
-					Blog
+					{blog.eyebrow}
 				</span>
 				<h1 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">
-					Instagram, minus the guesswork
+					{blog.heading}
 				</h1>
-				<p className="mt-4 text-lg text-muted-foreground">
-					Practical writing on followers, unfollowing, and keeping your account
-					healthy.
-				</p>
+				<p className="mt-4 text-lg text-muted-foreground">{blog.intro}</p>
 			</header>
 
 			{posts.length === 0 ? (
-				<p className="mt-16 text-center text-muted-foreground">
-					No posts published yet — check back soon.
-				</p>
+				<p className="mt-16 text-center text-muted-foreground">{blog.empty}</p>
 			) : (
 				<div className="mt-14 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
 					{posts.map((post) => (
@@ -43,10 +47,12 @@ export default async function BlogIndexPage() {
 						>
 							<div className="flex items-center gap-2 text-sm text-muted-foreground">
 								<time dateTime={post.frontmatter.date.toISOString()}>
-									{formatDate(post.frontmatter.date)}
+									{formatDate(post.frontmatter.date, intlLocale[locale])}
 								</time>
 								<span aria-hidden>·</span>
-								<span>{post.readingMinutes} min read</span>
+								<span>
+									{format(blog.readingTime, { minutes: post.readingMinutes })}
+								</span>
 							</div>
 
 							<h2 className="mt-3 text-xl font-semibold leading-snug">
