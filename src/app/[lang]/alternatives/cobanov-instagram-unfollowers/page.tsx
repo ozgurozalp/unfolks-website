@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { DifferencesBento } from "@/components/compare/differences-bento";
 import { ScriptComparison } from "@/components/compare/script-comparison";
 import { Cta } from "@/components/sections/cta";
 import { FaqJsonLd } from "@/components/structured-data";
@@ -75,26 +76,18 @@ export default async function ComparePage() {
 							{compare.sharedText}
 						</p>
 					</section>
+				</div>
 
-					<section>
-						<h2 className="text-2xl font-bold tracking-tight">
-							{compare.diffTitle}
-						</h2>
-						<div className="mt-6 grid gap-5 sm:grid-cols-2">
-							{compare.diffs.map((diff) => (
-								<div
-									key={diff.title}
-									className="rounded-3xl border border-border bg-card p-6"
-								>
-									<h3 className="font-semibold">{diff.title}</h3>
-									<p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-										{diff.text}
-									</p>
-								</div>
-							))}
-						</div>
-					</section>
+				<section className="mx-auto mt-14 max-w-4xl">
+					<h2 className="text-2xl font-bold tracking-tight">
+						{compare.diffTitle}
+					</h2>
+					<div className="mt-6">
+						<DifferencesBento text={compare} />
+					</div>
+				</section>
 
+				<div className="mx-auto mt-14 max-w-3xl space-y-14">
 					<section>
 						<h2 className="text-2xl font-bold tracking-tight">
 							{compare.fairTitle}
