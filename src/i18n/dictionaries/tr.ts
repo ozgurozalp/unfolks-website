@@ -45,6 +45,23 @@ export const tr: Dictionary = {
 		unfollowAllShort: "Bırak (20)",
 		unfollow: "Takibi bırak",
 	},
+	stats: {
+		heading: "Rakamlarla Unfolks",
+		items: [
+			{ value: 25000, prefix: "", suffix: "+", label: "Instagram kullanıcısı" },
+			{ value: 5, prefix: "", suffix: "/5", label: "Ortalama puan" },
+			{ value: 0, prefix: "", suffix: "", label: "İstenen şifre" },
+			{
+				value: 100,
+				prefix: "%",
+				suffix: "",
+				label: "Listelerin bilgisayarında kalır",
+			},
+		],
+	},
+	browsers: {
+		label: "Şu tarayıcılarda çalışır",
+	},
 	features: {
 		heading: "Takip listeni temizlemek için gereken her şey",
 		intro:
@@ -81,6 +98,8 @@ export const tr: Dictionary = {
 					"Unfolks tarayıcında zaten açık olan Instagram oturumunu kullanır. Giriş formu yok, hesap açmak yok; listelerin bilgisayarında kalır.",
 			},
 		],
+		leadImageAlt:
+			"Unfolks panelinde 3 hesabın takibini bırakma onayı: her biri arasında 4–6 saniye, her 5 işlemde 3 dakika mola.",
 	},
 	howItWorks: {
 		eyebrow: "Nasıl çalışır",
@@ -102,6 +121,8 @@ export const tr: Dictionary = {
 					"Seni geri takip etmeyenleri ara ve filtrele, tutmak istediklerini gizle, gerisini güvenli bir tempoda bırak.",
 			},
 		],
+		imageAlt:
+			"Unfolks yan panelinde seni geri takip etmeyen hesapların listesi; filtreler, arama ve her satırda Takibi bırak düğmesi.",
 	},
 	testimonials: {
 		heading: "Instagram kullanıcıları seviyor",
@@ -175,6 +196,11 @@ export const tr: Dictionary = {
 					"Unfolks tarayıcının yan panelinde açılır; bu yüzden uzantı yan panellerini destekleyen Chrome, Edge ya da Brave gibi bir Chromium tarayıcı gerekir. Opera gibi bu desteği olmayan tarayıcılarda açılmaz.",
 			},
 		],
+		supportTitle: "Aradığını bulamadın mı?",
+		supportText:
+			"Bize e-posta at, bir insan cevap versin. Hata mı buldun? GitHub'da bildir.",
+		supportEmail: "E-posta gönder",
+		supportIssues: "Hata bildir",
 	},
 	cta: {
 		heading: "Kimin seni geri takip ettiğini tahmin etmeyi bırak",
@@ -191,6 +217,8 @@ export const tr: Dictionary = {
 		rights: "Tüm hakları saklıdır.",
 		builtBy: "Geliştiren:",
 		compare: "Unfolks ve Cobanov",
+		sourceCode: "GitHub'daki kaynak kod",
+		email: "E-posta",
 	},
 	promo: {
 		label: "Tanıtım",

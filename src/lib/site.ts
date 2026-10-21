@@ -8,6 +8,9 @@ export const siteConfig = {
 		url: "https://ozgurozalp.com",
 		email: "mail@ozgurozalp.com",
 	},
+	/** The extension's public source code and issue tracker. */
+	githubUrl: "https://github.com/ozgurozalp/unfolks",
+	issuesUrl: "https://github.com/ozgurozalp/unfolks/issues",
 	rating: {
 		value: 5,
 		count: 25000,
