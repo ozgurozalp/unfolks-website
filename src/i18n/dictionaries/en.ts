@@ -47,6 +47,23 @@ export const en = {
 		unfollowAllShort: "Unfollow (20)",
 		unfollow: "Unfollow",
 	},
+	stats: {
+		heading: "Unfolks in numbers",
+		items: [
+			{ value: 25000, prefix: "", suffix: "+", label: "Instagram users" },
+			{ value: 5, prefix: "", suffix: "/5", label: "Average rating" },
+			{ value: 0, prefix: "", suffix: "", label: "Passwords asked for" },
+			{
+				value: 100,
+				prefix: "",
+				suffix: "%",
+				label: "Of your lists stay on your computer",
+			},
+		],
+	},
+	browsers: {
+		label: "Works in",
+	},
 	features: {
 		heading: "Everything you need to clean up your following",
 		intro:
@@ -83,6 +100,8 @@ export const en = {
 					"Unfolks uses the Instagram session already open in your browser. There is no login form, no account to create, and your lists stay on your computer.",
 			},
 		],
+		leadImageAlt:
+			"The Unfolks panel asking to confirm unfollowing 3 accounts, with 4–6 seconds between each and a 3 minute rest after every 5.",
 	},
 	howItWorks: {
 		eyebrow: "How it works",
@@ -104,6 +123,8 @@ export const en = {
 					"Search and filter the accounts that don't follow you back, hide the ones you want to keep, and unfollow the rest at a safe pace.",
 			},
 		],
+		imageAlt:
+			"The Unfolks side panel listing accounts that don't follow back, with filters, search and an Unfollow button on each row.",
 	},
 	testimonials: {
 		heading: "Loved by Instagram users",
@@ -176,6 +197,11 @@ export const en = {
 					"Unfolks opens in the browser's side panel, so it needs a Chromium browser that supports extension side panels, such as Chrome, Edge or Brave. Browsers without that support, like Opera, can't open it.",
 			},
 		],
+		supportTitle: "Didn't find your answer?",
+		supportText:
+			"Email us and a person will answer. Found a bug? Open an issue on GitHub.",
+		supportEmail: "Email us",
+		supportIssues: "Report a bug",
 	},
 	cta: {
 		heading: "Stop guessing who follows you back",
@@ -192,6 +218,8 @@ export const en = {
 		rights: "All rights reserved.",
 		builtBy: "Built by",
 		compare: "Unfolks vs Cobanov",
+		sourceCode: "Source code on GitHub",
+		email: "Email",
 	},
 	promo: {
 		label: "Promotion",

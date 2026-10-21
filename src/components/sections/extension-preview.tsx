@@ -15,6 +15,7 @@ import {
 
 import { getDictionary } from "@/i18n/server";
 import { cn } from "@/lib/utils";
+import { BorderBeam } from "@/components/ui/border-beam";
 
 interface Account {
 	name: string;
@@ -56,10 +57,17 @@ export async function ExtensionPreview({ className }: { className?: string }) {
 		<div
 			aria-hidden
 			className={cn(
-				"@container w-full min-w-0 max-w-100 select-none overflow-hidden rounded-[1.75rem] border border-zinc-800 bg-zinc-950 text-zinc-100 shadow-2xl shadow-brand-900/20 dark:shadow-black/50",
+				"@container relative w-full min-w-0 max-w-100 select-none overflow-hidden rounded-[1.75rem] border border-zinc-800 bg-zinc-950 text-zinc-100 shadow-2xl shadow-brand-900/20 dark:shadow-black/50",
 				className,
 			)}
 		>
+			<BorderBeam
+				size={120}
+				duration={9}
+				colorFrom="var(--color-brand-500)"
+				colorTo="var(--color-accent-600)"
+			/>
+
 			{/* Profile header */}
 			<div className="flex items-center gap-2.5 px-4 pb-4 pt-5 @[21rem]:gap-3 @[21rem]:px-5">
 				<Image

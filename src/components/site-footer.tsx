@@ -1,4 +1,7 @@
 import Link from "next/link";
+import { Mail } from "lucide-react";
+
+import { GitHubIcon } from "@/components/icons";
 
 import { Logo } from "@/components/logo";
 import { getDictionary } from "@/i18n/server";
@@ -41,6 +44,26 @@ export async function SiteFooter() {
 						<p className="mt-4 max-w-sm leading-relaxed text-muted-foreground">
 							{dict.footer.blurb}
 						</p>
+						<div className="mt-6 flex gap-2">
+							<a
+								href={siteConfig.githubUrl}
+								target="_blank"
+								rel="noopener noreferrer"
+								aria-label={dict.footer.sourceCode}
+								title={dict.footer.sourceCode}
+								className="grid size-10 place-items-center rounded-full border border-border bg-background text-muted-foreground transition-colors hover:border-foreground/20 hover:text-foreground"
+							>
+								<GitHubIcon className="size-4.5" />
+							</a>
+							<a
+								href={`mailto:${siteConfig.author.email}`}
+								aria-label={dict.footer.email}
+								title={dict.footer.email}
+								className="grid size-10 place-items-center rounded-full border border-border bg-background text-muted-foreground transition-colors hover:border-foreground/20 hover:text-foreground"
+							>
+								<Mail className="size-4.5" aria-hidden />
+							</a>
+						</div>
 					</div>
 
 					<FooterColumn title={dict.footer.product} links={productLinks} />

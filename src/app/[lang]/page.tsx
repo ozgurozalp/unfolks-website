@@ -1,4 +1,6 @@
 import { Hero } from "@/components/sections/hero";
+import { Browsers } from "@/components/sections/browsers";
+import { Stats } from "@/components/sections/stats";
 import { Features } from "@/components/sections/features";
 import { HowItWorks } from "@/components/sections/how-it-works";
 import { Testimonials } from "@/components/sections/testimonials";
@@ -15,8 +17,10 @@ export default function Home() {
 			<SoftwareApplicationJsonLd />
 			<FaqJsonLd />
 			<Hero />
+			<Browsers />
 			<Features />
 			<HowItWorks />
+			<Stats />
 			<Testimonials />
 			<Faq />
 			<Cta />
