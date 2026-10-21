@@ -1,0 +1,83 @@
+---
+title: "Cobanov Instagram Unfollowers vs Unfolks: Console Script or Chrome Extension?"
+date: 2026-10-21
+summary: Both tools show who doesn't follow you back on Instagram, for free and without your password. One is code you paste into the browser console, the other a Chrome extension. Here is how they really differ.
+tags:
+  - Instagram
+  - Unfollowers
+  - Comparison
+lang: en
+translation: cobanov-instagram-unfollowers-ve-unfolks
+---
+
+If you've looked for a way to see who doesn't follow you back on Instagram, you've probably found **Cobanov Instagram Unfollowers**. It's a free console script by Mert Cobanov, based on the idea of the InstagramUnfollowers project. **Unfolks** does the same job as a Chrome extension.
+
+We build Unfolks, so to keep this fair we only wrote down what we could check. We compared both on October 21, 2026, against version 2.4.1 of the script, its website, and Instagram itself.
+
+### What they have in common
+
+The two tools agree on more than you might expect:
+
+- Both are free.
+- Neither asks for your Instagram password. Each uses the session already open in your browser.
+- Your lists stay in your browser. Neither tool runs a server that receives your Instagram data.
+- Both filter and search the results, let you hide accounts you want to keep, and copy usernames.
+- Both wait between unfollows and take longer breaks, so Instagram is less likely to limit your account.
+- Both can pick up a scan that Instagram stopped, instead of starting over.
+- Both have a check that uses your Instagram data download and sends Instagram no requests at all.
+- Both come in English and Turkish.
+
+### The real difference: how you run it
+
+**The script** runs in the browser's developer console. You open Instagram, copy the code from the script's website, open the console, paste it and press Enter. The code isn't saved anywhere, so after you reload Instagram you paste it again.
+
+**Unfolks** is installed once from the Chrome Web Store. After that you open Instagram, click the Unfolks icon, and click **Show unfollowers** in the side panel.
+
+### Why pasting code into the console matters
+
+Open the console on instagram.com and Instagram prints a large warning: if someone told you to paste something there, it's a scam that can give them your account. That trick is common, so the warning is there for good reason.
+
+To be fair, the Cobanov script is public, and its website publishes a hash of the code and a Semgrep report so you can check what you paste. Its own security page also says not to paste code you don't trust. The script itself is not the problem. Getting used to pasting code into the console is, because that habit is what scammers rely on.
+
+An extension avoids the step entirely. Unfolks goes through the Chrome Web Store, which reviews extensions before publishing them.
+
+### Updates
+
+When Instagram changes something, a console script keeps working only if you copy the fixed version again. Chrome updates Unfolks in the background, so you're always on the current version.
+
+### Where the results show
+
+The script draws a floating panel on top of the Instagram page. You can minimize it. Unfolks opens in the browser's side panel, next to Instagram rather than over it. If you close the panel, the scan keeps running as long as the Instagram tab stays open.
+
+### Unfollow pacing, side by side
+
+Both tools are careful by default, and both let you change the numbers:
+
+| | Unfolks | Cobanov script |
+| --- | --- | --- |
+| Wait between unfollows | 4–6 seconds | 4–4.8 seconds |
+| Longer break | 3 minutes after every 5 | 5 minutes after every 5 |
+
+### The no-risk check
+
+Instagram lets you download your followers and following lists from "Download your information". Both tools can compare those files on your computer, without a single request to Instagram, so there is no risk of a block. In Unfolks the check is inside the same panel. The Cobanov version is a separate page on its website. We tried it with a sample export: it found the right accounts and sent nothing over the network.
+
+### What Unfolks adds
+
+- **Installs once, updates itself.** No code to copy and paste.
+- **It tells you what changed.** After each refresh, Unfolks tells you how many accounts may have unfollowed you since your last scan. The script shows its latest result only.
+- **A side panel.** Instagram stays fully visible while you work through the list.
+
+### When the script is the better pick
+
+Be honest with yourself about what you need. The script needs nothing installed, so it suits you if you use **Firefox or Safari**, where Unfolks doesn't run, or if you only want to check once. Its data-file page is an ordinary web page, so it needs no install either. If you go the script route, read the code before you paste it.
+
+Unfolks runs in Chromium browsers that support extension side panels: Chrome, Edge and Brave.
+
+### The short version
+
+If you check your following list more than once and use Chrome, Edge or Brave, an extension is simpler: no console, no pasting, automatic updates. If you're on Firefox or Safari, or just want a one-time look, the script or its data-file page does the job.
+
+See the full feature-by-feature table on our [Unfolks vs Cobanov comparison page](/alternatives/cobanov-instagram-unfollowers).
+
+_Unfolks isn't affiliated with Cobanov Instagram Unfollowers or InstagramUnfollowers. This post describes their public versions on October 21, 2026; they may have changed since._

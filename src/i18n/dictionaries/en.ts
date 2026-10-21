@@ -385,7 +385,7 @@ export const en = {
 		],
 		fairTitle: "When the script makes sense",
 		fairText:
-			"The script needs nothing installed, so it suits Firefox or Safari users and anyone who only wants to check once. Its data-file page runs in any browser. Read the code before you paste it.",
+			"The script needs nothing installed, so it suits Firefox or Safari users and anyone who only wants to check once. Its data-file page is an ordinary web page, so it needs no install either. Read the code before you paste it.",
 		switchTitle: "Switching takes a minute",
 		switchSteps: [
 			"Add Unfolks from the Chrome Web Store.",

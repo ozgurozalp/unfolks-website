@@ -5,7 +5,7 @@ import { ArrowUpRight } from "lucide-react";
 import { intlLocale } from "@/i18n/config";
 import { format } from "@/i18n/format";
 import { getDictionary, getLocale } from "@/i18n/server";
-import { getAllPosts } from "@/lib/posts";
+import { getPostsFor } from "@/lib/posts";
 import { formatDate } from "@/lib/utils";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -18,10 +18,10 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function BlogIndexPage() {
-	const [posts, { blog }, locale] = await Promise.all([
-		getAllPosts(),
+	const locale = await getLocale();
+	const [posts, { blog }] = await Promise.all([
+		getPostsFor(locale),
 		getDictionary(),
-		getLocale(),
 	]);
 
 	return (
@@ -43,6 +43,7 @@ export default async function BlogIndexPage() {
 					{posts.map((post) => (
 						<article
 							key={post.slug}
+							lang={post.frontmatter.lang}
 							className="group relative flex flex-col rounded-3xl border border-border bg-card p-7 transition-all duration-300 hover:-translate-y-1 hover:border-brand-300 hover:shadow-xl hover:shadow-brand-500/5 dark:hover:border-brand-800"
 						>
 							<div className="flex items-center gap-2 text-sm text-muted-foreground">
