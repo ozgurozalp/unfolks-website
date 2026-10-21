@@ -16,7 +16,7 @@ export async function Faq() {
 	return (
 		<section
 			id="faq"
-			className="scroll-mt-24 border-t border-border bg-surface py-20 sm:py-28"
+			className="border-t border-border bg-surface py-20 sm:py-28"
 		>
 			<div className="container-page grid gap-12 lg:grid-cols-[minmax(0,22rem)_1fr] lg:gap-16">
 				<Reveal className="lg:sticky lg:top-[calc(var(--site-header-height)+2rem)] lg:self-start">

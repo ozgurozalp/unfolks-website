@@ -49,7 +49,7 @@ export async function Features() {
 		.filter((_, index) => index !== LEAD);
 
 	return (
-		<section id="features" className="scroll-mt-24 py-20 sm:py-28">
+		<section id="features" className="py-20 sm:py-28">
 			<div className="container-page">
 				<Reveal className="mx-auto max-w-2xl text-center">
 					<h2 className="text-3xl font-bold tracking-tight text-balance sm:text-4xl">
