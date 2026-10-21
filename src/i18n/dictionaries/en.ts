@@ -250,7 +250,7 @@ export const en = {
 		eyebrow: "Comparison",
 		title: "Unfolks vs Cobanov Instagram Unfollowers",
 		intro:
-			"Cobanov Instagram Unfollowers is a console script, based on the idea of InstagramUnfollowers, that finds who doesn't follow you back once you paste its code into the browser console. Unfolks does the same job as a Chrome extension. Here is how they compare.",
+			"Cobanov Instagram Unfollowers is a console script, based on the idea of the InstagramUnfollowers project on GitHub, that finds who doesn't follow you back once you paste its code into the browser console. Unfolks does the same job as a Chrome extension. Here is how they compare.",
 		checked:
 			"Checked on {date} against version {version} of the script and its website.",
 		table: {
@@ -411,6 +411,13 @@ export const en = {
 				text: "After each refresh, Unfolks tells you how many accounts may have unfollowed you since the last scan. The script shows the latest result only.",
 			},
 		],
+		/** Text inside the decorative pictures on the difference cards. */
+		diffVisuals: {
+			consoleStop: "Stop!",
+			consoleText: "This is a browser feature intended for developers.",
+			upToDate: "Updated automatically",
+			toast: "3 people may have unfollowed you",
+		},
 		fairTitle: "When the script makes sense",
 		fairText:
 			"The script needs nothing installed, so it suits Firefox or Safari users and anyone who only wants to check once. Its data-file page is an ordinary web page, so it needs no install either. Read the code before you paste it.",
@@ -425,7 +432,7 @@ export const en = {
 			{
 				question: "Is Unfolks made by Cobanov?",
 				answer:
-					"No. Unfolks is built by Özgür Özalp and isn't affiliated with Cobanov Instagram Unfollowers or InstagramUnfollowers.",
+					"No. Unfolks is built by Özgür Özalp and isn't affiliated with Cobanov Instagram Unfollowers or the InstagramUnfollowers project.",
 			},
 			{
 				question: "Is it safe to paste a script into the console?",
@@ -439,7 +446,7 @@ export const en = {
 			},
 		],
 		disclaimer:
-			"Cobanov Instagram Unfollowers and InstagramUnfollowers belong to their authors, and Unfolks isn't affiliated with them. This page describes their public versions on {date}; they may have changed since.",
+			"Cobanov Instagram Unfollowers and the InstagramUnfollowers project belong to their authors, and Unfolks isn't affiliated with them. This page describes their public versions on {date}; they may have changed since.",
 	},
 	notFound: {
 		title: "This page doesn't follow us back",

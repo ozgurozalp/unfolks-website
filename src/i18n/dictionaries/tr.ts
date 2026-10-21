@@ -249,7 +249,7 @@ export const tr: Dictionary = {
 		eyebrow: "Karşılaştırma",
 		title: "Unfolks ve Cobanov Instagram Unfollowers",
 		intro:
-			"Cobanov Instagram Unfollowers, InstagramUnfollowers fikrinden yola çıkan bir konsol scripti; kodunu tarayıcı konsoluna yapıştırınca seni geri takip etmeyenleri bulur. Unfolks aynı işi bir Chrome uzantısı olarak yapar. İşte karşılaştırması.",
+			"Cobanov Instagram Unfollowers, GitHub'daki InstagramUnfollowers projesinin fikrinden yola çıkan bir konsol scripti; kodunu tarayıcı konsoluna yapıştırınca seni geri takip etmeyenleri bulur. Unfolks aynı işi bir Chrome uzantısı olarak yapar. İşte karşılaştırması.",
 		checked:
 			"{date} tarihinde, scriptin {version} sürümü ve web sitesiyle karşılaştırıldı.",
 		table: {
@@ -410,6 +410,13 @@ export const tr: Dictionary = {
 				text: "Unfolks her yenilemeden sonra, son taramadan beri kaç hesabın seni takipten çıkmış olabileceğini söyler. Script yalnızca son sonucu gösterir.",
 			},
 		],
+		/** Text inside the decorative pictures on the difference cards. */
+		diffVisuals: {
+			consoleStop: "Dur!",
+			consoleText: "Bu, geliştiriciler için bir tarayıcı özelliğidir.",
+			upToDate: "Otomatik güncellendi",
+			toast: "3 kişi sizi takipten çıkmış olabilir",
+		},
 		fairTitle: "Script ne zaman mantıklı",
 		fairText:
 			"Script kurulum gerektirmez; Firefox ya da Safari kullananlara ve yalnızca bir kez bakmak isteyenlere uyar. Veri dosyası sayfası sıradan bir web sayfası, onun için de bir şey yüklemen gerekmez. Yapıştırmadan önce kodu oku.",
@@ -424,7 +431,7 @@ export const tr: Dictionary = {
 			{
 				question: "Unfolks'u Cobanov mu yapıyor?",
 				answer:
-					"Hayır. Unfolks'u Özgür Özalp geliştiriyor; Cobanov Instagram Unfollowers ya da InstagramUnfollowers ile bir bağlantısı yok.",
+					"Hayır. Unfolks'u Özgür Özalp geliştiriyor; Cobanov Instagram Unfollowers ya da InstagramUnfollowers projesiyle bir bağlantısı yok.",
 			},
 			{
 				question: "Konsola script yapıştırmak güvenli mi?",
@@ -438,7 +445,7 @@ export const tr: Dictionary = {
 			},
 		],
 		disclaimer:
-			"Cobanov Instagram Unfollowers ve InstagramUnfollowers kendi geliştiricilerine aittir; Unfolks'un onlarla bir bağlantısı yoktur. Bu sayfa, {date} tarihindeki herkese açık sürümlerini anlatır; o zamandan beri değişmiş olabilirler.",
+			"Cobanov Instagram Unfollowers ve InstagramUnfollowers projesi kendi geliştiricilerine aittir; Unfolks'un onlarla bir bağlantısı yoktur. Bu sayfa, {date} tarihindeki herkese açık sürümlerini anlatır; o zamandan beri değişmiş olabilirler.",
 	},
 	notFound: {
 		title: "Bu sayfa bizi geri takip etmiyor",
