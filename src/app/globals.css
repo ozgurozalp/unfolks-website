@@ -65,6 +65,8 @@
    class or `prefers-color-scheme`.
 --------------------------------------------------------------------------- */
 :root {
+	/* Height of the sticky site header, for elements that stick below it. */
+	--site-header-height: 4rem;
 	color-scheme: light dark;
 
 	--background: #ffffff;
@@ -433,5 +435,11 @@
 
 	.promo-card[data-status="closing"] {
 		translate: 0;
+	}
+}
+
+@media (min-width: 64rem) {
+	:root {
+		--site-header-height: 4.5rem;
 	}
 }
