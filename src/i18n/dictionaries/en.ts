@@ -392,6 +392,16 @@ export const en = {
 		sharedTitle: "What they have in common",
 		sharedText:
 			"Both are free, never ask for your Instagram password, and keep your lists in your browser. Both wait between unfollows, let you hide the accounts you want to keep, can pick up a scan that Instagram stopped, and offer a data-file check that sends Instagram nothing.",
+		sharedItems: [
+			"Free",
+			"No password",
+			"Lists stay in your browser",
+			"Waits between unfollows",
+			"Hide accounts to keep",
+			"Resume a stopped scan",
+			"Data file check",
+			"English and Turkish",
+		],
 		diffTitle: "Where they differ",
 		diffs: [
 			{

@@ -1,5 +1,14 @@
 import type { Metadata } from "next";
 
+import {
+	CheckedPill,
+	CompareFaq,
+	Disclaimer,
+	FairAndSwitch,
+	SectionTitle,
+	SharedFeatures,
+	VersusBadge,
+} from "@/components/compare/compare-sections";
 import { DifferencesBento } from "@/components/compare/differences-bento";
 import { ScriptComparison } from "@/components/compare/script-comparison";
 import { Cta } from "@/components/sections/cta";
@@ -30,10 +39,8 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function ComparePage() {
-	const [{ compare }, locale] = await Promise.all([
-		getDictionary(),
-		getLocale(),
-	]);
+	const [dict, locale] = await Promise.all([getDictionary(), getLocale()]);
+	const { compare } = dict;
 	const date = new Intl.DateTimeFormat(intlLocale[locale], {
 		day: "numeric",
 		month: "long",
@@ -44,89 +51,57 @@ export default async function ComparePage() {
 	return (
 		<>
 			<FaqJsonLd items={compare.faq} />
-			<article className="container-page py-14 sm:py-20">
-				<header className="mx-auto max-w-3xl text-center">
-					<span className="text-sm font-semibold uppercase tracking-[0.18em] text-brand-600 dark:text-brand-400">
-						{compare.eyebrow}
-					</span>
-					<h1 className="mt-3 text-4xl font-bold tracking-tight text-balance sm:text-5xl">
-						{compare.title}
-					</h1>
-					<p className="mt-5 text-lg leading-relaxed text-muted-foreground text-pretty">
-						{compare.intro}
-					</p>
-					<p className="mt-3 text-sm text-muted-foreground">
-						{format(compare.checked, {
-							date,
-							version: comparePage.scriptVersion,
-						})}
-					</p>
-				</header>
-
-				<div className="mx-auto mt-4 max-w-4xl">
-					<ScriptComparison text={compare.table} />
+			<article className="relative isolate overflow-hidden">
+				<div
+					aria-hidden
+					className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[34rem] overflow-hidden"
+				>
+					<div className="absolute -top-48 left-1/2 size-[40rem] -translate-x-1/2 rounded-full bg-brand-400/20 blur-[120px] dark:bg-brand-600/15" />
+					<div className="absolute inset-0 bg-dot-grid text-foreground/[0.06] [mask-image:radial-gradient(ellipse_at_top,black,transparent_70%)]" />
 				</div>
 
-				<div className="mx-auto mt-6 max-w-3xl space-y-14">
-					<section>
-						<h2 className="text-2xl font-bold tracking-tight">
-							{compare.sharedTitle}
-						</h2>
-						<p className="mt-3 leading-relaxed text-muted-foreground">
-							{compare.sharedText}
+				<div className="container-page py-14 sm:py-20">
+					<header className="mx-auto flex max-w-3xl flex-col items-center text-center">
+						<VersusBadge table={compare.table} />
+						<h1 className="mt-6 text-4xl font-bold tracking-tight text-balance sm:text-5xl">
+							{compare.title}
+						</h1>
+						<p className="mt-5 text-lg leading-relaxed text-muted-foreground text-pretty">
+							{compare.intro}
 						</p>
-					</section>
-				</div>
+						<div className="mt-6">
+							<CheckedPill>
+								{format(compare.checked, {
+									date,
+									version: comparePage.scriptVersion,
+								})}
+							</CheckedPill>
+						</div>
+					</header>
 
-				<section className="mx-auto mt-14 max-w-4xl">
-					<h2 className="text-2xl font-bold tracking-tight">
-						{compare.diffTitle}
-					</h2>
-					<div className="mt-6">
-						<DifferencesBento text={compare} />
-					</div>
-				</section>
+					<div className="mx-auto max-w-4xl">
+						<ScriptComparison text={compare.table} />
 
-				<div className="mx-auto mt-14 max-w-3xl space-y-14">
-					<section>
-						<h2 className="text-2xl font-bold tracking-tight">
-							{compare.fairTitle}
-						</h2>
-						<p className="mt-3 leading-relaxed text-muted-foreground">
-							{compare.fairText}
-						</p>
-					</section>
+						<div className="mt-6 space-y-16">
+							<SharedFeatures text={compare} />
 
-					<section>
-						<h2 className="text-2xl font-bold tracking-tight">
-							{compare.switchTitle}
-						</h2>
-						<ol className="mt-4 list-decimal space-y-2 pl-5 leading-relaxed text-muted-foreground marker:font-semibold marker:text-brand-600">
-							{compare.switchSteps.map((step) => (
-								<li key={step}>{step}</li>
-							))}
-						</ol>
-					</section>
-
-					<section>
-						<h2 className="text-2xl font-bold tracking-tight">
-							{compare.faqTitle}
-						</h2>
-						<dl className="mt-6 space-y-6">
-							{compare.faq.map((item) => (
-								<div key={item.question}>
-									<dt className="font-semibold">{item.question}</dt>
-									<dd className="mt-1.5 leading-relaxed text-muted-foreground">
-										{item.answer}
-									</dd>
+							<section>
+								<SectionTitle>{compare.diffTitle}</SectionTitle>
+								<div className="mt-6">
+									<DifferencesBento text={compare} />
 								</div>
-							))}
-						</dl>
-					</section>
+							</section>
 
-					<p className="border-t border-border pt-6 text-sm text-muted-foreground">
-						{format(compare.disclaimer, { date })}
-					</p>
+							<FairAndSwitch
+								text={compare}
+								ctaLabel={dict.nav.addToChromeFree}
+							/>
+
+							<CompareFaq text={compare} />
+
+							<Disclaimer>{format(compare.disclaimer, { date })}</Disclaimer>
+						</div>
+					</div>
 				</div>
 			</article>
 			<Cta />

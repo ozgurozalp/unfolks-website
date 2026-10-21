@@ -391,6 +391,16 @@ export const tr: Dictionary = {
 		sharedTitle: "Ortak yönleri",
 		sharedText:
 			"İkisi de ücretsiz, Instagram şifreni asla istemez ve listelerini tarayıcında tutar. İkisi de takip bırakmalar arasında bekler, tutmak istediğin hesapları gizlemeni sağlar, Instagram'ın durdurduğu bir taramaya kaldığı yerden devam edebilir ve Instagram'a hiç istek göndermeyen bir veri dosyası kontrolü sunar.",
+		sharedItems: [
+			"Ücretsiz",
+			"Şifre istemez",
+			"Listeler tarayıcında kalır",
+			"Takip bırakmalar arasında bekler",
+			"Tutmak istediklerini gizleme",
+			"Yarıda kalan taramaya devam",
+			"Veri dosyasıyla kontrol",
+			"Türkçe ve İngilizce",
+		],
 		diffTitle: "Farkları",
 		diffs: [
 			{
