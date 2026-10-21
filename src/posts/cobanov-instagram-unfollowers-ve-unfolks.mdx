@@ -1,0 +1,83 @@
+---
+title: "Cobanov Instagram Unfollowers mı, Unfolks mu? Konsol Scripti ve Chrome Uzantısı"
+date: 2026-10-21
+summary: İki araç da Instagram'da seni geri takip etmeyenleri ücretsiz ve şifre istemeden gösteriyor. Biri tarayıcı konsoluna yapıştırdığın bir kod, diğeri bir Chrome uzantısı. Asıl farkları şunlar.
+tags:
+  - Instagram
+  - Takip etmeyenler
+  - Karşılaştırma
+lang: tr
+translation: cobanov-instagram-unfollowers-vs-unfolks
+---
+
+Instagram'da seni kimlerin geri takip etmediğini görmenin bir yolunu aradıysan büyük ihtimalle **Cobanov Instagram Unfollowers** ile karşılaşmışsındır. Mert Cobanov'un yaptığı, InstagramUnfollowers projesinin fikrinden yola çıkan ücretsiz bir konsol scripti. **Unfolks** ise aynı işi bir Chrome uzantısı olarak yapıyor.
+
+Unfolks'u biz geliştiriyoruz. Karşılaştırma adil olsun diye yalnızca kontrol edebildiğimiz şeyleri yazdık. İkisini 21 Ekim 2026'da, scriptin 2.4.1 sürümü, web sitesi ve Instagram'ın kendisi üzerinden karşılaştırdık.
+
+### Ortak yönleri
+
+İki aracın ortak noktası sandığından fazla:
+
+- İkisi de ücretsiz.
+- İkisi de Instagram şifreni istemez; tarayıcında zaten açık olan oturumu kullanır.
+- Listelerin tarayıcında kalır. İki araç da Instagram verilerini alan bir sunucu çalıştırmaz.
+- İkisi de sonuçları filtrelemeni ve aramanı, tutmak istediğin hesapları gizlemeni ve kullanıcı adlarını kopyalamanı sağlar.
+- İkisi de takip bırakmalar arasında bekler ve daha uzun molalar verir; böylece Instagram'ın hesabını sınırlama ihtimali düşer.
+- İkisi de Instagram'ın durdurduğu bir taramaya baştan başlamak yerine kaldığı yerden devam edebilir.
+- İkisinde de Instagram veri indirmeni kullanan ve Instagram'a hiç istek göndermeyen bir kontrol var.
+- İkisi de Türkçe ve İngilizce.
+
+### Asıl fark: nasıl çalıştırdığın
+
+**Script** tarayıcının geliştirici konsolunda çalışır. Instagram'ı açarsın, kodu scriptin sitesinden kopyalarsın, konsolu açıp yapıştırırsın ve Enter'a basarsın. Kod hiçbir yere kaydedilmez; Instagram'ı yenilediğinde yeniden yapıştırman gerekir.
+
+**Unfolks** Chrome Web Mağazası'ndan bir kez yüklenir. Sonrasında Instagram'ı açar, Unfolks simgesine tıklar ve yan panelde **Takip etmeyenleri göster**'e basarsın.
+
+### Konsola kod yapıştırmak neden önemli
+
+instagram.com'da konsolu açtığında Instagram büyük bir uyarı gösterir: biri sana buraya bir şey yapıştırmanı söylediyse bu bir dolandırıcılıktır ve hesabını ele geçirmesini sağlayabilir. Bu yöntem çok yaygın, uyarı boşuna orada değil.
+
+Hakkını vermek gerekirse Cobanov'un scripti herkese açık. Sitesi kodun hash'ini ve bir Semgrep raporu yayınlıyor, böylece yapıştırdığın şeyi kontrol edebiliyorsun. Kendi güvenlik sayfası da güvenmediğin kodu konsola yapıştırmamanı söylüyor. Sorun scriptin kendisi değil. Sorun, konsola kod yapıştırmayı alışkanlık hâline getirmek; dolandırıcıların güvendiği şey tam olarak bu alışkanlık.
+
+Uzantı bu adımı tamamen ortadan kaldırır. Unfolks, uzantıları yayınlamadan önce inceleyen Chrome Web Mağazası'ndan geçer.
+
+### Güncellemeler
+
+Instagram bir şeyi değiştirdiğinde konsol scripti ancak düzeltilmiş sürümü yeniden kopyalarsan çalışmaya devam eder. Chrome ise Unfolks'u arka planda günceller; hep güncel sürümü kullanırsın.
+
+### Sonuçlar nerede görünüyor
+
+Script, Instagram sayfasının üstünde duran ve küçültülebilen bir panel açar. Unfolks ise tarayıcının yan panelinde, Instagram'ın üstünde değil yanında açılır. Instagram sekmesi açık kaldığı sürece paneli kapatsan da tarama devam eder.
+
+### Takip bırakma temposu
+
+İki araç da varsayılan olarak temkinli ve ikisinde de bu değerleri değiştirebilirsin:
+
+| | Unfolks | Cobanov scripti |
+| --- | --- | --- |
+| Takip bırakmalar arasında bekleme | 4–6 saniye | 4–4,8 saniye |
+| Uzun mola | Her 5 hesapta bir 3 dakika | Her 5 hesapta bir 5 dakika |
+
+### Risksiz kontrol
+
+Instagram, takipçi ve takip listelerini "Bilgilerini indir" sayfasından indirmene izin veriyor. İki araç da bu dosyaları Instagram'a tek bir istek göndermeden bilgisayarında karşılaştırabilir; engellenme riski yoktur. Unfolks'ta bu kontrol aynı panelin içinde. Cobanov'da ise web sitesinde ayrı bir sayfa. Örnek bir dosyayla denedik: doğru hesapları buldu ve ağ üzerinden hiçbir şey göndermedi.
+
+### Unfolks'un ekledikleri
+
+- **Bir kez yüklenir, kendini günceller.** Kopyalayıp yapıştıracak kod yok.
+- **Neyin değiştiğini söyler.** Unfolks her yenilemeden sonra, son taramandan beri kaç hesabın seni takipten çıkmış olabileceğini söyler. Script yalnızca son sonucu gösterir.
+- **Yan panel.** Listeyi gözden geçirirken Instagram tamamen görünür kalır.
+
+### Script ne zaman daha iyi bir seçim
+
+Neye ihtiyacın olduğuna dürüstçe bak. Script kurulum gerektirmez; Unfolks'un çalışmadığı **Firefox ya da Safari** kullanıyorsan veya yalnızca bir kez bakmak istiyorsan sana uyar. Veri dosyası sayfası sıradan bir web sayfası, onun için de bir şey yüklemen gerekmez. Script yolunu seçersen yapıştırmadan önce kodu oku.
+
+Unfolks, uzantı yan panellerini destekleyen Chromium tarayıcılarda çalışır: Chrome, Edge ve Brave.
+
+### Kısaca
+
+Takip listeni birden fazla kez kontrol ediyorsan ve Chrome, Edge ya da Brave kullanıyorsan uzantı daha basit: konsol yok, yapıştırma yok, güncellemeler otomatik. Firefox ya da Safari kullanıyorsan veya tek seferlik bakmak istiyorsan script ya da veri dosyası sayfası işini görür.
+
+Özellik özellik karşılaştırmanın tamamı için [Unfolks ve Cobanov karşılaştırma sayfasına](/alternatives/cobanov-instagram-unfollowers) bakabilirsin.
+
+_Unfolks'un Cobanov Instagram Unfollowers ya da InstagramUnfollowers ile bir bağlantısı yoktur. Bu yazı, 21 Ekim 2026 tarihindeki herkese açık sürümlerini anlatır; o zamandan beri değişmiş olabilirler._

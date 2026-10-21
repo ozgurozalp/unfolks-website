@@ -412,7 +412,7 @@ export const tr: Dictionary = {
 		],
 		fairTitle: "Script ne zaman mantıklı",
 		fairText:
-			"Script kurulum gerektirmez; Firefox ya da Safari kullananlara ve yalnızca bir kez bakmak isteyenlere uyar. Veri dosyası sayfası her tarayıcıda çalışır. Yapıştırmadan önce kodu oku.",
+			"Script kurulum gerektirmez; Firefox ya da Safari kullananlara ve yalnızca bir kez bakmak isteyenlere uyar. Veri dosyası sayfası sıradan bir web sayfası, onun için de bir şey yüklemen gerekmez. Yapıştırmadan önce kodu oku.",
 		switchTitle: "Geçmek bir dakika sürer",
 		switchSteps: [
 			"Unfolks'u Chrome Web Mağazası'ndan ekle.",

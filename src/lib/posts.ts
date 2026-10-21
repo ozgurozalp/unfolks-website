@@ -6,6 +6,8 @@ import { cache } from "react";
 import type { MDXProps } from "mdx/types";
 import { z } from "zod";
 
+import { type Locale, locales } from "@/i18n/config";
+
 const POSTS_DIRECTORY = path.join(process.cwd(), "src", "posts");
 
 const frontmatterSchema = z.object({
@@ -13,6 +15,10 @@ const frontmatterSchema = z.object({
 	date: z.coerce.date(),
 	summary: z.string().optional(),
 	tags: z.array(z.string()).default([]),
+	/** The language the post is written in. */
+	lang: z.enum(locales).default("en"),
+	/** Slug of the same post in the other language, if there is one. */
+	translation: z.string().optional(),
 });
 
 export type Frontmatter = z.infer<typeof frontmatterSchema>;
@@ -84,6 +90,31 @@ export const getAllPosts = cache(async (): Promise<Post[]> => {
 	return posts.sort(
 		(a, b) => b.frontmatter.date.getTime() - a.frontmatter.date.getTime(),
 	);
+});
+
+/**
+ * Posts for one language's blog index, newest first. English readers see
+ * English posts; Turkish readers see Turkish posts first, then the English
+ * ones that have no Turkish version.
+ */
+export const getPostsFor = cache(async (locale: Locale): Promise<Post[]> => {
+	const posts = await getAllPosts();
+	if (locale === "en") {
+		return posts.filter((post) => post.frontmatter.lang === "en");
+	}
+
+	const translated = new Set(
+		posts.flatMap((post) =>
+			post.frontmatter.lang === locale && post.frontmatter.translation
+				? [post.frontmatter.translation]
+				: [],
+		),
+	);
+	const own = posts.filter((post) => post.frontmatter.lang === locale);
+	const rest = posts.filter(
+		(post) => post.frontmatter.lang !== locale && !translated.has(post.slug),
+	);
+	return [...own, ...rest];
 });
 
 /** A single post, or `null` when the slug does not resolve to a file. */

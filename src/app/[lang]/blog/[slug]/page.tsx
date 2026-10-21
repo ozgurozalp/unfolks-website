@@ -14,6 +14,9 @@ import { getAllPosts, getPost } from "@/lib/posts";
 import { siteConfig, socialImages } from "@/lib/site";
 import { formatDate } from "@/lib/utils";
 
+/** Link text to a post's other language, written in that language. */
+const READ_IN = { en: "Read in English", tr: "Türkçesini oku" } as const;
+
 interface Props {
 	params: Promise<{ slug: string }>;
 }
@@ -32,15 +35,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 		return {};
 	}
 
-	const { title, summary, date } = post.frontmatter;
+	const { title, summary, date, lang, translation } = post.frontmatter;
 	const canonical = `/blog/${post.slug}`;
+	const languages = translation
+		? {
+				[lang]: canonical,
+				[lang === "en" ? "tr" : "en"]: `/blog/${translation}`,
+			}
+		: undefined;
 
 	return {
 		title,
 		description: summary,
-		alternates: { canonical },
+		alternates: { canonical, languages },
 		openGraph: {
 			type: "article",
+			locale: intlLocale[lang].replace("-", "_"),
 			title,
 			description: summary,
 			url: canonical,
@@ -65,10 +75,11 @@ export default async function BlogPostPage({ params }: Props) {
 	}
 
 	const { Content, frontmatter, readingMinutes } = post;
+	const otherLang = frontmatter.lang === "en" ? "tr" : "en";
 	const [dict, locale] = await Promise.all([getDictionary(), getLocale()]);
 
 	return (
-		<article className="px-4 py-14 sm:px-6 sm:py-20">
+		<article lang={frontmatter.lang} className="px-4 py-14 sm:px-6 sm:py-20">
 			<ArticleJsonLd
 				title={frontmatter.title}
 				description={frontmatter.summary}
@@ -77,13 +88,25 @@ export default async function BlogPostPage({ params }: Props) {
 			/>
 
 			<header className="mx-auto max-w-3xl">
-				<Link
-					href="/blog"
-					className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-				>
-					<ArrowLeft className="size-4" />
-					{dict.blog.allPosts}
-				</Link>
+				<div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
+					<Link
+						href="/blog"
+						className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+					>
+						<ArrowLeft className="size-4" />
+						{dict.blog.allPosts}
+					</Link>
+					{frontmatter.translation && (
+						<Link
+							href={`/blog/${frontmatter.translation}`}
+							hrefLang={otherLang}
+							lang={otherLang}
+							className="text-sm font-medium text-brand-600 underline-offset-4 hover:underline dark:text-brand-400"
+						>
+							{READ_IN[otherLang]}
+						</Link>
+					)}
+				</div>
 
 				<h1 className="mt-6 text-3xl font-bold tracking-tight sm:text-5xl">
 					{frontmatter.title}
