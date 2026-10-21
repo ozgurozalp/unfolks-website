@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { ComparisonTable } from "@/components/compare/comparison-table";
+import { ScriptComparison } from "@/components/compare/script-comparison";
 import { Cta } from "@/components/sections/cta";
 import { FaqJsonLd } from "@/components/structured-data";
 import { intlLocale } from "@/i18n/config";
@@ -62,11 +62,11 @@ export default async function ComparePage() {
 					</p>
 				</header>
 
-				<div className="mx-auto mt-12 max-w-4xl">
-					<ComparisonTable text={compare} />
+				<div className="mx-auto mt-4 max-w-4xl">
+					<ScriptComparison text={compare.table} />
 				</div>
 
-				<div className="mx-auto mt-16 max-w-3xl space-y-14">
+				<div className="mx-auto mt-6 max-w-3xl space-y-14">
 					<section>
 						<h2 className="text-2xl font-bold tracking-tight">
 							{compare.sharedTitle}
