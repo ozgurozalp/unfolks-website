@@ -5,7 +5,7 @@ import { Moon, Sun } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 
-export function ThemeToggle() {
+export function ThemeToggle({ label }: { label: string }) {
 	const { resolvedTheme, systemTheme, setTheme } = useTheme();
 
 	// Two-state control: follow the OS, or pin the opposite scheme. Toggling
@@ -21,7 +21,7 @@ export function ThemeToggle() {
 			variant="ghost"
 			size="icon"
 			className="rounded-full text-muted-foreground hover:text-foreground"
-			aria-label="Toggle colour theme"
+			aria-label={label}
 			onClick={toggleTheme}
 		>
 			{/* Both icons are rendered and swapped with CSS, so the markup matches

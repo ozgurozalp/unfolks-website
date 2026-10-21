@@ -9,82 +9,52 @@ import {
 import type { LucideIcon } from "lucide-react";
 
 import { Reveal } from "@/components/reveal";
+import { getDictionary } from "@/i18n/server";
 
-interface Feature {
-	icon: LucideIcon;
-	title: string;
-	description: string;
-}
-
-const features: Feature[] = [
-	{
-		icon: Search,
-		title: "Exact results",
-		description:
-			"Checks every account you follow against your followers and lists only the ones that really don't follow you back.",
-	},
-	{
-		icon: Hourglass,
-		title: "Unfollow at a safe pace",
-		description:
-			"Select a few accounts or all of them. Unfolks waits between each unfollow and rests every few accounts, and you can slow it down further.",
-	},
-	{
-		icon: RotateCcw,
-		title: "Resume where it stopped",
-		description:
-			"If Instagram limits a scan, your progress is kept. Unfolks waits it out and picks up where it left off instead of starting over.",
-	},
-	{
-		icon: FileArchive,
-		title: "No-risk data file check",
-		description:
-			"Drop the file from Instagram's \"Download your information\" and see who doesn't follow you back without sending Instagram a single request.",
-	},
-	{
-		icon: ListFilter,
-		title: "Filters and a keep list",
-		description:
-			"Filter by verified, private, or no profile photo, search by name, and hide the accounts you want to keep so they're never unfollowed in bulk.",
-	},
-	{
-		icon: EyeOff,
-		title: "No password, ever",
-		description:
-			"Unfolks uses the Instagram session already open in your browser. There is no login form, no account to create, and your lists stay on your computer.",
-	},
+/** One icon per feature, in the order of `features.items` in the dictionaries. */
+const icons: LucideIcon[] = [
+	Search,
+	Hourglass,
+	RotateCcw,
+	FileArchive,
+	ListFilter,
+	EyeOff,
 ];
 
-export function Features() {
+export async function Features() {
+	const { features } = await getDictionary();
+
 	return (
 		<section id="features" className="scroll-mt-24 py-20 sm:py-28">
 			<div className="container-page">
 				<Reveal className="mx-auto max-w-2xl text-center">
 					<h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-						Everything you need to clean up your following
+						{features.heading}
 					</h2>
-					<p className="mt-4 text-lg text-muted-foreground">
-						No dashboards, no subscriptions, and your lists stay on your
-						computer. Just the one job, done well.
-					</p>
+					<p className="mt-4 text-lg text-muted-foreground">{features.intro}</p>
 				</Reveal>
 
 				<div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-					{features.map((feature, index) => (
-						<Reveal key={feature.title} delay={index * 60}>
-							<article className="group h-full rounded-3xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand-300 hover:shadow-xl hover:shadow-brand-500/5 dark:hover:border-brand-800">
-								<div className="inline-flex rounded-2xl bg-brand-gradient p-[1.5px]">
-									<span className="grid size-11 place-items-center rounded-[calc(1rem-1px)] bg-card transition-colors group-hover:bg-transparent">
-										<feature.icon className="size-5 text-brand-600 transition-colors group-hover:text-white dark:text-brand-400" />
-									</span>
-								</div>
-								<h3 className="mt-5 text-lg font-semibold">{feature.title}</h3>
-								<p className="mt-2 leading-relaxed text-muted-foreground">
-									{feature.description}
-								</p>
-							</article>
-						</Reveal>
-					))}
+					{features.items.map((feature, index) => {
+						const Icon = icons[index] ?? Search;
+						return (
+							<Reveal key={feature.title} delay={index * 60}>
+								<article className="group h-full rounded-3xl border border-border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand-300 hover:shadow-xl hover:shadow-brand-500/5 dark:hover:border-brand-800">
+									<div className="inline-flex rounded-2xl bg-brand-gradient p-[1.5px]">
+										<span className="grid size-11 place-items-center rounded-[calc(1rem-1px)] bg-card transition-colors group-hover:bg-transparent">
+											<Icon className="size-5 text-brand-600 transition-colors group-hover:text-white dark:text-brand-400" />
+										</span>
+									</div>
+									<h3 className="mt-5 text-lg font-semibold">
+										{feature.title}
+									</h3>
+									<p className="mt-2 leading-relaxed text-muted-foreground">
+										{feature.description}
+									</p>
+								</article>
+							</Reveal>
+						);
+					})}
 				</div>
 			</div>
 		</section>

@@ -2,9 +2,12 @@ import { ChromeIcon } from "@/components/icons";
 
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/reveal";
+import { getDictionary } from "@/i18n/server";
 import { siteConfig } from "@/lib/site";
 
-export function Cta() {
+export async function Cta() {
+	const dict = await getDictionary();
+
 	return (
 		<section className="py-20 sm:py-28">
 			<Reveal className="container-page">
@@ -20,11 +23,10 @@ export function Cta() {
 
 					<div className="relative">
 						<h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
-							Stop guessing who follows you back
+							{dict.cta.heading}
 						</h2>
 						<p className="mx-auto mt-4 max-w-xl text-lg text-white/90">
-							Install Unfolks, open Instagram, and see the whole picture in
-							under a minute. Free, no account, no password.
+							{dict.cta.text}
 						</p>
 						<Button
 							asChild
@@ -38,7 +40,7 @@ export function Cta() {
 								rel="noopener noreferrer"
 							>
 								<ChromeIcon />
-								Add to Chrome — it&apos;s free
+								{dict.nav.addToChromeFree}
 							</a>
 						</Button>
 					</div>

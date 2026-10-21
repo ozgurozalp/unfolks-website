@@ -1,0 +1,227 @@
+import type { Dictionary } from "./en";
+
+/** Turkish copy. Terms match the extension's own Turkish interface. */
+export const tr: Dictionary = {
+	meta: {
+		tagline: "Instagram'da seni geri takip etmeyenleri bul",
+		description:
+			"Unfolks, Instagram'da seni geri takip etmeyenleri gösteren ücretsiz bir Chrome uzantısı. Listeyi filtrele, gözden geçir ve takibi güvenli bir tempoda bırak — şifre yok, giriş yok, listelerin tarayıcından çıkmaz.",
+		skipToContent: "İçeriğe geç",
+	},
+	nav: {
+		features: "Özellikler",
+		howItWorks: "Nasıl çalışır",
+		faq: "SSS",
+		blog: "Blog",
+		addToChrome: "Chrome'a ekle",
+		addToChromeFree: "Chrome'a ekle — ücretsiz",
+		mainLabel: "Ana menü",
+		mobileLabel: "Mobil menü",
+		openMenu: "Menüyü aç",
+		closeMenu: "Menüyü kapat",
+		toggleTheme: "Açık/koyu temayı değiştir",
+	},
+	hero: {
+		badge: "Her zaman ücretsiz · Şifre gerekmez",
+		titleBefore: "Instagram'da seni",
+		titleHighlight: "geri takip etmeyenleri",
+		titleAfter: "gör",
+		intro:
+			"Unfolks takipçi ve takip listelerini doğrudan tarayıcında karşılaştırır, seni hiç geri takip etmeyen her hesabı bulur ve onları toplu olarak bırakmanı sağlar.",
+		howItWorks: "Nasıl çalışır",
+		rating: "{count}+ Instagram kullanıcısından {value}/5",
+	},
+	preview: {
+		refresh: "Listeyi yenile",
+		lastScan: "Son tarama: 2 dakika önce",
+		dataFileShort: "Veri dosyası",
+		dataFile: "Veri dosyasıyla kontrol et",
+		search: "Hesaplarda ara",
+		sort: "En son takip edilenler",
+		chips: ["Onaylı", "Onaysız", "Gizli hesap", "Fotoğrafsız"],
+		selectAll: "Tümünü seç",
+		copy: "Kopyala",
+		unfollowAll: "Tümünü bırak (20)",
+		unfollowAllShort: "Bırak (20)",
+		unfollow: "Takibi bırak",
+	},
+	features: {
+		heading: "Takip listeni temizlemek için gereken her şey",
+		intro:
+			"Panel yok, abonelik yok, listelerin bilgisayarında kalır. Tek bir iş, düzgünce yapılmış.",
+		items: [
+			{
+				title: "Kesin sonuç",
+				description:
+					"Takip ettiğin her hesabı takipçilerinle karşılaştırır ve yalnızca seni gerçekten geri takip etmeyenleri listeler. Listeyi sonra yenilediğinde, son taramadan beri kaç kişinin seni takipten çıkmış olabileceğini söyler.",
+			},
+			{
+				title: "Güvenli tempoda bırak",
+				description:
+					"Birkaç hesap ya da hepsini seç. Unfolks varsayılan olarak her takip bırakma arasında 4–6 saniye bekler ve her 5 hesapta bir 3 dakika mola verir; ikisini de Ayarlar'dan değiştirebilirsin.",
+			},
+			{
+				title: "Kaldığı yerden devam",
+				description:
+					"Instagram taramayı sınırlarsa ilerlemen kaybolmaz. Unfolks ne kadar beklemen gerektiğini gösterir, sonra baştan başlamak yerine kaldığı yerden devam edersin.",
+			},
+			{
+				title: "Veri dosyasıyla risksiz kontrol",
+				description:
+					"Instagram'ın \"Bilgilerini indir\" dosyasını bırak; Instagram'a tek bir istek göndermeden seni geri takip etmeyenleri gör.",
+			},
+			{
+				title: "Filtrele, sırala, tut",
+				description:
+					"Onaylı, onaysız, gizli hesap ya da fotoğrafsız hesaplara göre filtrele, takip tarihine göre sırala ve ara. Tutmak istediğin hesapları listeden gizle; toplu işlemde takipleri asla bırakılmaz.",
+			},
+			{
+				title: "Asla şifre yok",
+				description:
+					"Unfolks tarayıcında zaten açık olan Instagram oturumunu kullanır. Giriş formu yok, hesap açmak yok; listelerin bilgisayarında kalır.",
+			},
+		],
+	},
+	howItWorks: {
+		eyebrow: "Nasıl çalışır",
+		heading: "Daha temiz bir takip listesine üç adım",
+		steps: [
+			{
+				title: "Uzantıyı ekle",
+				description:
+					"Unfolks'u Chrome Web Mağazası'ndan yükle. Tek tıklama; kayıt yok, ayar yok.",
+			},
+			{
+				title: "Instagram'ı ve yan paneli aç",
+				description:
+					"Instagram'a her zamanki gibi giriş yap, sonra Unfolks simgesine tıkla. Yan panel sayfanın yanında açılır; giriş yaptığın hesabı taramak için Takip etmeyenleri göster'e tıkla.",
+			},
+			{
+				title: "Gözden geçir ve temizle",
+				description:
+					"Seni geri takip etmeyenleri ara ve filtrele, tutmak istediklerini gizle, gerisini güvenli bir tempoda bırak.",
+			},
+		],
+	},
+	testimonials: {
+		heading: "Instagram kullanıcıları seviyor",
+		intro:
+			"{count}+ kişi takip listesini dürüst tutmak için Unfolks kullanıyor.",
+		items: [
+			{
+				quote:
+					"Instagram takipçilerini yönetmek için en iyi araç. Tek bir işi yapıyor ve düzgün yapıyor.",
+				role: "Yazılım Mühendisi",
+			},
+			{
+				quote:
+					"Sonunda beni kimlerin geri takip etmediğini öğrendim. Çok işe yaradı — yaklaşık bir dakika sürdü.",
+				role: "Moda Tasarımcısı",
+			},
+			{
+				quote:
+					"Temiz bir arayüz, kusursuz çalışıyor. Yıllardır ilgilenmediğim takip listemi temizlememe yardım etti.",
+				role: "Manken",
+			},
+		],
+	},
+	faq: {
+		heading: "Sık sorulan sorular",
+		intro: "Yüklemeden önce genelde merak edilen her şey.",
+		items: [
+			{
+				question: "Unfolks'a Instagram şifremi vermem gerekiyor mu?",
+				answer:
+					"Hayır. Unfolks instagram.com'daki kendi tarayıcı oturumunda çalışır, yani zaten yaptığın girişi kullanır. Uzantıya asla şifre yazmazsın ve açılacak bir Unfolks hesabı yoktur.",
+			},
+			{
+				question: "Instagram hesabım için güvenli mi?",
+				answer:
+					"Unfolks temkinli olacak şekilde tasarlandı. Toplu takip bırakmada varsayılan olarak her hesap arasında 4–6 saniye bekler ve her 5 hesapta bir 3 dakika mola verir; ikisini de Ayarlar'dan yavaşlatabilirsin. Instagram takip bırakmayı reddetmeye başlarsa Unfolks kendiliğinden durur ve zorlamak yerine ne zaman tekrar deneyebileceğini gösterir. Sınırları Instagram belirler; hiçbir araç bir hesabın asla kısıtlanmayacağını garanti edemez, ama yavaş gitmek riski düşük tutan şeydir.",
+			},
+			{
+				question: "Instagram taramayı durdurursa ne olur?",
+				answer:
+					"İlerlemen kaybolmaz. Kısa sınırlamalarda Unfolks kendisi bekleyip devam eder. Daha uzun olanlarda ne kadar beklemen gerektiğini söyler, sonra baştan başlamak yerine taramanın kaldığı yerden devam etmeni sağlar. Büyük hesaplar Ayarlar'dan dengeli ya da temkinli tarama hızını da seçebilir.",
+			},
+			{
+				question: "Instagram'a hiç istek göndermeden kontrol edebilir miyim?",
+				answer:
+					"Evet. Takipçi ve takip listelerini Instagram'ın \"Bilgilerini indir\" sayfasından indir, sonra dosyayı Unfolks'a bırak. Seni geri takip etmeyenleri bilgisayarında bulur; engellenme riski yoktur ve dosya hiçbir yere yüklenmez. Bu yolla bulunan hesapların takibi o ekrandan bırakılamaz: profili aç ya da listeden bırakmak için tarama yap.",
+			},
+			{
+				question: "Unfolks takipçi listemi bir sunucuda saklıyor mu?",
+				answer:
+					"Hayır. Karşılaştırma tarayıcında yapılır ve listelerin bilgisayarında kalır. Uzantının Instagram dışında bir yere gönderdiği tek şey, bir şey bozulursa hatanın düzeltilebilmesi için gönderilen hata raporudur. Ayrıntılar gizlilik politikasında.",
+			},
+			{
+				question: "Takibini bırakmak istemediğim hesapları tutabilir miyim?",
+				answer:
+					"Evet. Onları listeden gizle; toplu takip bırakmaya asla dahil edilmezler. İstediğin zaman geri getirebilirsin.",
+			},
+			{
+				question: "Birden fazla hesabı aynı anda bırakabilir miyim?",
+				answer:
+					"Evet. Seçmeye başlamak için bir hesaba çift tıkla ya da Tümünü seç'i kullan, sonra seçtiklerinin takibini tek seferde bırak. İşlemi istediğin an durdurabilir, seçili kullanıcı adlarını da kopyalayabilirsin.",
+			},
+			{
+				question: "Ücreti ne kadar?",
+				answer:
+					"Unfolks tamamen ücretsiz. Deneme süresi, ücretli paket ya da kredi kartı yok.",
+			},
+			{
+				question: "Hangi tarayıcılar destekleniyor?",
+				answer:
+					"Unfolks tarayıcının yan panelinde açılır; bu yüzden uzantı yan panellerini destekleyen Chrome, Edge ya da Brave gibi bir Chromium tarayıcı gerekir. Opera gibi bu desteği olmayan tarayıcılarda açılmaz.",
+			},
+		],
+	},
+	cta: {
+		heading: "Kimin seni geri takip ettiğini tahmin etmeyi bırak",
+		text: "Unfolks'u yükle, Instagram'ı aç ve tüm tabloyu doğrudan tarayıcında gör. Ücretsiz; hesap yok, şifre yok.",
+	},
+	footer: {
+		blurb:
+			"Instagram'da seni geri takip etmeyenleri gösteren — ve bu konuda bir şey yapmanı sağlayan — ücretsiz bir Chrome uzantısı.",
+		product: "Ürün",
+		resources: "Kaynaklar",
+		chromeStore: "Chrome Web Mağazası",
+		privacy: "Gizlilik politikası",
+		contact: "İletişim",
+		rights: "Tüm hakları saklıdır.",
+		builtBy: "Geliştiren:",
+	},
+	promo: {
+		label: "Tanıtım",
+		close: "Tanıtımı kapat",
+		title: "Taş Kağıt Makas oyunumuzu dene",
+		text: "Bir arkadaşınla tartışmayı mı çözmen gerekiyor? Hızlı bir el oyna, kararı şans versin.",
+		play: "Hemen oyna",
+	},
+	blog: {
+		metaDescription:
+			"Instagram takipçilerini yönetme, takip listeni temizleme ve Unfolks'tan daha fazla yararlanma üzerine rehberler ve ipuçları.",
+		eyebrow: "Blog",
+		heading: "Instagram, tahmin yürütmeden",
+		intro:
+			"Takipçiler, takip bırakma ve hesabını sağlıklı tutma üzerine pratik yazılar.",
+		empty: "Henüz yazı yayınlanmadı — yakında tekrar uğra.",
+		readingTime: "{minutes} dk okuma",
+		allPosts: "Tüm yazılar",
+		ctaHeading: "Seni kimlerin geri takip etmediğini merak mı ediyorsun?",
+		ctaText:
+			"Unfolks bunu doğrudan tarayıcında gösterir. Ücretsiz, şifre gerekmez.",
+	},
+	notFound: {
+		title: "Bu sayfa bizi geri takip etmiyor",
+		text: "Aradığın sayfa yok ya da taşınmış.",
+		home: "Ana sayfaya dön",
+		blog: "Blogu oku",
+	},
+	privacy: {
+		title: "Gizlilik politikası",
+		metaDescription:
+			"Unfolks bilgilerini nasıl topluyor, kullanıyor ve koruyor.",
+		effective: "Yürürlük tarihi: {date}",
+	},
+};

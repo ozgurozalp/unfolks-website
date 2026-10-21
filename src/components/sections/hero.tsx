@@ -5,9 +5,15 @@ import { ChromeIcon } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/reveal";
 import { ExtensionPreview } from "@/components/sections/extension-preview";
-import { siteConfig, testimonials } from "@/lib/site";
+import { intlLocale } from "@/i18n/config";
+import { format } from "@/i18n/format";
+import { getDictionary, getLocale } from "@/i18n/server";
+import { siteConfig, testimonialPeople } from "@/lib/site";
 
-export function Hero() {
+export async function Hero() {
+	const [dict, locale] = await Promise.all([getDictionary(), getLocale()]);
+	const text = dict.hero;
+
 	return (
 		<section className="relative overflow-hidden">
 			{/* Ambient background */}
@@ -26,23 +32,21 @@ export function Hero() {
 						<Reveal>
 							<span className="inline-flex items-center gap-2 rounded-full border border-border bg-card/70 px-3.5 py-1.5 text-xs font-medium text-muted-foreground backdrop-blur">
 								<Sparkles className="size-3.5 text-brand-500" />
-								Free forever · No password required
+								{text.badge}
 							</span>
 						</Reveal>
 
 						<Reveal delay={80}>
 							<h1 className="mt-6 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl 2xl:text-7xl">
-								See who doesn&apos;t{" "}
-								<span className="text-gradient">follow you back</span> on
-								Instagram
+								{text.titleBefore}{" "}
+								<span className="text-gradient">{text.titleHighlight}</span>{" "}
+								{text.titleAfter}
 							</h1>
 						</Reveal>
 
 						<Reveal delay={160}>
 							<p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-muted-foreground lg:mx-0 lg:max-w-2xl 2xl:text-xl">
-								Unfolks compares your followers and following lists right inside
-								your browser, flags every account that never followed back, and
-								lets you unfollow them in bulk.
+								{text.intro}
 							</p>
 						</Reveal>
 
@@ -55,7 +59,7 @@ export function Hero() {
 										rel="noopener noreferrer"
 									>
 										<ChromeIcon />
-										Add to Chrome — it&apos;s free
+										{dict.nav.addToChromeFree}
 									</a>
 								</Button>
 								<Button
@@ -65,7 +69,7 @@ export function Hero() {
 									className="w-full sm:w-auto"
 								>
 									<a href="#how-it-works">
-										How it works
+										{text.howItWorks}
 										<ArrowRight />
 									</a>
 								</Button>
@@ -75,7 +79,7 @@ export function Hero() {
 						<Reveal delay={320}>
 							<div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:gap-4 lg:justify-start">
 								<div className="flex -space-x-2.5">
-									{testimonials.map((person) => (
+									{testimonialPeople.map((person) => (
 										<Image
 											key={person.author}
 											src={person.image}
@@ -100,9 +104,12 @@ export function Hero() {
 										))}
 									</div>
 									<p className="mt-1 text-sm text-muted-foreground">
-										{siteConfig.rating.value}/5 from{" "}
-										{siteConfig.rating.count.toLocaleString("en-US")}+ Instagram
-										users
+										{format(text.rating, {
+											value: siteConfig.rating.value,
+											count: siteConfig.rating.count.toLocaleString(
+												intlLocale[locale],
+											),
+										})}
 									</p>
 								</div>
 							</div>

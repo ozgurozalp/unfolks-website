@@ -21,8 +21,8 @@ const nextConfig: NextConfig = {
 	turbopack: { root: import.meta.dirname },
 	// The blog index enumerates src/posts from disk while prerendering.
 	outputFileTracingIncludes: {
-		"/blog": ["./src/posts/**/*"],
-		"/blog/[slug]": ["./src/posts/**/*"],
+		"/[lang]/blog": ["./src/posts/**/*"],
+		"/[lang]/blog/[slug]": ["./src/posts/**/*"],
 	},
 	async headers() {
 		return [

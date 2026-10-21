@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { X } from "lucide-react";
 
+import type { Dictionary } from "@/i18n/dictionaries/en";
+
 const COOKIE_NAME = "rps-promo-closed";
 const COOKIE_MAX_AGE_DAYS = 1;
 const APPEAR_DELAY_MS = 1200;
@@ -33,7 +35,7 @@ type Status = "hidden" | "visible" | "closing";
  * Entry and exit animate through CSS; the card is only unmounted once the
  * exit transition has finished.
  */
-export function PromoAd() {
+export function PromoAd({ text }: { text: Dictionary["promo"] }) {
 	const cardRef = useRef<HTMLElement>(null);
 	const [status, setStatus] = useState<Status>("hidden");
 
@@ -97,7 +99,7 @@ export function PromoAd() {
 			ref={cardRef}
 			popover="manual"
 			data-status={status}
-			aria-label="Promotion"
+			aria-label={text.label}
 			className="promo-card z-50 max-w-[calc(100vw-2rem)] md:max-w-xs"
 		>
 			<div className="relative overflow-hidden rounded-3xl border border-border bg-card p-5 text-card-foreground shadow-2xl shadow-black/10 dark:shadow-black/50">
@@ -109,7 +111,7 @@ export function PromoAd() {
 				<button
 					type="button"
 					onClick={handleClose}
-					aria-label="Close promotion"
+					aria-label={text.close}
 					className="absolute right-3 top-3 z-10 grid size-7 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
 				>
 					<X className="size-4" />
@@ -125,12 +127,9 @@ export function PromoAd() {
 						className="mt-0.5 size-10 shrink-0"
 					/>
 					<div className="min-w-0 pr-5">
-						<p className="text-sm font-semibold leading-snug">
-							Try our Rock Paper Scissors game
-						</p>
+						<p className="text-sm font-semibold leading-snug">{text.title}</p>
 						<p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-							Settling an argument with a friend? Play a quick round online and
-							let fate decide.
+							{text.text}
 						</p>
 					</div>
 				</div>
@@ -141,7 +140,7 @@ export function PromoAd() {
 					rel="noopener noreferrer"
 					className="relative mt-4 flex h-10 w-full items-center justify-center rounded-full bg-brand-gradient text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
 				>
-					Play now
+					{text.play}
 				</a>
 			</div>
 		</aside>

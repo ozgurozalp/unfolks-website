@@ -13,6 +13,7 @@ import {
 	UserX,
 } from "lucide-react";
 
+import { getDictionary } from "@/i18n/server";
 import { cn } from "@/lib/utils";
 
 interface Account {
@@ -43,14 +44,14 @@ const accounts: Account[] = [
 	{ name: "Daily Plants", handle: "daily.plants" },
 ];
 
-const chips = ["Verified", "Not verified", "Private", "No photo"] as const;
-
 /**
  * Recreation of the extension's side panel, used to show the product on the
  * landing page. It keeps the extension's own dark palette in both site themes
  * so it reads as a product shot. Decorative — hidden from assistive tech.
  */
-export function ExtensionPreview({ className }: { className?: string }) {
+export async function ExtensionPreview({ className }: { className?: string }) {
+	const { preview: text } = await getDictionary();
+
 	return (
 		<div
 			aria-hidden
@@ -83,7 +84,7 @@ export function ExtensionPreview({ className }: { className?: string }) {
 				<span className="inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-zinc-800 px-2.5 py-2 text-xs font-medium @[24rem]:px-3">
 					<RefreshCw className="size-3.5 shrink-0" />
 					<span className="hidden whitespace-nowrap @[24rem]:inline">
-						Refresh the list
+						{text.refresh}
 					</span>
 				</span>
 			</div>
@@ -93,12 +94,14 @@ export function ExtensionPreview({ className }: { className?: string }) {
 			<div className="space-y-2.5 px-4 pb-5 pt-3 @[21rem]:px-5">
 				{/* Last scan + data file */}
 				<div className="flex items-center justify-between gap-2 text-[0.7rem] text-zinc-400">
-					<span className="truncate">Last scan: 2 minutes ago</span>
+					<span className="truncate">{text.lastScan}</span>
 					<span className="inline-flex min-w-0 items-center gap-1">
 						<FileArchive className="size-3 shrink-0" />
-						<span className="whitespace-nowrap @[21rem]:hidden">Data file</span>
+						<span className="whitespace-nowrap @[21rem]:hidden">
+							{text.dataFileShort}
+						</span>
 						<span className="hidden whitespace-nowrap @[21rem]:inline">
-							Check with your data file
+							{text.dataFile}
 						</span>
 					</span>
 				</div>
@@ -106,12 +109,12 @@ export function ExtensionPreview({ className }: { className?: string }) {
 				{/* Search + sort */}
 				<div className="flex gap-2">
 					<div className="min-w-0 flex-1 truncate rounded-lg border border-zinc-800 px-3 py-2 text-xs text-zinc-500">
-						Search in accounts
+						{text.search}
 					</div>
 					<span className="inline-flex shrink-0 items-center gap-1 rounded-lg border border-zinc-800 px-2.5 py-2 text-[0.7rem]">
 						<ArrowDownUp className="size-3 shrink-0" />
 						<span className="hidden whitespace-nowrap @[21rem]:inline">
-							Recently followed
+							{text.sort}
 						</span>
 						<ChevronDown className="size-3 shrink-0 text-zinc-500" />
 					</span>
@@ -119,7 +122,7 @@ export function ExtensionPreview({ className }: { className?: string }) {
 
 				{/* Filter chips */}
 				<div className="flex flex-wrap gap-1.5">
-					{chips.map((chip) => (
+					{text.chips.map((chip) => (
 						<span
 							key={chip}
 							className="rounded-full border border-zinc-800 px-2.5 py-1 text-[0.68rem] text-zinc-400"
@@ -133,16 +136,16 @@ export function ExtensionPreview({ className }: { className?: string }) {
 				<div className="flex items-center gap-2 text-[0.7rem] text-zinc-400">
 					<span className="inline-flex items-center gap-1.5 whitespace-nowrap">
 						<ListChecks className="size-3.5" />
-						Select all
+						{text.selectAll}
 					</span>
 					<span className="ml-auto inline-flex items-center gap-1">
 						<Copy className="size-3" />
-						<span className="hidden @[21rem]:inline">Copy</span>
+						<span className="hidden @[21rem]:inline">{text.copy}</span>
 					</span>
 					<span className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-lg border border-zinc-800 px-2.5 py-1.5 font-medium text-zinc-100">
 						<UserX className="size-3.5" />
-						<span className="@[21rem]:hidden">Unfollow (20)</span>
-						<span className="hidden @[21rem]:inline">Unfollow all (20)</span>
+						<span className="@[21rem]:hidden">{text.unfollowAllShort}</span>
+						<span className="hidden @[21rem]:inline">{text.unfollowAll}</span>
 					</span>
 				</div>
 
@@ -182,7 +185,9 @@ export function ExtensionPreview({ className }: { className?: string }) {
 							<EyeOff className="size-4 shrink-0 text-zinc-500" />
 							<span className="grid shrink-0 place-items-center rounded-lg border border-zinc-800 p-1.5 text-[0.7rem] font-medium @[21rem]:px-2.5">
 								<UserMinus className="size-3.5 @[21rem]:hidden" />
-								<span className="hidden @[21rem]:inline">Unfollow</span>
+								<span className="hidden whitespace-nowrap @[21rem]:inline">
+									{text.unfollow}
+								</span>
 							</span>
 						</li>
 					))}
