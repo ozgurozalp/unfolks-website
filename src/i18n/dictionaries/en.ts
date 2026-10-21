@@ -191,6 +191,7 @@ export const en = {
 		contact: "Contact",
 		rights: "All rights reserved.",
 		builtBy: "Built by",
+		compare: "Unfolks vs Cobanov",
 	},
 	promo: {
 		label: "Promotion",
@@ -212,6 +213,118 @@ export const en = {
 		ctaHeading: "Curious who doesn't follow you back?",
 		ctaText:
 			"Unfolks shows you right in your browser. Free, no password needed.",
+	},
+	compare: {
+		metaTitle:
+			"Cobanov Instagram Unfollowers alternative: Unfolks vs console scripts",
+		metaDescription:
+			"How Unfolks compares with Cobanov Instagram Unfollowers and other console scripts: how each one runs, what they share, and where a Chrome extension is easier and safer.",
+		eyebrow: "Comparison",
+		title: "Unfolks vs Cobanov Instagram Unfollowers",
+		intro:
+			"Cobanov Instagram Unfollowers and similar console scripts, such as InstagramUnfollowers, find who doesn't follow you back by running code you paste into the browser console. Unfolks does the same job as a Chrome extension. Here is how they compare.",
+		checked: "Checked on {date} against version {version} of the script.",
+		tableCaption: "Unfolks compared with a console script",
+		colFeature: "Feature",
+		colScript: "Console script",
+		rows: [
+			{
+				label: "How you start it",
+				unfolks: "Install once, then click the icon",
+				script: "Copy the code, open the console and paste it, every visit",
+			},
+			{
+				label: "Updates",
+				unfolks: "Automatic, through the Chrome Web Store",
+				script: "Copy the newest code yourself",
+			},
+			{
+				label: "Where it shows",
+				unfolks: "The browser's side panel, next to Instagram",
+				script: "A box drawn on top of the Instagram page",
+			},
+			{
+				label: "Check without sending Instagram requests",
+				unfolks: "Yes, with your data file",
+				script: "No",
+			},
+			{
+				label: "Warns when someone may have unfollowed you",
+				unfolks: "Yes, after each refresh",
+				script: "No",
+			},
+			{
+				label: "Filters, hide list, copy usernames",
+				unfolks: "Yes",
+				script: "Yes",
+			},
+			{
+				label: "Resume a stopped scan",
+				unfolks: "Yes",
+				script: "Yes",
+			},
+			{
+				label: "Password needed",
+				unfolks: "No",
+				script: "No",
+			},
+			{
+				label: "Price",
+				unfolks: "Free and open source",
+				script: "Free and open source",
+			},
+		],
+		sharedTitle: "What they have in common",
+		sharedText:
+			"Both are free, never ask for your Instagram password, and keep your lists in your browser. Both wait between unfollows, let you hide the accounts you want to keep, and can pick up a scan that Instagram stopped.",
+		diffTitle: "Where they differ",
+		diffs: [
+			{
+				title: "No code in the console",
+				text: "A console script only runs after you paste it into the browser's developer console. Instagram shows a warning there telling people not to paste code, because scammers use the same trick to take over accounts. The scripts on this page are open source and do what they say, but pasting code on every visit is an easy habit to exploit. Unfolks is installed once from the Chrome Web Store, which reviews extensions before publishing them.",
+			},
+			{
+				title: "Always the current version",
+				text: "When Instagram changes something, a script keeps working only if you copy the fixed code again. Unfolks updates itself in the background.",
+			},
+			{
+				title: "A panel that stays out of the way",
+				text: "Unfolks opens in the side panel, so Instagram stays usable next to your list. The scan keeps running if you close the panel, as long as the Instagram tab stays open.",
+			},
+			{
+				title: "A no-risk check",
+				text: "Drop the file from Instagram's \"Download your information\" into Unfolks and see who doesn't follow you back without sending Instagram a single request.",
+			},
+		],
+		fairTitle: "When a script makes sense",
+		fairText:
+			"If you can't install extensions, for example on a managed work computer, or you only want to check once, a console script needs no installation. Read the code before you paste it.",
+		switchTitle: "Switching takes a minute",
+		switchSteps: [
+			"Add Unfolks from the Chrome Web Store.",
+			"Open Instagram and click the Unfolks icon.",
+			"Click Show unfollowers. You don't need the script any more.",
+		],
+		faqTitle: "Questions",
+		faq: [
+			{
+				question: "Is Unfolks made by Cobanov?",
+				answer:
+					"No. Unfolks is built by Özgür Özalp and isn't affiliated with Cobanov Instagram Unfollowers or InstagramUnfollowers.",
+			},
+			{
+				question: "Is it safe to paste a script into the console?",
+				answer:
+					"Only if you have read the code and trust it. Instagram warns against it because scammers ask people to paste code that takes over their account. An extension from the Chrome Web Store skips that step.",
+			},
+			{
+				question: "Do I lose anything by switching?",
+				answer:
+					"No. Neither tool keeps your lists on a server, so there is nothing to move. Install Unfolks and run a scan.",
+			},
+		],
+		disclaimer:
+			"Cobanov Instagram Unfollowers and InstagramUnfollowers belong to their authors, and Unfolks isn't affiliated with them. This page describes their public versions on {date}; they may have changed since.",
 	},
 	notFound: {
 		title: "This page doesn't follow us back",

@@ -190,6 +190,7 @@ export const tr: Dictionary = {
 		contact: "İletişim",
 		rights: "Tüm hakları saklıdır.",
 		builtBy: "Geliştiren:",
+		compare: "Unfolks ve Cobanov",
 	},
 	promo: {
 		label: "Tanıtım",
@@ -211,6 +212,118 @@ export const tr: Dictionary = {
 		ctaHeading: "Seni kimlerin geri takip etmediğini merak mı ediyorsun?",
 		ctaText:
 			"Unfolks bunu doğrudan tarayıcında gösterir. Ücretsiz, şifre gerekmez.",
+	},
+	compare: {
+		metaTitle:
+			"Cobanov Instagram Unfollowers alternatifi: Unfolks ve konsol scriptleri",
+		metaDescription:
+			"Unfolks'un Cobanov Instagram Unfollowers ve diğer konsol scriptleriyle karşılaştırması: nasıl çalıştıkları, ortak yönleri ve bir Chrome uzantısının nerede daha kolay ve güvenli olduğu.",
+		eyebrow: "Karşılaştırma",
+		title: "Unfolks ve Cobanov Instagram Unfollowers",
+		intro:
+			"Cobanov Instagram Unfollowers ve InstagramUnfollowers gibi konsol scriptleri, tarayıcı konsoluna yapıştırdığın kodu çalıştırarak seni geri takip etmeyenleri bulur. Unfolks aynı işi bir Chrome uzantısı olarak yapar. İşte karşılaştırması.",
+		checked: "{date} tarihinde, scriptin {version} sürümüyle karşılaştırıldı.",
+		tableCaption: "Unfolks ile bir konsol scriptinin karşılaştırması",
+		colFeature: "Özellik",
+		colScript: "Konsol scripti",
+		rows: [
+			{
+				label: "Nasıl başlatılır",
+				unfolks: "Bir kez yükle, sonra simgeye tıkla",
+				script: "Her seferinde kodu kopyala, konsolu aç ve yapıştır",
+			},
+			{
+				label: "Güncellemeler",
+				unfolks: "Chrome Web Mağazası üzerinden otomatik",
+				script: "En yeni kodu kendin kopyalarsın",
+			},
+			{
+				label: "Nerede görünür",
+				unfolks: "Tarayıcının yan panelinde, Instagram'ın yanında",
+				script: "Instagram sayfasının üstüne çizilen bir kutuda",
+			},
+			{
+				label: "Instagram'a istek göndermeden kontrol",
+				unfolks: "Var, veri dosyanla",
+				script: "Yok",
+			},
+			{
+				label: "Seni takipten çıkmış olabilecekleri bildirir",
+				unfolks: "Evet, her yenilemeden sonra",
+				script: "Hayır",
+			},
+			{
+				label: "Filtreler, gizleme, kullanıcı adı kopyalama",
+				unfolks: "Var",
+				script: "Var",
+			},
+			{
+				label: "Yarıda kalan taramaya devam",
+				unfolks: "Var",
+				script: "Var",
+			},
+			{
+				label: "Şifre gerekir mi",
+				unfolks: "Hayır",
+				script: "Hayır",
+			},
+			{
+				label: "Ücret",
+				unfolks: "Ücretsiz ve açık kaynak",
+				script: "Ücretsiz ve açık kaynak",
+			},
+		],
+		sharedTitle: "Ortak yönleri",
+		sharedText:
+			"İkisi de ücretsiz, Instagram şifreni asla istemez ve listelerini tarayıcında tutar. İkisi de takip bırakmalar arasında bekler, tutmak istediğin hesapları gizlemeni sağlar ve Instagram'ın durdurduğu bir taramaya kaldığı yerden devam edebilir.",
+		diffTitle: "Farkları",
+		diffs: [
+			{
+				title: "Konsola kod yok",
+				text: "Bir konsol scripti ancak tarayıcının geliştirici konsoluna yapıştırıldığında çalışır. Instagram orada insanları kod yapıştırmamaları için uyarır, çünkü dolandırıcılar hesapları ele geçirmek için aynı yolu kullanır. Bu sayfadaki scriptler açık kaynak ve söylediklerini yapıyor; ama her girişte kod yapıştırmak kolayca istismar edilebilecek bir alışkanlık. Unfolks ise Chrome Web Mağazası'ndan bir kez yüklenir; mağaza uzantıları yayınlamadan önce inceler.",
+			},
+			{
+				title: "Her zaman güncel sürüm",
+				text: "Instagram bir şeyi değiştirdiğinde script, ancak düzeltilmiş kodu yeniden kopyalarsan çalışmaya devam eder. Unfolks kendini arka planda günceller.",
+			},
+			{
+				title: "Yolunda durmayan bir panel",
+				text: "Unfolks yan panelde açılır; listen yanındayken Instagram'ı kullanmaya devam edebilirsin. Instagram sekmesi açık kaldığı sürece paneli kapatsan da tarama sürer.",
+			},
+			{
+				title: "Risksiz kontrol",
+				text: "Instagram'ın \"Bilgilerini indir\" dosyasını Unfolks'a bırak; Instagram'a tek bir istek göndermeden seni geri takip etmeyenleri gör.",
+			},
+		],
+		fairTitle: "Script ne zaman mantıklı",
+		fairText:
+			"Uzantı yükleyemiyorsan, örneğin yönetilen bir iş bilgisayarındaysan, ya da yalnızca bir kez bakmak istiyorsan konsol scripti kurulum gerektirmez. Yapıştırmadan önce kodu oku.",
+		switchTitle: "Geçmek bir dakika sürer",
+		switchSteps: [
+			"Unfolks'u Chrome Web Mağazası'ndan ekle.",
+			"Instagram'ı aç ve Unfolks simgesine tıkla.",
+			"Takip etmeyenleri göster'e tıkla. Scripte artık gerek yok.",
+		],
+		faqTitle: "Sorular",
+		faq: [
+			{
+				question: "Unfolks'u Cobanov mu yapıyor?",
+				answer:
+					"Hayır. Unfolks'u Özgür Özalp geliştiriyor; Cobanov Instagram Unfollowers ya da InstagramUnfollowers ile bir bağlantısı yok.",
+			},
+			{
+				question: "Konsola script yapıştırmak güvenli mi?",
+				answer:
+					"Yalnızca kodu okuduysan ve ona güveniyorsan. Instagram buna karşı uyarır, çünkü dolandırıcılar insanlardan hesaplarını ele geçiren kodlar yapıştırmalarını ister. Chrome Web Mağazası'ndan bir uzantı bu adımı ortadan kaldırır.",
+			},
+			{
+				question: "Geçince bir şey kaybeder miyim?",
+				answer:
+					"Hayır. İki araç da listelerini bir sunucuda tutmaz, yani taşınacak bir şey yok. Unfolks'u yükle ve bir tarama yap.",
+			},
+		],
+		disclaimer:
+			"Cobanov Instagram Unfollowers ve InstagramUnfollowers kendi geliştiricilerine aittir; Unfolks'un onlarla bir bağlantısı yoktur. Bu sayfa, {date} tarihindeki herkese açık sürümlerini anlatır; o zamandan beri değişmiş olabilirler.",
 	},
 	notFound: {
 		title: "Bu sayfa bizi geri takip etmiyor",

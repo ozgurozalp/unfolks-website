@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { Logo } from "@/components/logo";
 import { getDictionary } from "@/i18n/server";
-import { siteConfig } from "@/lib/site";
+import { comparePage, siteConfig } from "@/lib/site";
 
 export async function SiteFooter() {
 	const dict = await getDictionary();
@@ -18,6 +18,7 @@ export async function SiteFooter() {
 	];
 	const resourceLinks = [
 		{ href: "/blog", label: dict.nav.blog },
+		{ href: comparePage.path, label: dict.footer.compare },
 		{ href: "/privacy-policy", label: dict.footer.privacy },
 		{
 			href: `mailto:${siteConfig.author.email}`,

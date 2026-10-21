@@ -48,3 +48,11 @@ export const testimonialPeople = [
 	{ author: "Vito Konuk", image: "/vito.jpg" },
 	{ author: "Batsy Habis", image: "/batsy.jpg" },
 ] as const;
+
+/** The comparison page for people searching for the Cobanov console script. */
+export const comparePage = {
+	path: "/alternatives/cobanov-instagram-unfollowers",
+	/** When the competitor was last checked, and which version. */
+	checkedOn: new Date(Date.UTC(2026, 9, 21)),
+	scriptVersion: "2.4.1",
+} as const;

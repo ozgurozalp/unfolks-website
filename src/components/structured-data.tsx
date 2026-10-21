@@ -46,15 +46,21 @@ export async function SoftwareApplicationJsonLd() {
 	);
 }
 
-export async function FaqJsonLd() {
-	const { faq } = await getDictionary();
+interface FaqItem {
+	question: string;
+	answer: string;
+}
+
+/** FAQ rich results. Defaults to the home page FAQ. */
+export async function FaqJsonLd({ items }: { items?: readonly FaqItem[] }) {
+	const questions = items ?? (await getDictionary()).faq.items;
 
 	return (
 		<JsonLd
 			data={{
 				"@context": "https://schema.org",
 				"@type": "FAQPage",
-				mainEntity: faq.items.map((item) => ({
+				mainEntity: questions.map((item) => ({
 					"@type": "Question",
 					name: item.question,
 					acceptedAnswer: { "@type": "Answer", text: item.answer },
