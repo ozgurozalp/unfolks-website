@@ -13,6 +13,20 @@ interface NumberTickerProps extends ComponentPropsWithoutRef<"span"> {
   decimalPlaces?: number
   /** BCP 47 locale for digit grouping, such as "tr-TR". */
   locale?: string
+  /**
+   * Text around the number, such as "%" or "+". It lives in the same text
+   * node so a gradient fill (background-clip: text) covers it all; Safari
+   * does not paint such a fill into a nested inline-block.
+   */
+  prefix?: string
+  suffix?: string
+}
+
+function formatNumber(value: number, locale: string, decimalPlaces: number) {
+  return Intl.NumberFormat(locale, {
+    minimumFractionDigits: decimalPlaces,
+    maximumFractionDigits: decimalPlaces,
+  }).format(Number(value.toFixed(decimalPlaces)))
 }
 
 export function NumberTicker({
@@ -23,6 +37,8 @@ export function NumberTicker({
   className,
   decimalPlaces = 0,
   locale = "en-US",
+  prefix = "",
+  suffix = "",
   ...props
 }: NumberTickerProps) {
   const ref = useRef<HTMLSpanElement>(null)
@@ -53,25 +69,25 @@ export function NumberTicker({
     () =>
       springValue.on("change", (latest) => {
         if (ref.current) {
-          ref.current.textContent = Intl.NumberFormat(locale, {
-            minimumFractionDigits: decimalPlaces,
-            maximumFractionDigits: decimalPlaces,
-          }).format(Number(latest.toFixed(decimalPlaces)))
+          ref.current.textContent = `${prefix}${formatNumber(latest, locale, decimalPlaces)}${suffix}`
         }
       }),
-    [springValue, decimalPlaces, locale]
+    [springValue, decimalPlaces, locale, prefix, suffix]
   )
 
   return (
     <span
       ref={ref}
       className={cn(
-        "inline-block tracking-wider text-black tabular-nums dark:text-white",
+        // No colour of its own: callers set it, e.g. a gradient fill.
+        "inline-block tracking-wider tabular-nums",
         className
       )}
       {...props}
     >
-      {startValue}
+      {prefix}
+      {formatNumber(direction === "down" ? value : startValue, locale, decimalPlaces)}
+      {suffix}
     </span>
   )
 }

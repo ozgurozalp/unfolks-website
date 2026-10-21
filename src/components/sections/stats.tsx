@@ -35,15 +35,16 @@ export async function Stats() {
 								</dt>
 								<dd className="text-4xl font-bold tracking-tight sm:text-5xl">
 									<span className="sr-only">{final}</span>
-									<span aria-hidden className="text-gradient">
-										{item.prefix}
-										<NumberTicker
-											value={item.value}
-											locale={numberLocale}
-											className="tracking-tight text-inherit dark:text-inherit"
-										/>
-										{item.suffix}
-									</span>
+									{/* The gradient sits on the ticker itself: Safari does not
+									    paint a parent's background-clip: text into it. */}
+									<NumberTicker
+										aria-hidden
+										value={item.value}
+										prefix={item.prefix}
+										suffix={item.suffix}
+										locale={numberLocale}
+										className="text-gradient tracking-tight"
+									/>
 								</dd>
 							</div>
 						);
