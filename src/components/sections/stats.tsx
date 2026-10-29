@@ -1,6 +1,7 @@
 import { NumberTicker } from "@/components/ui/number-ticker";
 import { intlLocale } from "@/i18n/config";
 import { getDictionary, getLocale } from "@/i18n/server";
+import { statFigures, type StatKey } from "@/lib/site";
 
 /**
  * Four headline numbers in a hairline-framed band (after the 7ovr "Stats 1"
@@ -19,8 +20,12 @@ export async function Stats() {
 				</h2>
 				<dl className="grid grid-cols-2 overflow-hidden rounded-3xl border border-border bg-card lg:grid-cols-4">
 					{stats.items.map((item, index) => {
-						const decimalPlaces = Number.isInteger(item.value) ? 0 : 1;
-						const final = `${item.prefix}${item.value.toLocaleString(numberLocale, { minimumFractionDigits: decimalPlaces, maximumFractionDigits: decimalPlaces })}${item.suffix}`;
+						const figure = statFigures[item.key as StatKey];
+						const formatted = figure.value.toLocaleString(numberLocale, {
+							minimumFractionDigits: figure.decimals,
+							maximumFractionDigits: figure.decimals,
+						});
+						const final = `${item.prefix}${formatted}${item.suffix}`;
 						return (
 							<div
 								key={item.label}
@@ -40,8 +45,8 @@ export async function Stats() {
 									    paint a parent's background-clip: text into it. */}
 									<NumberTicker
 										aria-hidden
-										value={item.value}
-										decimalPlaces={Number.isInteger(item.value) ? 0 : 1}
+										value={figure.value}
+										decimalPlaces={figure.decimals}
 										prefix={item.prefix}
 										suffix={item.suffix}
 										locale={numberLocale}

@@ -1,5 +1,6 @@
-import { getDictionary } from "@/i18n/server";
-import { siteConfig } from "@/lib/site";
+import { getDictionary, getLocale } from "@/i18n/server";
+import { absoluteUrl, localizedPath } from "@/i18n/urls";
+import { chromeStore, siteConfig } from "@/lib/site";
 
 function JsonLd({ data }: { data: Record<string, unknown> }) {
 	return (
@@ -12,7 +13,7 @@ function JsonLd({ data }: { data: Record<string, unknown> }) {
 }
 
 export async function SoftwareApplicationJsonLd() {
-	const dict = await getDictionary();
+	const [dict, locale] = await Promise.all([getDictionary(), getLocale()]);
 
 	return (
 		<JsonLd
@@ -21,7 +22,8 @@ export async function SoftwareApplicationJsonLd() {
 				"@type": "SoftwareApplication",
 				name: siteConfig.name,
 				description: dict.meta.description,
-				url: siteConfig.url,
+				url: absoluteUrl(localizedPath(locale, "/")),
+				inLanguage: locale,
 				applicationCategory: "BrowserApplication",
 				operatingSystem: "Chrome, Edge, Brave",
 				downloadUrl: siteConfig.chromeStoreUrl,
@@ -32,9 +34,10 @@ export async function SoftwareApplicationJsonLd() {
 				},
 				aggregateRating: {
 					"@type": "AggregateRating",
-					ratingValue: siteConfig.chromeStore.ratingValue,
-					ratingCount: siteConfig.chromeStore.ratingCount,
+					ratingValue: chromeStore.ratingValue,
+					ratingCount: chromeStore.ratingCount,
 					bestRating: 5,
+					worstRating: 1,
 				},
 				author: {
 					"@type": "Person",
@@ -94,12 +97,8 @@ export function ArticleJsonLd({
 				description,
 				datePublished,
 				inLanguage,
-				mainEntityOfPage: {
-					"@type": "WebPage",
-					"@id": url,
-				},
+				mainEntityOfPage: { "@type": "WebPage", "@id": url },
 				url,
-				image: `${siteConfig.url}/opengraph-image.png`,
 				author: {
 					"@type": "Person",
 					name: siteConfig.author.name,
@@ -109,10 +108,6 @@ export function ArticleJsonLd({
 					"@type": "Organization",
 					name: siteConfig.name,
 					url: siteConfig.url,
-					logo: {
-						"@type": "ImageObject",
-						url: `${siteConfig.url}/logo.png`,
-					},
 				},
 			}}
 		/>

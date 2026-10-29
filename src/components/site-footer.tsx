@@ -4,16 +4,17 @@ import { Mail } from "lucide-react";
 import { GitHubIcon } from "@/components/icons";
 
 import { Logo } from "@/components/logo";
-import { localePath } from "@/i18n/paths";
 import { getDictionary, getLocale } from "@/i18n/server";
+import { localizedPath } from "@/i18n/urls";
 import { comparePage, siteConfig } from "@/lib/site";
 
 export async function SiteFooter() {
 	const [dict, locale] = await Promise.all([getDictionary(), getLocale()]);
+	const href = (path: string) => localizedPath(locale, path);
 	const productLinks = [
-		{ href: localePath(locale, "/#features"), label: dict.nav.features },
-		{ href: localePath(locale, "/#how-it-works"), label: dict.nav.howItWorks },
-		{ href: localePath(locale, "/#faq"), label: dict.nav.faq },
+		{ href: href("/#features"), label: dict.nav.features },
+		{ href: href("/#how-it-works"), label: dict.nav.howItWorks },
+		{ href: href("/#faq"), label: dict.nav.faq },
 		{
 			href: siteConfig.chromeStoreUrl,
 			label: dict.footer.chromeStore,
@@ -21,9 +22,9 @@ export async function SiteFooter() {
 		},
 	];
 	const resourceLinks = [
-		{ href: localePath(locale, "/blog"), label: dict.nav.blog },
-		{ href: localePath(locale, comparePage.path), label: dict.footer.compare },
-		{ href: localePath(locale, "/privacy-policy"), label: dict.footer.privacy },
+		{ href: href("/blog"), label: dict.nav.blog },
+		{ href: href(comparePage.path), label: dict.footer.compare },
+		{ href: href("/privacy-policy"), label: dict.footer.privacy },
 		{
 			href: `mailto:${siteConfig.author.email}`,
 			label: dict.footer.contact,
@@ -36,10 +37,7 @@ export async function SiteFooter() {
 			<div className="container-page py-14">
 				<div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
 					<div className="lg:col-span-2">
-						<Link
-							href={localePath(locale, "/")}
-							className="inline-flex items-center gap-2"
-						>
+						<Link href={href("/")} className="inline-flex items-center gap-2">
 							<Logo className="h-8" />
 							<span className="text-lg font-semibold tracking-tight">
 								{siteConfig.name}

@@ -1,8 +1,8 @@
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
-import { localePath } from "@/i18n/paths";
 import { getDictionary, getLocale } from "@/i18n/server";
+import { localizedPath } from "@/i18n/urls";
 
 export default async function NotFound() {
 	const [dict, locale] = await Promise.all([getDictionary(), getLocale()]);
@@ -16,10 +16,12 @@ export default async function NotFound() {
 			<p className="mt-3 text-muted-foreground">{dict.notFound.text}</p>
 			<div className="mt-8 flex flex-wrap justify-center gap-3">
 				<Button asChild>
-					<Link href={localePath(locale, "/")}>{dict.notFound.home}</Link>
+					<Link href={localizedPath(locale, "/")}>{dict.notFound.home}</Link>
 				</Button>
 				<Button asChild variant="outline">
-					<Link href={localePath(locale, "/blog")}>{dict.notFound.blog}</Link>
+					<Link href={localizedPath(locale, "/blog")}>
+						{dict.notFound.blog}
+					</Link>
 				</Button>
 			</div>
 		</div>

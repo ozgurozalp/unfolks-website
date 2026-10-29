@@ -5,10 +5,21 @@
  */
 export const en = {
 	meta: {
+		title: "Unfolks – See Who Doesn't Follow You Back on Instagram (Free)",
 		tagline: "Find who doesn't follow you back on Instagram",
 		description:
-			"Unfolks is a free Chrome extension that shows exactly who doesn't follow you back on Instagram. Filter non-followers, review them, and unfollow them at a safe pace — no password, no login, and your lists never leave your browser.",
+			"See who doesn't follow you back on Instagram with Unfolks, a free Chrome extension. No password. Review non-followers and unfollow them in bulk at a safe pace.",
 		skipToContent: "Skip to content",
+		keywords: [
+			"Instagram",
+			"who doesn't follow me back",
+			"unfollow",
+			"non-followers",
+			"ghost followers",
+			"Chrome extension",
+			"bulk unfollow",
+			"Unfolks",
+		],
 	},
 	nav: {
 		features: "Features",
@@ -22,6 +33,7 @@ export const en = {
 		openMenu: "Open menu",
 		closeMenu: "Close menu",
 		toggleTheme: "Toggle colour theme",
+		languageLabel: "Language",
 	},
 	hero: {
 		badge: "Free forever · No password required",
@@ -31,7 +43,7 @@ export const en = {
 		intro:
 			"Unfolks compares your followers and following lists right inside your browser, flags every account that never followed back, and lets you unfollow them in bulk.",
 		howItWorks: "How it works",
-		rating: "{rating}/5 from {ratings} ratings",
+		rating: "{value}/5 · {users}+ users",
 	},
 	preview: {
 		refresh: "Refresh the list",
@@ -50,11 +62,16 @@ export const en = {
 	stats: {
 		heading: "Unfolks in numbers",
 		items: [
-			{ value: 20000, prefix: "", suffix: "", label: "Instagram users" },
-			{ value: 4.3, prefix: "", suffix: "/5", label: "Average rating" },
-			{ value: 0, prefix: "", suffix: "", label: "Passwords asked for" },
+			{ key: "users", prefix: "", suffix: "+", label: "Instagram users" },
+			{ key: "rating", prefix: "", suffix: "/5", label: "Average rating" },
 			{
-				value: 100,
+				key: "passwords",
+				prefix: "",
+				suffix: "",
+				label: "Passwords asked for",
+			},
+			{
+				key: "local",
 				prefix: "",
 				suffix: "%",
 				label: "Of your lists stay on your computer",
@@ -128,7 +145,7 @@ export const en = {
 	},
 	testimonials: {
 		heading: "Loved by Instagram users",
-		intro: "{count} people use Unfolks to keep their following list honest.",
+		intro: "{count}+ people use Unfolks to keep their following list honest.",
 		items: [
 			{
 				quote:

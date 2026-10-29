@@ -1,23 +1,23 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 
 import { ChromeIcon } from "@/components/icons";
 
 import { Button } from "@/components/ui/button";
 import { ArticleJsonLd } from "@/components/structured-data";
-import { intlLocale, isLocale } from "@/i18n/config";
+import { intlLocale, type Locale } from "@/i18n/config";
 import { format } from "@/i18n/format";
 import {
-	absoluteUrl,
-	localePath,
-	postAlternates,
-	postPath,
-} from "@/i18n/paths";
+	localizedPageMeta,
+	singleLanguageAlternates,
+	translatedPostAlternates,
+} from "@/i18n/seo";
 import { getDictionary, getLocale } from "@/i18n/server";
-import { getPost, getPostsFor } from "@/lib/posts";
-import { siteConfig, socialImages } from "@/lib/site";
+import { absoluteUrl, localizedPath } from "@/i18n/urls";
+import { getAllPosts, getPost, type Post } from "@/lib/posts";
+import { siteConfig } from "@/lib/site";
 import { formatDate } from "@/lib/utils";
 
 /** Link text to a post's other language, written in that language. */
@@ -27,56 +27,76 @@ interface Props {
 	params: Promise<{ slug: string }>;
 }
 
-export async function generateStaticParams({
-	params,
-}: {
-	params: { lang: string };
-}) {
-	if (!isLocale(params.lang)) return [];
-	const posts = await getPostsFor(params.lang);
+export async function generateStaticParams() {
+	const posts = await getAllPosts();
 	return posts.map((post) => ({ slug: post.slug }));
 }
 
 export const dynamicParams = false;
 
+/** Send a post opened under the wrong locale to its own language, or the blog index. */
+async function redirectMismatchedLocale(post: Post, locale: Locale) {
+	if (post.frontmatter.lang === locale) return;
+
+	const translation = post.frontmatter.translation;
+	if (translation) {
+		const other = await getPost(translation);
+		if (other?.frontmatter.lang === locale) {
+			permanentRedirect(localizedPath(locale, `/blog/${other.slug}`));
+		}
+	}
+
+	permanentRedirect(localizedPath(locale, "/blog"));
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-	const post = await getPost((await params).slug);
+	const [post, locale] = await Promise.all([
+		getPost((await params).slug),
+		getLocale(),
+	]);
 
 	if (!post) {
 		return {};
 	}
 
-	const { title, summary, date, lang, translation } = post.frontmatter;
-	const { canonical, languages } = postAlternates({
-		slug: post.slug,
+	const {
+		title,
+		summary = "",
+		date,
 		lang,
 		translation,
+		tags,
+	} = post.frontmatter;
+	let alternates = singleLanguageAlternates(lang, `/blog/${post.slug}`);
+	if (translation) {
+		const other = await getPost(translation);
+		if (other && other.frontmatter.lang !== lang) {
+			alternates = translatedPostAlternates(lang, post.slug, {
+				locale: other.frontmatter.lang,
+				slug: other.slug,
+			});
+		}
+	}
+
+	const metadata = localizedPageMeta({
+		locale: lang,
+		path: `/blog/${post.slug}`,
+		documentTitle: title,
+		title: `${title} — ${siteConfig.name}`,
+		description: summary,
+		alternates,
+		article: {
+			publishedTime: date.toISOString(),
+			tags: [...tags],
+		},
 	});
 
-	return {
-		title,
-		description: summary,
-		alternates: { canonical, languages },
-		openGraph: {
-			type: "article",
-			locale: intlLocale[lang].replace("-", "_"),
-			alternateLocale: translation
-				? [intlLocale[lang === "en" ? "tr" : "en"].replace("-", "_")]
-				: undefined,
-			title,
-			description: summary,
-			url: canonical,
-			publishedTime: date.toISOString(),
-			tags: [...post.frontmatter.tags],
-			images: socialImages.openGraph,
-		},
-		twitter: {
-			card: "summary_large_image",
-			title,
-			description: summary,
-			images: socialImages.twitter,
-		},
-	};
+	// The alias URL redirects. If that HTML is ever served, don't index it.
+	if (locale !== lang) {
+		metadata.robots = { index: false, follow: true };
+	}
+
+	return metadata;
 }
 
 export default async function BlogPostPage({ params }: Props) {
@@ -86,19 +106,11 @@ export default async function BlogPostPage({ params }: Props) {
 		notFound();
 	}
 
-	const { Content, frontmatter, readingMinutes } = post;
 	const [dict, locale] = await Promise.all([getDictionary(), getLocale()]);
-	const visible = await getPostsFor(locale);
-	if (!visible.some((item) => item.slug === post.slug)) {
-		notFound();
-	}
+	await redirectMismatchedLocale(post, locale);
 
+	const { Content, frontmatter, readingMinutes } = post;
 	const otherLang = frontmatter.lang === "en" ? "tr" : "en";
-	const { canonical } = postAlternates({
-		slug: post.slug,
-		lang: frontmatter.lang,
-		translation: frontmatter.translation,
-	});
 
 	return (
 		<article lang={frontmatter.lang} className="px-4 py-14 sm:px-6 sm:py-20">
@@ -106,14 +118,14 @@ export default async function BlogPostPage({ params }: Props) {
 				title={frontmatter.title}
 				description={frontmatter.summary}
 				datePublished={frontmatter.date.toISOString()}
-				url={absoluteUrl(canonical)}
 				inLanguage={intlLocale[frontmatter.lang]}
+				url={absoluteUrl(localizedPath(frontmatter.lang, `/blog/${post.slug}`))}
 			/>
 
 			<header className="mx-auto max-w-3xl">
 				<div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
 					<Link
-						href={localePath(locale, "/blog")}
+						href={localizedPath(locale, "/blog")}
 						className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
 					>
 						<ArrowLeft className="size-4" />
@@ -121,7 +133,10 @@ export default async function BlogPostPage({ params }: Props) {
 					</Link>
 					{frontmatter.translation && (
 						<Link
-							href={postPath(otherLang, frontmatter.translation)}
+							href={localizedPath(
+								otherLang,
+								`/blog/${frontmatter.translation}`,
+							)}
 							hrefLang={otherLang}
 							lang={otherLang}
 							className="text-sm font-medium text-brand-600 underline-offset-4 hover:underline dark:text-brand-400"

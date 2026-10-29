@@ -4,7 +4,7 @@ import Link from "next/link";
 import type { ComponentPropsWithoutRef } from "react";
 
 import { useLocale } from "@/components/locale-provider";
-import { localePath } from "@/i18n/paths";
+import { localizedPath } from "@/i18n/urls";
 
 /** Markdown links follow the page locale, so Turkish articles stay under `/tr`. */
 export function MdxLink({
@@ -23,5 +23,5 @@ export function MdxLink({
 		);
 	}
 
-	return <Link href={localePath(locale, href)} {...props} />;
+	return <Link href={localizedPath(locale, href)} {...props} />;
 }

@@ -4,34 +4,22 @@ import { ArrowUpRight } from "lucide-react";
 
 import { intlLocale } from "@/i18n/config";
 import { format } from "@/i18n/format";
-import { alternatesFor, postPath } from "@/i18n/paths";
+import { localizedPageMeta } from "@/i18n/seo";
 import { getDictionary, getLocale } from "@/i18n/server";
+import { localizedPath } from "@/i18n/urls";
 import { getPostsFor } from "@/lib/posts";
-import { socialImages } from "@/lib/site";
+import { siteConfig } from "@/lib/site";
 import { formatDate } from "@/lib/utils";
 
 export async function generateMetadata(): Promise<Metadata> {
 	const [{ blog }, locale] = await Promise.all([getDictionary(), getLocale()]);
-	const { canonical, languages } = alternatesFor(locale, "/blog");
-	return {
-		title: blog.eyebrow,
+	return localizedPageMeta({
+		locale,
+		path: "/blog",
+		documentTitle: blog.eyebrow,
+		title: `${blog.eyebrow} — ${siteConfig.name}`,
 		description: blog.metaDescription,
-		alternates: { canonical, languages },
-		openGraph: {
-			title: blog.eyebrow,
-			description: blog.metaDescription,
-			url: canonical,
-			locale: intlLocale[locale].replace("-", "_"),
-			alternateLocale: locale === "en" ? ["tr_TR"] : ["en_US"],
-			images: socialImages.openGraph,
-		},
-		twitter: {
-			card: "summary_large_image",
-			title: blog.eyebrow,
-			description: blog.metaDescription,
-			images: socialImages.twitter,
-		},
-	};
+	});
 }
 
 export default async function BlogIndexPage() {
@@ -75,7 +63,10 @@ export default async function BlogIndexPage() {
 
 							<h2 className="mt-3 text-xl font-semibold leading-snug">
 								<Link
-									href={postPath(post.frontmatter.lang, post.slug)}
+									href={localizedPath(
+										post.frontmatter.lang,
+										`/blog/${post.slug}`,
+									)}
 									className="before:absolute before:inset-0 before:rounded-3xl"
 								>
 									{post.frontmatter.title}

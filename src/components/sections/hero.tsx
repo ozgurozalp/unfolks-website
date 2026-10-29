@@ -8,22 +8,22 @@ import { ExtensionPreview } from "@/components/sections/extension-preview";
 import { intlLocale } from "@/i18n/config";
 import { format } from "@/i18n/format";
 import { getDictionary, getLocale } from "@/i18n/server";
-import { siteConfig, testimonialPeople } from "@/lib/site";
+import { chromeStore, siteConfig, testimonialPeople } from "@/lib/site";
 
-/** Aggregate rating as partial stars. The number next to them is the accessible text. */
+/** Store rating as filled stars, including a partial last star. */
 function RatingStars({ value }: { value: number }) {
 	return (
 		<div className="flex justify-center gap-0.5 sm:justify-start" aria-hidden>
 			{Array.from({ length: 5 }, (_, index) => {
 				const fill = Math.min(1, Math.max(0, value - index));
 				return (
-					<span key={index} className="relative size-4">
-						<Star className="size-4 text-amber-400/40" />
+					<span key={index} className="relative inline-block size-4">
+						<Star className="size-4 text-amber-400/35" />
 						<span
 							className="absolute inset-y-0 left-0 overflow-hidden"
 							style={{ width: `${fill * 100}%` }}
 						>
-							<Star className="absolute top-0 left-0 size-4 fill-amber-400 text-amber-400" />
+							<Star className="size-4 fill-amber-400 text-amber-400" />
 						</span>
 					</span>
 				);
@@ -114,17 +114,15 @@ export async function Hero() {
 									))}
 								</div>
 								<div className="text-center sm:text-left">
-									<RatingStars value={siteConfig.chromeStore.ratingValue} />
+									<RatingStars value={chromeStore.ratingValue} />
 									<p className="mt-1 text-sm text-muted-foreground">
 										{format(text.rating, {
-											rating: siteConfig.chromeStore.ratingValue.toLocaleString(
+											value: chromeStore.ratingValue.toLocaleString(
 												intlLocale[locale],
-												{ minimumFractionDigits: 1, maximumFractionDigits: 1 },
 											),
-											ratings:
-												siteConfig.chromeStore.ratingCount.toLocaleString(
-													intlLocale[locale],
-												),
+											users: chromeStore.users.toLocaleString(
+												intlLocale[locale],
+											),
 										})}
 									</p>
 								</div>

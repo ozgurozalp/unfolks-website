@@ -1,75 +1,81 @@
 import type { MetadataRoute } from "next";
 
-import type { Locale } from "@/i18n/config";
-import { absoluteUrl, alternatesFor, postAlternates } from "@/i18n/paths";
+import { locales } from "@/i18n/config";
+import { sitemapLanguages } from "@/i18n/seo";
+import { absoluteUrl, localizedPath } from "@/i18n/urls";
 import { getAllPosts } from "@/lib/posts";
 import { comparePage } from "@/lib/site";
 
-const staticPaths = [
-	"/",
-	"/blog",
-	comparePage.path,
-	"/privacy-policy",
-] as const;
+const STATIC_PAGES: {
+	path: string;
+	changeFrequency: "weekly" | "monthly" | "yearly";
+	priority: number;
+}[] = [
+	{ path: "/", changeFrequency: "monthly", priority: 1 },
+	{ path: "/blog", changeFrequency: "weekly", priority: 0.8 },
+	{ path: comparePage.path, changeFrequency: "monthly", priority: 0.7 },
+	{ path: "/privacy-policy", changeFrequency: "yearly", priority: 0.4 },
+];
 
-function languagesOf(languages: Record<string, string>) {
-	return Object.fromEntries(
-		Object.entries(languages).map(([lang, path]) => [lang, absoluteUrl(path)]),
+function staticEntry(
+	path: string,
+	lastModified: Date,
+	changeFrequency: "weekly" | "monthly" | "yearly",
+	priority: number,
+): MetadataRoute.Sitemap {
+	const languages = sitemapLanguages(path);
+	return locales.map((locale) => ({
+		url: absoluteUrl(localizedPath(locale, path)),
+		lastModified,
+		changeFrequency,
+		priority,
+		alternates: { languages },
+	}));
+}
+
+function postLanguages(
+	posts: Awaited<ReturnType<typeof getAllPosts>>,
+	post: (typeof posts)[number],
+): Record<string, string> {
+	const self = absoluteUrl(
+		localizedPath(post.frontmatter.lang, `/blog/${post.slug}`),
 	);
+	const translation = post.frontmatter.translation
+		? posts.find((item) => item.slug === post.frontmatter.translation)
+		: undefined;
+
+	if (!translation || translation.frontmatter.lang === post.frontmatter.lang) {
+		return { [post.frontmatter.lang]: self, "x-default": self };
+	}
+
+	const enSlug = post.frontmatter.lang === "en" ? post.slug : translation.slug;
+	const trSlug = post.frontmatter.lang === "tr" ? post.slug : translation.slug;
+	const en = absoluteUrl(localizedPath("en", `/blog/${enSlug}`));
+	const tr = absoluteUrl(localizedPath("tr", `/blog/${trSlug}`));
+	return { en, tr, "x-default": en };
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 	const posts = await getAllPosts();
-	const latestPost = posts[0]?.frontmatter.date ?? new Date();
+	const updated = posts[0]?.frontmatter.date ?? new Date();
 
-	const pages: MetadataRoute.Sitemap = staticPaths.flatMap((path) => {
-		const priority =
-			path === "/"
-				? 1
-				: path === "/blog"
-					? 0.8
-					: path === "/privacy-policy"
-						? 0.4
-						: 0.7;
-		const changeFrequency =
-			path === "/blog"
-				? "weekly"
-				: path === "/privacy-policy"
-					? "yearly"
-					: "monthly";
-		const lastModified =
-			path === comparePage.path
-				? comparePage.checkedOn
-				: path === "/blog"
-					? latestPost
-					: new Date();
-
-		return (["en", "tr"] as const satisfies readonly Locale[]).map((locale) => {
-			const { canonical, languages } = alternatesFor(locale, path);
-			return {
-				url: absoluteUrl(canonical),
-				lastModified,
-				changeFrequency,
-				priority,
-				alternates: { languages: languagesOf(languages) },
-			};
-		});
-	});
-
-	const articles: MetadataRoute.Sitemap = posts.map((post) => {
-		const { canonical, languages } = postAlternates({
-			slug: post.slug,
-			lang: post.frontmatter.lang,
-			translation: post.frontmatter.translation,
-		});
-		return {
-			url: absoluteUrl(canonical),
+	return [
+		...STATIC_PAGES.flatMap((page) =>
+			staticEntry(
+				page.path,
+				page.path === "/blog" ? updated : new Date(),
+				page.changeFrequency,
+				page.priority,
+			),
+		),
+		...posts.map((post) => ({
+			url: absoluteUrl(
+				localizedPath(post.frontmatter.lang, `/blog/${post.slug}`),
+			),
 			lastModified: post.frontmatter.date,
-			changeFrequency: "monthly",
+			changeFrequency: "monthly" as const,
 			priority: 0.7,
-			alternates: { languages: languagesOf(languages) },
-		};
-	});
-
-	return [...pages, ...articles];
+			alternates: { languages: postLanguages(posts, post) },
+		})),
+	];
 }

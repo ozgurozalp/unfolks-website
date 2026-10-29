@@ -5,7 +5,7 @@ import { Reveal } from "@/components/reveal";
 import { intlLocale } from "@/i18n/config";
 import { format } from "@/i18n/format";
 import { getDictionary, getLocale } from "@/i18n/server";
-import { siteConfig, testimonialPeople } from "@/lib/site";
+import { chromeStore, testimonialPeople } from "@/lib/site";
 
 /**
  * Three quotes in one hairline-divided frame (after the 7ovr
@@ -26,9 +26,7 @@ export async function Testimonials() {
 					</h2>
 					<p className="mt-4 text-lg text-muted-foreground">
 						{format(testimonials.intro, {
-							count: siteConfig.chromeStore.userCount.toLocaleString(
-								intlLocale[locale],
-							),
+							count: chromeStore.users.toLocaleString(intlLocale[locale]),
 						})}
 					</p>
 				</Reveal>
