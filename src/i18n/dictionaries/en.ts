@@ -31,7 +31,7 @@ export const en = {
 		intro:
 			"Unfolks compares your followers and following lists right inside your browser, flags every account that never followed back, and lets you unfollow them in bulk.",
 		howItWorks: "How it works",
-		rating: "{value}/5 from {count}+ Instagram users",
+		rating: "{rating}/5 from {ratings} ratings",
 	},
 	preview: {
 		refresh: "Refresh the list",
@@ -50,8 +50,8 @@ export const en = {
 	stats: {
 		heading: "Unfolks in numbers",
 		items: [
-			{ value: 25000, prefix: "", suffix: "+", label: "Instagram users" },
-			{ value: 5, prefix: "", suffix: "/5", label: "Average rating" },
+			{ value: 20000, prefix: "", suffix: "", label: "Instagram users" },
+			{ value: 4.3, prefix: "", suffix: "/5", label: "Average rating" },
 			{ value: 0, prefix: "", suffix: "", label: "Passwords asked for" },
 			{
 				value: 100,
@@ -128,7 +128,7 @@ export const en = {
 	},
 	testimonials: {
 		heading: "Loved by Instagram users",
-		intro: "{count}+ people use Unfolks to keep their following list honest.",
+		intro: "{count} people use Unfolks to keep their following list honest.",
 		items: [
 			{
 				quote:

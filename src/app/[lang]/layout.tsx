@@ -4,11 +4,13 @@ import { Geist } from "next/font/google";
 import { GoogleTagManager } from "@next/third-parties/google";
 
 import "../globals.css";
+import { LocaleProvider } from "@/components/locale-provider";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { ThemeProvider } from "@/components/theme-provider";
 import { PromoAd } from "@/components/promo-ad";
 import { intlLocale, locales } from "@/i18n/config";
+import { alternatesFor, localePath } from "@/i18n/paths";
 import { getDictionary, getLocale } from "@/i18n/server";
 import { siteConfig, socialImages } from "@/lib/site";
 
@@ -26,6 +28,7 @@ export function generateStaticParams() {
 export async function generateMetadata(): Promise<Metadata> {
 	const [dict, locale] = await Promise.all([getDictionary(), getLocale()]);
 	const title = `${siteConfig.name} — ${dict.meta.tagline}!`;
+	const canonical = localePath(locale, "/");
 
 	return {
 		metadataBase: new URL(siteConfig.url),
@@ -35,14 +38,15 @@ export async function generateMetadata(): Promise<Metadata> {
 		},
 		description: dict.meta.description,
 		applicationName: siteConfig.name,
-		alternates: { canonical: "/" },
+		alternates: alternatesFor(locale, "/"),
 		authors: [{ name: siteConfig.author.name, url: siteConfig.author.url }],
 		creator: siteConfig.author.name,
 		openGraph: {
 			type: "website",
 			siteName: siteConfig.name,
-			url: siteConfig.url,
+			url: canonical,
 			locale: intlLocale[locale].replace("-", "_"),
+			alternateLocale: locale === "en" ? ["tr_TR"] : ["en_US"],
 			title,
 			description: dict.meta.description,
 			images: socialImages.openGraph,
@@ -99,18 +103,20 @@ export default async function RootLayout({
 					enableSystem
 					disableTransitionOnChange
 				>
-					<a
-						href="#main"
-						className="sr-only rounded-full bg-foreground px-4 py-2 text-background focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60]"
-					>
-						{dict.meta.skipToContent}
-					</a>
-					<SiteHeader text={dict.nav} />
-					<main id="main" tabIndex={-1} className="flex-1 outline-none">
-						{children}
-					</main>
-					<SiteFooter />
-					<PromoAd text={dict.promo} />
+					<LocaleProvider locale={locale}>
+						<a
+							href="#main"
+							className="sr-only rounded-full bg-foreground px-4 py-2 text-background focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60]"
+						>
+							{dict.meta.skipToContent}
+						</a>
+						<SiteHeader text={dict.nav} locale={locale} />
+						<main id="main" tabIndex={-1} className="flex-1 outline-none">
+							{children}
+						</main>
+						<SiteFooter />
+						<PromoAd text={dict.promo} />
+					</LocaleProvider>
 				</ThemeProvider>
 			</body>
 		</html>

@@ -29,7 +29,7 @@ export const tr: Dictionary = {
 		intro:
 			"Unfolks takipçi ve takip listelerini doğrudan tarayıcında karşılaştırır, seni hiç geri takip etmeyen her hesabı bulur ve onları toplu olarak bırakmanı sağlar.",
 		howItWorks: "Nasıl çalışır",
-		rating: "{count}+ Instagram kullanıcısından {value}/5",
+		rating: "{ratings} değerlendirmeden {rating}/5",
 	},
 	preview: {
 		refresh: "Listeyi yenile",
@@ -48,8 +48,8 @@ export const tr: Dictionary = {
 	stats: {
 		heading: "Rakamlarla Unfolks",
 		items: [
-			{ value: 25000, prefix: "", suffix: "+", label: "Instagram kullanıcısı" },
-			{ value: 5, prefix: "", suffix: "/5", label: "Ortalama puan" },
+			{ value: 20000, prefix: "", suffix: "", label: "Instagram kullanıcısı" },
+			{ value: 4.3, prefix: "", suffix: "/5", label: "Ortalama puan" },
 			{ value: 0, prefix: "", suffix: "", label: "İstenen şifre" },
 			{
 				value: 100,
@@ -126,8 +126,7 @@ export const tr: Dictionary = {
 	},
 	testimonials: {
 		heading: "Instagram kullanıcıları seviyor",
-		intro:
-			"{count}+ kişi takip listesini dürüst tutmak için Unfolks kullanıyor.",
+		intro: "{count} kişi takip listesini dürüst tutmak için Unfolks kullanıyor.",
 		items: [
 			{
 				quote:

@@ -7,7 +7,9 @@ import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/logo";
 import { ThemeToggle } from "@/components/theme-toggle";
+import type { Locale } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries/en";
+import { localePath } from "@/i18n/paths";
 import { navLinks, siteConfig } from "@/lib/site";
 
 /**
@@ -42,7 +44,13 @@ function useStuckFallback(
 	}, [headerRef, sentinelRef]);
 }
 
-export function SiteHeader({ text }: { text: Dictionary["nav"] }) {
+export function SiteHeader({
+	text,
+	locale,
+}: {
+	text: Dictionary["nav"];
+	locale: Locale;
+}) {
 	const headerRef = useRef<HTMLElement>(null);
 	const sentinelRef = useRef<HTMLDivElement>(null);
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -77,7 +85,7 @@ export function SiteHeader({ text }: { text: Dictionary["nav"] }) {
 				<div className="site-header-surface">
 					<div className="container-page flex h-16 items-center gap-4 lg:h-18">
 						<Link
-							href="/"
+							href={localePath(locale, "/")}
 							className="flex items-center gap-2 rounded-lg font-semibold tracking-tight"
 						>
 							<Logo className="h-8" />
@@ -91,7 +99,7 @@ export function SiteHeader({ text }: { text: Dictionary["nav"] }) {
 							{navLinks.map((link) => (
 								<Link
 									key={link.href}
-									href={link.href}
+									href={localePath(locale, link.href)}
 									className="rounded-full px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
 								>
 									{text[link.key]}
@@ -138,7 +146,7 @@ export function SiteHeader({ text }: { text: Dictionary["nav"] }) {
 								{navLinks.map((link) => (
 									<li key={link.href}>
 										<Link
-											href={link.href}
+											href={localePath(locale, link.href)}
 											onClick={() => setIsMenuOpen(false)}
 											className="block rounded-xl px-3 py-3 text-base font-medium transition-colors hover:bg-secondary"
 										>

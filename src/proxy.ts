@@ -1,28 +1,40 @@
 import { NextResponse, type NextRequest } from "next/server";
 
-import { isLocale, pickLocale } from "@/i18n/config";
+import { pickLocale } from "@/i18n/config";
 
 /**
- * The site has one set of URLs. The language comes from the browser's
- * `Accept-Language` header and is applied by rewriting to the matching
- * `app/[lang]` route, so the address bar never changes and there is no
- * switcher. The internal `/en` and `/tr` paths are not public: a request for
- * one is sent back to the plain URL.
+ * English is unprefixed (`/`, `/blog/...`) and rewritten to `app/en`.
+ * Turkish is public at `/tr`. A browser that prefers Turkish is sent from an
+ * unprefixed URL to `/tr` with a temporary redirect, so the two languages
+ * stay on separate URLs for hreflang. `/tr` itself is never redirected away:
+ * crawlers must be able to read it whatever language they send.
+ * `/en` is not public; it redirects to the unprefixed English URL.
  */
 export function proxy(request: NextRequest) {
 	const { pathname, search } = request.nextUrl;
 	const first = pathname.split("/")[1] ?? "";
 
-	if (isLocale(first)) {
+	if (first === "tr") {
+		return NextResponse.next();
+	}
+
+	if (first === "en") {
 		const url = request.nextUrl.clone();
-		url.pathname = pathname.slice(first.length + 1) || "/";
+		url.pathname = pathname.slice("/en".length) || "/";
 		return NextResponse.redirect(url, 308);
 	}
 
 	const locale = pickLocale(request.headers.get("accept-language"));
-	const target = new URL(`/${locale}${pathname}${search}`, request.url);
+	if (locale === "tr") {
+		const url = request.nextUrl.clone();
+		url.pathname = pathname === "/" ? "/tr" : `/tr${pathname}`;
+		const response = NextResponse.redirect(url, 302);
+		response.headers.set("Vary", "Accept-Language");
+		return response;
+	}
+
+	const target = new URL(`/en${pathname}${search}`, request.url);
 	const response = NextResponse.rewrite(target);
-	// Shared caches must keep one copy per language.
 	response.headers.set("Vary", "Accept-Language");
 	return response;
 }

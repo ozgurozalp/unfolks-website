@@ -1,6 +1,6 @@
 import type { MDXComponents } from "mdx/types";
-import Link from "next/link";
-import type { ComponentPropsWithoutRef } from "react";
+
+import { MdxLink } from "@/components/mdx-link";
 
 /**
  * Required by @next/mdx in the App Router. Prose styling comes from the
@@ -9,17 +9,7 @@ import type { ComponentPropsWithoutRef } from "react";
  */
 export function useMDXComponents(components: MDXComponents): MDXComponents {
 	return {
-		a: ({ href = "", ...props }: ComponentPropsWithoutRef<"a">) => {
-			const isInternal = href.startsWith("/") || href.startsWith("#");
-
-			if (isInternal) {
-				return <Link href={href} {...props} />;
-			}
-
-			return (
-				<a href={href} target="_blank" rel="noopener noreferrer" {...props} />
-			);
-		},
+		a: (props) => <MdxLink {...props} />,
 		...components,
 	};
 }

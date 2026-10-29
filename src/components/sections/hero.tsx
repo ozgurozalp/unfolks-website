@@ -10,6 +10,28 @@ import { format } from "@/i18n/format";
 import { getDictionary, getLocale } from "@/i18n/server";
 import { siteConfig, testimonialPeople } from "@/lib/site";
 
+/** Aggregate rating as partial stars. The number next to them is the accessible text. */
+function RatingStars({ value }: { value: number }) {
+	return (
+		<div className="flex justify-center gap-0.5 sm:justify-start" aria-hidden>
+			{Array.from({ length: 5 }, (_, index) => {
+				const fill = Math.min(1, Math.max(0, value - index));
+				return (
+					<span key={index} className="relative size-4">
+						<Star className="size-4 text-amber-400/40" />
+						<span
+							className="absolute inset-y-0 left-0 overflow-hidden"
+							style={{ width: `${fill * 100}%` }}
+						>
+							<Star className="absolute top-0 left-0 size-4 fill-amber-400 text-amber-400" />
+						</span>
+					</span>
+				);
+			})}
+		</div>
+	);
+}
+
 export async function Hero() {
 	const [dict, locale] = await Promise.all([getDictionary(), getLocale()]);
 	const text = dict.hero;
@@ -92,23 +114,17 @@ export async function Hero() {
 									))}
 								</div>
 								<div className="text-center sm:text-left">
-									<div
-										className="flex justify-center gap-0.5 sm:justify-start"
-										aria-hidden
-									>
-										{Array.from({ length: 5 }, (_, index) => (
-											<Star
-												key={index}
-												className="size-4 fill-amber-400 text-amber-400"
-											/>
-										))}
-									</div>
+									<RatingStars value={siteConfig.chromeStore.ratingValue} />
 									<p className="mt-1 text-sm text-muted-foreground">
 										{format(text.rating, {
-											value: siteConfig.rating.value,
-											count: siteConfig.rating.count.toLocaleString(
+											rating: siteConfig.chromeStore.ratingValue.toLocaleString(
 												intlLocale[locale],
+												{ minimumFractionDigits: 1, maximumFractionDigits: 1 },
 											),
+											ratings:
+												siteConfig.chromeStore.ratingCount.toLocaleString(
+													intlLocale[locale],
+												),
 										})}
 									</p>
 								</div>

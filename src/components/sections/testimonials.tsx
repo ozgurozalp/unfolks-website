@@ -26,7 +26,9 @@ export async function Testimonials() {
 					</h2>
 					<p className="mt-4 text-lg text-muted-foreground">
 						{format(testimonials.intro, {
-							count: siteConfig.rating.count.toLocaleString(intlLocale[locale]),
+							count: siteConfig.chromeStore.userCount.toLocaleString(
+								intlLocale[locale],
+							),
 						})}
 					</p>
 				</Reveal>

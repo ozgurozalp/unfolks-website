@@ -11,9 +11,14 @@ export const siteConfig = {
 	/** The extension's public source code and issue tracker. */
 	githubUrl: "https://github.com/ozgurozalp/unfolks",
 	issuesUrl: "https://github.com/ozgurozalp/unfolks/issues",
-	rating: {
-		value: 5,
-		count: 25000,
+	/**
+	 * Figures shown on the Chrome Web Store listing. Blog posts and the
+	 * homepage both read from here so the site doesn't invent a second set.
+	 */
+	chromeStore: {
+		ratingValue: 4.3,
+		ratingCount: 69,
+		userCount: 20000,
 	},
 } as const;
 

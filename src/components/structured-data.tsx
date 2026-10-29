@@ -32,8 +32,8 @@ export async function SoftwareApplicationJsonLd() {
 				},
 				aggregateRating: {
 					"@type": "AggregateRating",
-					ratingValue: siteConfig.rating.value,
-					ratingCount: siteConfig.rating.count,
+					ratingValue: siteConfig.chromeStore.ratingValue,
+					ratingCount: siteConfig.chromeStore.ratingCount,
 					bestRating: 5,
 				},
 				author: {
@@ -75,6 +75,7 @@ interface ArticleJsonLdProps {
 	description?: string;
 	datePublished: string;
 	url: string;
+	inLanguage: string;
 }
 
 export function ArticleJsonLd({
@@ -82,6 +83,7 @@ export function ArticleJsonLd({
 	description,
 	datePublished,
 	url,
+	inLanguage,
 }: ArticleJsonLdProps) {
 	return (
 		<JsonLd
@@ -91,7 +93,13 @@ export function ArticleJsonLd({
 				headline: title,
 				description,
 				datePublished,
+				inLanguage,
+				mainEntityOfPage: {
+					"@type": "WebPage",
+					"@id": url,
+				},
 				url,
+				image: `${siteConfig.url}/opengraph-image.png`,
 				author: {
 					"@type": "Person",
 					name: siteConfig.author.name,
@@ -101,6 +109,10 @@ export function ArticleJsonLd({
 					"@type": "Organization",
 					name: siteConfig.name,
 					url: siteConfig.url,
+					logo: {
+						"@type": "ImageObject",
+						url: `${siteConfig.url}/logo.png`,
+					},
 				},
 			}}
 		/>

@@ -4,17 +4,37 @@ import { PolicyEn } from "@/components/privacy/policy-en";
 import { PolicyTr } from "@/components/privacy/policy-tr";
 import { intlLocale } from "@/i18n/config";
 import { format } from "@/i18n/format";
+import { alternatesFor } from "@/i18n/paths";
 import { getDictionary, getLocale } from "@/i18n/server";
+import { socialImages } from "@/lib/site";
 
 /** When the policy text last changed, in both languages. */
 const EFFECTIVE_DATE = new Date(Date.UTC(2026, 9, 21));
 
 export async function generateMetadata(): Promise<Metadata> {
-	const { privacy } = await getDictionary();
+	const [{ privacy }, locale] = await Promise.all([
+		getDictionary(),
+		getLocale(),
+	]);
+	const { canonical, languages } = alternatesFor(locale, "/privacy-policy");
 	return {
 		title: privacy.title,
 		description: privacy.metaDescription,
-		alternates: { canonical: "/privacy-policy" },
+		alternates: { canonical, languages },
+		openGraph: {
+			title: privacy.title,
+			description: privacy.metaDescription,
+			url: canonical,
+			locale: intlLocale[locale].replace("-", "_"),
+			alternateLocale: locale === "en" ? ["tr_TR"] : ["en_US"],
+			images: socialImages.openGraph,
+		},
+		twitter: {
+			card: "summary_large_image",
+			title: privacy.title,
+			description: privacy.metaDescription,
+			images: socialImages.twitter,
+		},
 	};
 }
 

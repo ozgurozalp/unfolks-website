@@ -7,10 +7,16 @@ import { ChromeIcon } from "@/components/icons";
 
 import { Button } from "@/components/ui/button";
 import { ArticleJsonLd } from "@/components/structured-data";
-import { intlLocale } from "@/i18n/config";
+import { intlLocale, isLocale } from "@/i18n/config";
 import { format } from "@/i18n/format";
+import {
+	absoluteUrl,
+	localePath,
+	postAlternates,
+	postPath,
+} from "@/i18n/paths";
 import { getDictionary, getLocale } from "@/i18n/server";
-import { getAllPosts, getPost } from "@/lib/posts";
+import { getPost, getPostsFor } from "@/lib/posts";
 import { siteConfig, socialImages } from "@/lib/site";
 import { formatDate } from "@/lib/utils";
 
@@ -21,8 +27,13 @@ interface Props {
 	params: Promise<{ slug: string }>;
 }
 
-export async function generateStaticParams() {
-	const posts = await getAllPosts();
+export async function generateStaticParams({
+	params,
+}: {
+	params: { lang: string };
+}) {
+	if (!isLocale(params.lang)) return [];
+	const posts = await getPostsFor(params.lang);
 	return posts.map((post) => ({ slug: post.slug }));
 }
 
@@ -36,13 +47,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	}
 
 	const { title, summary, date, lang, translation } = post.frontmatter;
-	const canonical = `/blog/${post.slug}`;
-	const languages = translation
-		? {
-				[lang]: canonical,
-				[lang === "en" ? "tr" : "en"]: `/blog/${translation}`,
-			}
-		: undefined;
+	const { canonical, languages } = postAlternates({
+		slug: post.slug,
+		lang,
+		translation,
+	});
 
 	return {
 		title,
@@ -51,6 +60,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 		openGraph: {
 			type: "article",
 			locale: intlLocale[lang].replace("-", "_"),
+			alternateLocale: translation
+				? [intlLocale[lang === "en" ? "tr" : "en"].replace("-", "_")]
+				: undefined,
 			title,
 			description: summary,
 			url: canonical,
@@ -75,8 +87,18 @@ export default async function BlogPostPage({ params }: Props) {
 	}
 
 	const { Content, frontmatter, readingMinutes } = post;
-	const otherLang = frontmatter.lang === "en" ? "tr" : "en";
 	const [dict, locale] = await Promise.all([getDictionary(), getLocale()]);
+	const visible = await getPostsFor(locale);
+	if (!visible.some((item) => item.slug === post.slug)) {
+		notFound();
+	}
+
+	const otherLang = frontmatter.lang === "en" ? "tr" : "en";
+	const { canonical } = postAlternates({
+		slug: post.slug,
+		lang: frontmatter.lang,
+		translation: frontmatter.translation,
+	});
 
 	return (
 		<article lang={frontmatter.lang} className="px-4 py-14 sm:px-6 sm:py-20">
@@ -84,13 +106,14 @@ export default async function BlogPostPage({ params }: Props) {
 				title={frontmatter.title}
 				description={frontmatter.summary}
 				datePublished={frontmatter.date.toISOString()}
-				url={`${siteConfig.url}/blog/${post.slug}`}
+				url={absoluteUrl(canonical)}
+				inLanguage={intlLocale[frontmatter.lang]}
 			/>
 
 			<header className="mx-auto max-w-3xl">
 				<div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
 					<Link
-						href="/blog"
+						href={localePath(locale, "/blog")}
 						className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
 					>
 						<ArrowLeft className="size-4" />
@@ -98,7 +121,7 @@ export default async function BlogPostPage({ params }: Props) {
 					</Link>
 					{frontmatter.translation && (
 						<Link
-							href={`/blog/${frontmatter.translation}`}
+							href={postPath(otherLang, frontmatter.translation)}
 							hrefLang={otherLang}
 							lang={otherLang}
 							className="text-sm font-medium text-brand-600 underline-offset-4 hover:underline dark:text-brand-400"

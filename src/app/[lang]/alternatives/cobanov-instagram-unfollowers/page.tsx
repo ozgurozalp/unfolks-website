@@ -15,19 +15,26 @@ import { Cta } from "@/components/sections/cta";
 import { FaqJsonLd } from "@/components/structured-data";
 import { intlLocale } from "@/i18n/config";
 import { format } from "@/i18n/format";
+import { alternatesFor } from "@/i18n/paths";
 import { getDictionary, getLocale } from "@/i18n/server";
 import { comparePage, socialImages } from "@/lib/site";
 
 export async function generateMetadata(): Promise<Metadata> {
-	const { compare } = await getDictionary();
+	const [{ compare }, locale] = await Promise.all([
+		getDictionary(),
+		getLocale(),
+	]);
+	const { canonical, languages } = alternatesFor(locale, comparePage.path);
 	return {
 		title: { absolute: compare.metaTitle },
 		description: compare.metaDescription,
-		alternates: { canonical: comparePage.path },
+		alternates: { canonical, languages },
 		openGraph: {
 			title: compare.metaTitle,
 			description: compare.metaDescription,
-			url: comparePage.path,
+			url: canonical,
+			locale: intlLocale[locale].replace("-", "_"),
+			alternateLocale: locale === "en" ? ["tr_TR"] : ["en_US"],
 			images: socialImages.openGraph,
 		},
 		twitter: {

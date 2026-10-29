@@ -19,7 +19,8 @@ export async function Stats() {
 				</h2>
 				<dl className="grid grid-cols-2 overflow-hidden rounded-3xl border border-border bg-card lg:grid-cols-4">
 					{stats.items.map((item, index) => {
-						const final = `${item.prefix}${item.value.toLocaleString(numberLocale)}${item.suffix}`;
+						const decimalPlaces = Number.isInteger(item.value) ? 0 : 1;
+						const final = `${item.prefix}${item.value.toLocaleString(numberLocale, { minimumFractionDigits: decimalPlaces, maximumFractionDigits: decimalPlaces })}${item.suffix}`;
 						return (
 							<div
 								key={item.label}
@@ -40,6 +41,7 @@ export async function Stats() {
 									<NumberTicker
 										aria-hidden
 										value={item.value}
+										decimalPlaces={Number.isInteger(item.value) ? 0 : 1}
 										prefix={item.prefix}
 										suffix={item.suffix}
 										locale={numberLocale}
