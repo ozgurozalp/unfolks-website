@@ -4,17 +4,22 @@ import { ArrowUpRight } from "lucide-react";
 
 import { intlLocale } from "@/i18n/config";
 import { format } from "@/i18n/format";
+import { localizedPageMeta } from "@/i18n/seo";
 import { getDictionary, getLocale } from "@/i18n/server";
+import { localizedPath } from "@/i18n/urls";
 import { getPostsFor } from "@/lib/posts";
+import { siteConfig } from "@/lib/site";
 import { formatDate } from "@/lib/utils";
 
 export async function generateMetadata(): Promise<Metadata> {
-	const { blog } = await getDictionary();
-	return {
-		title: blog.eyebrow,
+	const [{ blog }, locale] = await Promise.all([getDictionary(), getLocale()]);
+	return localizedPageMeta({
+		locale,
+		path: "/blog",
+		documentTitle: blog.eyebrow,
+		title: `${blog.eyebrow} — ${siteConfig.name}`,
 		description: blog.metaDescription,
-		alternates: { canonical: "/blog" },
-	};
+	});
 }
 
 export default async function BlogIndexPage() {
@@ -58,7 +63,10 @@ export default async function BlogIndexPage() {
 
 							<h2 className="mt-3 text-xl font-semibold leading-snug">
 								<Link
-									href={`/blog/${post.slug}`}
+									href={localizedPath(
+										post.frontmatter.lang,
+										`/blog/${post.slug}`,
+									)}
 									className="before:absolute before:inset-0 before:rounded-3xl"
 								>
 									{post.frontmatter.title}

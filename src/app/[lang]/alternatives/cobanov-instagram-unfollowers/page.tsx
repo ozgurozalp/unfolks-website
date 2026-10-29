@@ -15,27 +15,22 @@ import { Cta } from "@/components/sections/cta";
 import { FaqJsonLd } from "@/components/structured-data";
 import { intlLocale } from "@/i18n/config";
 import { format } from "@/i18n/format";
+import { localizedPageMeta } from "@/i18n/seo";
 import { getDictionary, getLocale } from "@/i18n/server";
-import { comparePage, socialImages } from "@/lib/site";
+import { comparePage } from "@/lib/site";
 
 export async function generateMetadata(): Promise<Metadata> {
-	const { compare } = await getDictionary();
-	return {
-		title: { absolute: compare.metaTitle },
+	const [{ compare }, locale] = await Promise.all([
+		getDictionary(),
+		getLocale(),
+	]);
+	return localizedPageMeta({
+		locale,
+		path: comparePage.path,
+		documentTitle: { absolute: compare.metaTitle },
+		title: compare.metaTitle,
 		description: compare.metaDescription,
-		alternates: { canonical: comparePage.path },
-		openGraph: {
-			title: compare.metaTitle,
-			description: compare.metaDescription,
-			url: comparePage.path,
-			images: socialImages.openGraph,
-		},
-		twitter: {
-			title: compare.metaTitle,
-			description: compare.metaDescription,
-			images: socialImages.twitter,
-		},
-	};
+	});
 }
 
 export default async function ComparePage() {

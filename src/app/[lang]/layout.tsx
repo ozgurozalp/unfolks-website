@@ -9,6 +9,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { ThemeProvider } from "@/components/theme-provider";
 import { PromoAd } from "@/components/promo-ad";
 import { intlLocale, locales } from "@/i18n/config";
+import { pageAlternates } from "@/i18n/seo";
 import { getDictionary, getLocale } from "@/i18n/server";
 import { siteConfig, socialImages } from "@/lib/site";
 
@@ -18,14 +19,20 @@ const geistSans = Geist({
 	display: "swap",
 });
 
-/** Both languages are prerendered; `proxy.ts` picks one per request. */
+/** Both languages are prerendered at their own public URLs. */
 export function generateStaticParams() {
 	return locales.map((lang) => ({ lang }));
 }
 
+function ogLocale(locale: (typeof locales)[number]) {
+	return intlLocale[locale].replace("-", "_");
+}
+
 export async function generateMetadata(): Promise<Metadata> {
 	const [dict, locale] = await Promise.all([getDictionary(), getLocale()]);
-	const title = `${siteConfig.name} — ${dict.meta.tagline}!`;
+	const title = dict.meta.title;
+	const description = dict.meta.description;
+	const alternates = pageAlternates(locale, "/");
 
 	return {
 		metadataBase: new URL(siteConfig.url),
@@ -33,24 +40,27 @@ export async function generateMetadata(): Promise<Metadata> {
 			default: title,
 			template: `%s — ${siteConfig.name}`,
 		},
-		description: dict.meta.description,
+		description,
 		applicationName: siteConfig.name,
-		alternates: { canonical: "/" },
+		alternates,
 		authors: [{ name: siteConfig.author.name, url: siteConfig.author.url }],
 		creator: siteConfig.author.name,
 		openGraph: {
 			type: "website",
 			siteName: siteConfig.name,
-			url: siteConfig.url,
-			locale: intlLocale[locale].replace("-", "_"),
+			url: alternates.canonical,
+			locale: ogLocale(locale),
+			alternateLocale: locales
+				.filter((item) => item !== locale)
+				.map((item) => ogLocale(item)),
 			title,
-			description: dict.meta.description,
+			description,
 			images: socialImages.openGraph,
 		},
 		twitter: {
 			card: "summary_large_image",
 			title,
-			description: dict.meta.description,
+			description,
 			images: socialImages.twitter,
 			creator: siteConfig.author.name,
 		},
@@ -59,20 +69,7 @@ export async function generateMetadata(): Promise<Metadata> {
 			follow: true,
 			googleBot: { index: true, follow: true, "max-image-preview": "large" },
 		},
-		keywords: [
-			"Instagram",
-			"unfollow",
-			"followers",
-			"following",
-			"who doesn't follow me back",
-			"ghost followers",
-			"chrome extension",
-			"geri takip",
-			"takip etmeyenler",
-			"takipçi",
-			"unfolks",
-			"özgür özalp",
-		],
+		keywords: dict.meta.keywords,
 	};
 }
 
@@ -105,7 +102,7 @@ export default async function RootLayout({
 					>
 						{dict.meta.skipToContent}
 					</a>
-					<SiteHeader text={dict.nav} />
+					<SiteHeader text={dict.nav} locale={locale} />
 					<main id="main" tabIndex={-1} className="flex-1 outline-none">
 						{children}
 					</main>

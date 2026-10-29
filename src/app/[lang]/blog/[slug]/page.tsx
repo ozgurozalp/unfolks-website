@@ -1,17 +1,23 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 
 import { ChromeIcon } from "@/components/icons";
 
 import { Button } from "@/components/ui/button";
 import { ArticleJsonLd } from "@/components/structured-data";
-import { intlLocale } from "@/i18n/config";
+import { intlLocale, type Locale } from "@/i18n/config";
 import { format } from "@/i18n/format";
+import {
+	localizedPageMeta,
+	singleLanguageAlternates,
+	translatedPostAlternates,
+} from "@/i18n/seo";
 import { getDictionary, getLocale } from "@/i18n/server";
-import { getAllPosts, getPost } from "@/lib/posts";
-import { siteConfig, socialImages } from "@/lib/site";
+import { absoluteUrl, localizedPath } from "@/i18n/urls";
+import { getAllPosts, getPost, type Post } from "@/lib/posts";
+import { siteConfig } from "@/lib/site";
 import { formatDate } from "@/lib/utils";
 
 /** Link text to a post's other language, written in that language. */
@@ -28,43 +34,69 @@ export async function generateStaticParams() {
 
 export const dynamicParams = false;
 
+/** Send a post opened under the wrong locale to its own language, or the blog index. */
+async function redirectMismatchedLocale(post: Post, locale: Locale) {
+	if (post.frontmatter.lang === locale) return;
+
+	const translation = post.frontmatter.translation;
+	if (translation) {
+		const other = await getPost(translation);
+		if (other?.frontmatter.lang === locale) {
+			permanentRedirect(localizedPath(locale, `/blog/${other.slug}`));
+		}
+	}
+
+	permanentRedirect(localizedPath(locale, "/blog"));
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-	const post = await getPost((await params).slug);
+	const [post, locale] = await Promise.all([
+		getPost((await params).slug),
+		getLocale(),
+	]);
 
 	if (!post) {
 		return {};
 	}
 
-	const { title, summary, date, lang, translation } = post.frontmatter;
-	const canonical = `/blog/${post.slug}`;
-	const languages = translation
-		? {
-				[lang]: canonical,
-				[lang === "en" ? "tr" : "en"]: `/blog/${translation}`,
-			}
-		: undefined;
-
-	return {
+	const {
 		title,
+		summary = "",
+		date,
+		lang,
+		translation,
+		tags,
+	} = post.frontmatter;
+	let alternates = singleLanguageAlternates(lang, `/blog/${post.slug}`);
+	if (translation) {
+		const other = await getPost(translation);
+		if (other && other.frontmatter.lang !== lang) {
+			alternates = translatedPostAlternates(lang, post.slug, {
+				locale: other.frontmatter.lang,
+				slug: other.slug,
+			});
+		}
+	}
+
+	const metadata = localizedPageMeta({
+		locale: lang,
+		path: `/blog/${post.slug}`,
+		documentTitle: title,
+		title: `${title} — ${siteConfig.name}`,
 		description: summary,
-		alternates: { canonical, languages },
-		openGraph: {
-			type: "article",
-			locale: intlLocale[lang].replace("-", "_"),
-			title,
-			description: summary,
-			url: canonical,
+		alternates,
+		article: {
 			publishedTime: date.toISOString(),
-			tags: [...post.frontmatter.tags],
-			images: socialImages.openGraph,
+			tags: [...tags],
 		},
-		twitter: {
-			card: "summary_large_image",
-			title,
-			description: summary,
-			images: socialImages.twitter,
-		},
-	};
+	});
+
+	// The alias URL redirects. If that HTML is ever served, don't index it.
+	if (locale !== lang) {
+		metadata.robots = { index: false, follow: true };
+	}
+
+	return metadata;
 }
 
 export default async function BlogPostPage({ params }: Props) {
@@ -74,9 +106,11 @@ export default async function BlogPostPage({ params }: Props) {
 		notFound();
 	}
 
+	const [dict, locale] = await Promise.all([getDictionary(), getLocale()]);
+	await redirectMismatchedLocale(post, locale);
+
 	const { Content, frontmatter, readingMinutes } = post;
 	const otherLang = frontmatter.lang === "en" ? "tr" : "en";
-	const [dict, locale] = await Promise.all([getDictionary(), getLocale()]);
 
 	return (
 		<article lang={frontmatter.lang} className="px-4 py-14 sm:px-6 sm:py-20">
@@ -84,13 +118,13 @@ export default async function BlogPostPage({ params }: Props) {
 				title={frontmatter.title}
 				description={frontmatter.summary}
 				datePublished={frontmatter.date.toISOString()}
-				url={`${siteConfig.url}/blog/${post.slug}`}
+				url={absoluteUrl(localizedPath(frontmatter.lang, `/blog/${post.slug}`))}
 			/>
 
 			<header className="mx-auto max-w-3xl">
 				<div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
 					<Link
-						href="/blog"
+						href={localizedPath(locale, "/blog")}
 						className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
 					>
 						<ArrowLeft className="size-4" />
@@ -98,7 +132,10 @@ export default async function BlogPostPage({ params }: Props) {
 					</Link>
 					{frontmatter.translation && (
 						<Link
-							href={`/blog/${frontmatter.translation}`}
+							href={localizedPath(
+								otherLang,
+								`/blog/${frontmatter.translation}`,
+							)}
 							hrefLang={otherLang}
 							lang={otherLang}
 							className="text-sm font-medium text-brand-600 underline-offset-4 hover:underline dark:text-brand-400"

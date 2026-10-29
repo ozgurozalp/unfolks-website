@@ -4,18 +4,25 @@ import { PolicyEn } from "@/components/privacy/policy-en";
 import { PolicyTr } from "@/components/privacy/policy-tr";
 import { intlLocale } from "@/i18n/config";
 import { format } from "@/i18n/format";
+import { localizedPageMeta } from "@/i18n/seo";
 import { getDictionary, getLocale } from "@/i18n/server";
+import { siteConfig } from "@/lib/site";
 
 /** When the policy text last changed, in both languages. */
 const EFFECTIVE_DATE = new Date(Date.UTC(2026, 9, 21));
 
 export async function generateMetadata(): Promise<Metadata> {
-	const { privacy } = await getDictionary();
-	return {
-		title: privacy.title,
+	const [{ privacy }, locale] = await Promise.all([
+		getDictionary(),
+		getLocale(),
+	]);
+	return localizedPageMeta({
+		locale,
+		path: "/privacy-policy",
+		documentTitle: privacy.title,
+		title: `${privacy.title} — ${siteConfig.name}`,
 		description: privacy.metaDescription,
-		alternates: { canonical: "/privacy-policy" },
-	};
+	});
 }
 
 export default async function PrivacyPolicyPage() {

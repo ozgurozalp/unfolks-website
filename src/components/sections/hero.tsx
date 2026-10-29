@@ -8,7 +8,29 @@ import { ExtensionPreview } from "@/components/sections/extension-preview";
 import { intlLocale } from "@/i18n/config";
 import { format } from "@/i18n/format";
 import { getDictionary, getLocale } from "@/i18n/server";
-import { siteConfig, testimonialPeople } from "@/lib/site";
+import { chromeStore, siteConfig, testimonialPeople } from "@/lib/site";
+
+/** Store rating as filled stars, including a partial last star. */
+function RatingStars({ value }: { value: number }) {
+	return (
+		<div className="flex justify-center gap-0.5 sm:justify-start" aria-hidden>
+			{Array.from({ length: 5 }, (_, index) => {
+				const fill = Math.min(1, Math.max(0, value - index));
+				return (
+					<span key={index} className="relative inline-block size-4">
+						<Star className="size-4 text-amber-400/35" />
+						<span
+							className="absolute inset-y-0 left-0 overflow-hidden"
+							style={{ width: `${fill * 100}%` }}
+						>
+							<Star className="size-4 fill-amber-400 text-amber-400" />
+						</span>
+					</span>
+				);
+			})}
+		</div>
+	);
+}
 
 export async function Hero() {
 	const [dict, locale] = await Promise.all([getDictionary(), getLocale()]);
@@ -92,21 +114,13 @@ export async function Hero() {
 									))}
 								</div>
 								<div className="text-center sm:text-left">
-									<div
-										className="flex justify-center gap-0.5 sm:justify-start"
-										aria-hidden
-									>
-										{Array.from({ length: 5 }, (_, index) => (
-											<Star
-												key={index}
-												className="size-4 fill-amber-400 text-amber-400"
-											/>
-										))}
-									</div>
+									<RatingStars value={chromeStore.ratingValue} />
 									<p className="mt-1 text-sm text-muted-foreground">
 										{format(text.rating, {
-											value: siteConfig.rating.value,
-											count: siteConfig.rating.count.toLocaleString(
+											value: chromeStore.ratingValue.toLocaleString(
+												intlLocale[locale],
+											),
+											users: chromeStore.users.toLocaleString(
 												intlLocale[locale],
 											),
 										})}
