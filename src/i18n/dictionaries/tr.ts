@@ -3,10 +3,21 @@ import type { Dictionary } from "./en";
 /** Turkish copy. Terms match the extension's own Turkish interface. */
 export const tr: Dictionary = {
 	meta: {
+		title: "Unfolks – Instagram'da Seni Geri Takip Etmeyenleri Bul (Ücretsiz)",
 		tagline: "Instagram'da seni geri takip etmeyenleri bul",
 		description:
-			"Unfolks, Instagram'da seni geri takip etmeyenleri gösteren ücretsiz bir Chrome uzantısı. Listeyi filtrele, gözden geçir ve takibi güvenli bir tempoda bırak — şifre yok, giriş yok, listelerin tarayıcından çıkmaz.",
+			"Instagram'da seni geri takip etmeyenleri ücretsiz bul. Şifre yok. Listeyi incele ve takip etmeyenleri Chrome'da toplu olarak güvenli bir tempoda bırak.",
 		skipToContent: "İçeriğe geç",
+		keywords: [
+			"Instagram",
+			"geri takip etmeyenler",
+			"takip etmeyenler",
+			"geri takip",
+			"takipçi",
+			"Chrome uzantısı",
+			"toplu takip bırakma",
+			"Unfolks",
+		],
 	},
 	nav: {
 		features: "Özellikler",
@@ -20,6 +31,7 @@ export const tr: Dictionary = {
 		openMenu: "Menüyü aç",
 		closeMenu: "Menüyü kapat",
 		toggleTheme: "Açık/koyu temayı değiştir",
+		languageLabel: "Dil",
 	},
 	hero: {
 		badge: "Her zaman ücretsiz · Şifre gerekmez",
@@ -29,7 +41,7 @@ export const tr: Dictionary = {
 		intro:
 			"Unfolks takipçi ve takip listelerini doğrudan tarayıcında karşılaştırır, seni hiç geri takip etmeyen her hesabı bulur ve onları toplu olarak bırakmanı sağlar.",
 		howItWorks: "Nasıl çalışır",
-		rating: "{count}+ Instagram kullanıcısından {value}/5",
+		rating: "{value}/5 · {users}+ kullanıcı",
 	},
 	preview: {
 		refresh: "Listeyi yenile",
@@ -48,11 +60,11 @@ export const tr: Dictionary = {
 	stats: {
 		heading: "Rakamlarla Unfolks",
 		items: [
-			{ value: 25000, prefix: "", suffix: "+", label: "Instagram kullanıcısı" },
-			{ value: 5, prefix: "", suffix: "/5", label: "Ortalama puan" },
-			{ value: 0, prefix: "", suffix: "", label: "İstenen şifre" },
+			{ key: "users", prefix: "", suffix: "+", label: "Instagram kullanıcısı" },
+			{ key: "rating", prefix: "", suffix: "/5", label: "Ortalama puan" },
+			{ key: "passwords", prefix: "", suffix: "", label: "İstenen şifre" },
 			{
-				value: 100,
+				key: "local",
 				prefix: "%",
 				suffix: "",
 				label: "Listelerin bilgisayarında kalır",

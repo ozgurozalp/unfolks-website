@@ -11,11 +11,31 @@ export const siteConfig = {
 	/** The extension's public source code and issue tracker. */
 	githubUrl: "https://github.com/ozgurozalp/unfolks",
 	issuesUrl: "https://github.com/ozgurozalp/unfolks/issues",
-	rating: {
-		value: 5,
-		count: 25000,
-	},
 } as const;
+
+/**
+ * Chrome Web Store listing for Unfolks, checked 2026-10-29:
+ * 4.3/5 from 69 ratings and 20,000 users.
+ * https://chromewebstore.google.com/detail/unfolks/idgjpjkoddplmbdepekendpdbaibcgpc
+ *
+ * The homepage stats, the hero line, and the SoftwareApplication JSON-LD all
+ * read this object. Update it here when the listing changes.
+ */
+export const chromeStore = {
+	users: 20_000,
+	ratingValue: 4.3,
+	ratingCount: 69,
+} as const;
+
+/** Headline figures. User count and rating come from `chromeStore`. */
+export const statFigures = {
+	users: { value: chromeStore.users, decimals: 0 },
+	rating: { value: chromeStore.ratingValue, decimals: 1 },
+	passwords: { value: 0, decimals: 0 },
+	local: { value: 100, decimals: 0 },
+} as const;
+
+export type StatKey = keyof typeof statFigures;
 
 /** Social preview images in `public/`. Pages that set their own `openGraph` must repeat these. */
 export const socialImages = {
