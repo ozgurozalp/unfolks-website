@@ -118,6 +118,7 @@ export default async function BlogPostPage({ params }: Props) {
 				title={frontmatter.title}
 				description={frontmatter.summary}
 				datePublished={frontmatter.date.toISOString()}
+				inLanguage={intlLocale[frontmatter.lang]}
 				url={absoluteUrl(localizedPath(frontmatter.lang, `/blog/${post.slug}`))}
 			/>
 

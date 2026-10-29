@@ -78,6 +78,7 @@ interface ArticleJsonLdProps {
 	description?: string;
 	datePublished: string;
 	url: string;
+	inLanguage: string;
 }
 
 export function ArticleJsonLd({
@@ -85,6 +86,7 @@ export function ArticleJsonLd({
 	description,
 	datePublished,
 	url,
+	inLanguage,
 }: ArticleJsonLdProps) {
 	return (
 		<JsonLd
@@ -94,6 +96,8 @@ export function ArticleJsonLd({
 				headline: title,
 				description,
 				datePublished,
+				inLanguage,
+				mainEntityOfPage: { "@type": "WebPage", "@id": url },
 				url,
 				author: {
 					"@type": "Person",

@@ -4,6 +4,7 @@ import { Geist } from "next/font/google";
 import { GoogleTagManager } from "@next/third-parties/google";
 
 import "../globals.css";
+import { LocaleProvider } from "@/components/locale-provider";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -96,18 +97,20 @@ export default async function RootLayout({
 					enableSystem
 					disableTransitionOnChange
 				>
-					<a
-						href="#main"
-						className="sr-only rounded-full bg-foreground px-4 py-2 text-background focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60]"
-					>
-						{dict.meta.skipToContent}
-					</a>
-					<SiteHeader text={dict.nav} locale={locale} />
-					<main id="main" tabIndex={-1} className="flex-1 outline-none">
-						{children}
-					</main>
-					<SiteFooter />
-					<PromoAd text={dict.promo} />
+					<LocaleProvider locale={locale}>
+						<a
+							href="#main"
+							className="sr-only rounded-full bg-foreground px-4 py-2 text-background focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60]"
+						>
+							{dict.meta.skipToContent}
+						</a>
+						<SiteHeader text={dict.nav} locale={locale} />
+						<main id="main" tabIndex={-1} className="flex-1 outline-none">
+							{children}
+						</main>
+						<SiteFooter />
+						<PromoAd text={dict.promo} />
+					</LocaleProvider>
 				</ThemeProvider>
 			</body>
 		</html>
