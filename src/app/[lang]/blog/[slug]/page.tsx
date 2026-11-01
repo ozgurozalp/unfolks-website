@@ -12,6 +12,7 @@ import { format } from "@/i18n/format";
 import {
 	localizedPageMeta,
 	singleLanguageAlternates,
+	socialTitle,
 	translatedPostAlternates,
 } from "@/i18n/seo";
 import { getDictionary, getLocale } from "@/i18n/server";
@@ -82,7 +83,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 		locale: lang,
 		path: `/blog/${post.slug}`,
 		documentTitle: title,
-		title: `${title} — ${siteConfig.name}`,
+		title: socialTitle(title),
 		description: summary,
 		alternates,
 		article: {

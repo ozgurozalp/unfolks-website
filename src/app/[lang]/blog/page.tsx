@@ -8,7 +8,6 @@ import { localizedPageMeta } from "@/i18n/seo";
 import { getDictionary, getLocale } from "@/i18n/server";
 import { localizedPath } from "@/i18n/urls";
 import { getPostsFor } from "@/lib/posts";
-import { siteConfig } from "@/lib/site";
 import { formatDate } from "@/lib/utils";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -16,8 +15,8 @@ export async function generateMetadata(): Promise<Metadata> {
 	return localizedPageMeta({
 		locale,
 		path: "/blog",
-		documentTitle: blog.eyebrow,
-		title: `${blog.eyebrow} — ${siteConfig.name}`,
+		documentTitle: blog.metaTitle,
+		title: blog.metaTitle,
 		description: blog.metaDescription,
 	});
 }
