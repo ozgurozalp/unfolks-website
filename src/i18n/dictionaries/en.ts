@@ -246,8 +246,9 @@ export const en = {
 		play: "Play now",
 	},
 	blog: {
+		metaTitle: "Blog — Instagram Follower Guides | Unfolks",
 		metaDescription:
-			"Guides and tips on managing your Instagram followers, cleaning up your following list, and getting more out of Unfolks.",
+			"Guides for Instagram follower management: who doesn't follow you back, how to bulk unfollow at a safe pace, follow limits, and the official data download.",
 		eyebrow: "Blog",
 		heading: "Instagram, minus the guesswork",
 		intro:
@@ -472,8 +473,17 @@ export const en = {
 					"No. Neither tool keeps your lists on a server, so there is nothing to move. Install Unfolks and run a scan.",
 			},
 		],
+		guidesTitle: "Guides",
+		guidesText:
+			"The same questions, written as steps: who doesn't follow you back, how to unfollow in bulk at a safe pace, and what to do when Instagram limits the account.",
 		disclaimer:
 			"Cobanov Instagram Unfollowers and the InstagramUnfollowers project belong to their authors, and Unfolks isn't affiliated with them. This page describes their public versions on {date}; they may have changed since.",
+	},
+	guides: {
+		eyebrow: "Guides",
+		heading: "Guides for your following list",
+		intro:
+			"How to see who doesn't follow you back, unfollow at a safe pace, and check the rest without handing over your password.",
 	},
 	notFound: {
 		title: "This page doesn't follow us back",

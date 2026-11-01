@@ -61,15 +61,71 @@ export function translatedPostAlternates(
 	};
 }
 
+/** A title that already ends with " - Unfolks", " — Unfolks", or "| Unfolks". */
+const BRAND_SUFFIX = new RegExp(
+	`\\s[-–—|]\\s+${siteConfig.name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\s*$`,
+	"i",
+);
+
+function stripBrandSuffix(title: string): string | null {
+	const match = BRAND_SUFFIX.exec(title);
+	if (!match) return null;
+	return title.slice(0, match.index).trim();
+}
+
+/**
+ * Collapse a repeated brand suffix ("… - Unfolks — Unfolks") to one.
+ * A single existing suffix is left exactly as written.
+ */
+export function dedupeBrand(title: string): string {
+	const trimmed = title.trim();
+	const once = stripBrandSuffix(trimmed);
+	if (once === null) return trimmed;
+
+	const twice = stripBrandSuffix(once);
+	if (twice === null) return trimmed;
+
+	let base = twice;
+	let next = stripBrandSuffix(base);
+	while (next !== null) {
+		base = next;
+		next = stripBrandSuffix(base);
+	}
+
+	return base ? `${base} — ${siteConfig.name}` : siteConfig.name;
+}
+
+/** Social title with the brand suffix at most once. */
+export function socialTitle(title: string): string {
+	const deduped = dedupeBrand(title);
+	return stripBrandSuffix(deduped) === null
+		? `${deduped} — ${siteConfig.name}`
+		: deduped;
+}
+
+/**
+ * Document title for the layout template (`%s — Unfolks`).
+ * A title that already ends with the brand is absolute, so the template
+ * cannot append the brand a second time.
+ */
+export function brandedDocumentTitle(
+	title: string,
+): string | { absolute: string } {
+	const deduped = dedupeBrand(title);
+	if (stripBrandSuffix(deduped) === null) return deduped;
+	return { absolute: deduped };
+}
+
 interface PageMetaOptions {
 	locale: Locale;
 	path: string;
-	/** Social title. Pass the final string; the title template is not applied. */
+	/** Social title. A trailing brand suffix is not added a second time. */
 	title: string;
 	description: string;
 	/**
 	 * Document title. A string is run through the layout template
-	 * (`%s — Unfolks`). Omit to use `title` as-is.
+	 * (`%s — Unfolks`) unless it already ends with the brand. Omit to use
+	 * `title` as-is.
 	 */
 	documentTitle?: string | { absolute: string };
 	alternates?: LanguageAlternates;
@@ -87,6 +143,13 @@ export function localizedPageMeta({
 	article,
 }: PageMetaOptions): Metadata {
 	const canonical = alternates.canonical;
+	const social = dedupeBrand(title);
+	const resolvedTitle =
+		documentTitle === undefined
+			? { absolute: social }
+			: typeof documentTitle === "string"
+				? brandedDocumentTitle(documentTitle)
+				: documentTitle;
 	const shared = {
 		siteName: siteConfig.name,
 		url: canonical,
@@ -94,13 +157,13 @@ export function localizedPageMeta({
 		alternateLocale: locales
 			.filter((item) => item !== locale)
 			.map((item) => ogLocale(item)),
-		title,
+		title: social,
 		description,
 		images: socialImages.openGraph,
 	};
 
 	return {
-		title: documentTitle ?? { absolute: title },
+		title: resolvedTitle,
 		description,
 		alternates,
 		openGraph: article
@@ -113,7 +176,7 @@ export function localizedPageMeta({
 			: { ...shared, type: "website" },
 		twitter: {
 			card: "summary_large_image",
-			title,
+			title: social,
 			description,
 			images: socialImages.twitter,
 		},

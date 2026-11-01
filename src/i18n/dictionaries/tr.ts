@@ -240,8 +240,9 @@ export const tr: Dictionary = {
 		play: "Hemen oyna",
 	},
 	blog: {
+		metaTitle: "Blog — Instagram Takipçi Rehberleri | Unfolks",
 		metaDescription:
-			"Instagram takipçilerini yönetme, takip listeni temizleme ve Unfolks'tan daha fazla yararlanma üzerine rehberler ve ipuçları.",
+			"Instagram takipçi rehberleri: geri takip etmeyenleri bulma, güvenli tempoda toplu takipten çıkma, takip limitleri ve resmi veri indirme.",
 		eyebrow: "Blog",
 		heading: "Instagram, tahmin yürütmeden",
 		intro:
@@ -466,8 +467,17 @@ export const tr: Dictionary = {
 					"Hayır. İki araç da listelerini bir sunucuda tutmaz, yani taşınacak bir şey yok. Unfolks'u yükle ve bir tarama yap.",
 			},
 		],
+		guidesTitle: "Rehberler",
+		guidesText:
+			"Aynı sorular, adım adım: geri takip etmeyenleri bulma, toplu takipten çıkma ve Instagram hesabı sınırlayınca ne yapacağın.",
 		disclaimer:
 			"Cobanov Instagram Unfollowers ve InstagramUnfollowers projesi kendi geliştiricilerine aittir; Unfolks'un onlarla bir bağlantısı yoktur. Bu sayfa, {date} tarihindeki herkese açık sürümlerini anlatır; o zamandan beri değişmiş olabilirler.",
+	},
+	guides: {
+		eyebrow: "Rehberler",
+		heading: "Takip listesi için rehberler",
+		intro:
+			"Geri takip etmeyenleri nasıl bulursun, takipten güvenli bir tempoda nasıl çıkarsın ve şifreni vermeden diğer kontrollere nasıl bakarsın.",
 	},
 	notFound: {
 		title: "Bu sayfa bizi geri takip etmiyor",

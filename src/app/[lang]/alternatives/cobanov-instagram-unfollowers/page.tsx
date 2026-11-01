@@ -12,6 +12,7 @@ import {
 import { DifferencesBento } from "@/components/compare/differences-bento";
 import { ScriptComparison } from "@/components/compare/script-comparison";
 import { Cta } from "@/components/sections/cta";
+import { RelatedGuides } from "@/components/sections/guides";
 import { FaqJsonLd } from "@/components/structured-data";
 import { intlLocale } from "@/i18n/config";
 import { format } from "@/i18n/format";
@@ -93,6 +94,11 @@ export default async function ComparePage() {
 							/>
 
 							<CompareFaq text={compare} />
+
+							<RelatedGuides
+								heading={compare.guidesTitle}
+								intro={compare.guidesText}
+							/>
 
 							<Disclaimer>{format(compare.disclaimer, { date })}</Disclaimer>
 						</div>

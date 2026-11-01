@@ -15,8 +15,55 @@ const withMDX = createMDXPlugin({
 	},
 });
 
+/**
+ * Retired English posts. Each public prefix redirects permanently to the
+ * closest current guide in that language. Deleted from `src/posts`, so they
+ * are not in the sitemap.
+ */
+const retiredPosts = [
+	{
+		slug: "boost-your-instagram-engagement-with-our-chrome-extension-unfolks",
+		en: "/blog/how-to-see-who-doesnt-follow-you-back-on-instagram",
+		tr: "/tr/blog/instagramda-geri-takip-etmeyenleri-bulma",
+	},
+	{
+		slug: "simplify-your-social-media-management-with-our-chrome-extension-unfolks",
+		en: "/blog/how-to-mass-unfollow-on-instagram-safely",
+		tr: "/tr/blog/instagram-toplu-takipten-cikma",
+	},
+] as const;
+
 const nextConfig: NextConfig = {
 	pageExtensions: ["ts", "tsx", "mdx"],
+	async redirects() {
+		return [
+			...retiredPosts.flatMap((post) => [
+				{
+					source: `/blog/${post.slug}`,
+					destination: post.en,
+					permanent: true,
+				},
+				{
+					source: `/en/blog/${post.slug}`,
+					destination: post.en,
+					permanent: true,
+				},
+				{
+					source: `/tr/blog/${post.slug}`,
+					destination: post.tr,
+					permanent: true,
+				},
+			]),
+			// Applies only when this host reaches the app. The production 307
+			// from www to the apex is a Vercel domain redirect and runs first.
+			{
+				source: "/:path*",
+				has: [{ type: "host", value: "www\\.unfolks\\.com" }],
+				destination: "https://unfolks.com/:path*",
+				permanent: true,
+			},
+		];
+	},
 	// Pin the workspace root so Turbopack ignores lockfiles above the repo.
 	turbopack: { root: import.meta.dirname },
 	// The blog index enumerates src/posts from disk while prerendering.

@@ -5,6 +5,7 @@ import { Features } from "@/components/sections/features";
 import { HowItWorks } from "@/components/sections/how-it-works";
 import { Testimonials } from "@/components/sections/testimonials";
 import { Faq } from "@/components/sections/faq";
+import { Guides } from "@/components/sections/guides";
 import { Cta } from "@/components/sections/cta";
 import {
 	FaqJsonLd,
@@ -23,6 +24,7 @@ export default function Home() {
 			<Stats />
 			<Testimonials />
 			<Faq />
+			<Guides />
 			<Cta />
 		</>
 	);
