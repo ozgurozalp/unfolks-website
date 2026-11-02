@@ -256,6 +256,8 @@ export const en = {
 		empty: "No posts published yet — check back soon.",
 		readingTime: "{minutes} min read",
 		allPosts: "All posts",
+		faqHeading: "Frequently asked questions",
+		relatedHeading: "Related guides",
 		ctaHeading: "Curious who doesn't follow you back?",
 		ctaText:
 			"Unfolks shows you right in your browser. Free, no password needed.",

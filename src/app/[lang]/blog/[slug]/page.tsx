@@ -3,10 +3,12 @@ import Link from "next/link";
 import { notFound, permanentRedirect } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 
+import { BlogPostFaq } from "@/components/blog/post-faq";
+import { PostRelatedGuides } from "@/components/blog/related-guides";
 import { ChromeIcon } from "@/components/icons";
 
 import { Button } from "@/components/ui/button";
-import { ArticleJsonLd } from "@/components/structured-data";
+import { ArticleJsonLd, FaqJsonLd } from "@/components/structured-data";
 import { intlLocale, type Locale } from "@/i18n/config";
 import { format } from "@/i18n/format";
 import {
@@ -17,7 +19,9 @@ import {
 } from "@/i18n/seo";
 import { getDictionary, getLocale } from "@/i18n/server";
 import { absoluteUrl, localizedPath } from "@/i18n/urls";
+import { getPostFaq } from "@/lib/post-faqs";
 import { getAllPosts, getPost, type Post } from "@/lib/posts";
+import { getRelatedPosts } from "@/lib/related-posts";
 import { siteConfig } from "@/lib/site";
 import { formatDate } from "@/lib/utils";
 
@@ -112,6 +116,8 @@ export default async function BlogPostPage({ params }: Props) {
 
 	const { Content, frontmatter, readingMinutes } = post;
 	const otherLang = frontmatter.lang === "en" ? "tr" : "en";
+	const faq = getPostFaq(post.slug);
+	const related = await getRelatedPosts(post.slug);
 
 	return (
 		<article lang={frontmatter.lang} className="px-4 py-14 sm:px-6 sm:py-20">
@@ -122,6 +128,7 @@ export default async function BlogPostPage({ params }: Props) {
 				inLanguage={intlLocale[frontmatter.lang]}
 				url={absoluteUrl(localizedPath(frontmatter.lang, `/blog/${post.slug}`))}
 			/>
+			{faq && <FaqJsonLd items={faq} />}
 
 			<header className="mx-auto max-w-3xl">
 				<div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
@@ -177,6 +184,9 @@ export default async function BlogPostPage({ params }: Props) {
 			<div className="prose prose-neutral mx-auto mt-10 max-w-3xl dark:prose-invert prose-headings:tracking-tight prose-a:text-brand-600 prose-a:underline-offset-4 hover:prose-a:text-brand-700 dark:prose-a:text-brand-400 prose-img:rounded-2xl lg:prose-lg">
 				<Content />
 			</div>
+
+			{faq && <BlogPostFaq heading={dict.blog.faqHeading} items={faq} />}
+			<PostRelatedGuides heading={dict.blog.relatedHeading} posts={related} />
 
 			<aside className="mx-auto mt-16 max-w-3xl">
 				<div className="flex flex-col items-center gap-5 rounded-3xl border border-border bg-surface p-8 text-center sm:flex-row sm:text-left">
