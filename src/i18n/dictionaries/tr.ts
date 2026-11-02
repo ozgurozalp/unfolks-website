@@ -250,6 +250,8 @@ export const tr: Dictionary = {
 		empty: "Henüz yazı yayınlanmadı — yakında tekrar uğra.",
 		readingTime: "{minutes} dk okuma",
 		allPosts: "Tüm yazılar",
+		faqHeading: "Sık sorulan sorular",
+		relatedHeading: "İlgili rehberler",
 		ctaHeading: "Seni kimlerin geri takip etmediğini merak mı ediyorsun?",
 		ctaText:
 			"Unfolks bunu doğrudan tarayıcında gösterir. Ücretsiz, şifre gerekmez.",
