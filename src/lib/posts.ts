@@ -12,6 +12,11 @@ const POSTS_DIRECTORY = path.join(process.cwd(), "src", "posts");
 
 const frontmatterSchema = z.object({
 	title: z.string().min(1),
+	/**
+	 * Search and social title, without a brand suffix. The layout template
+	 * appends " — Unfolks". Omit to use `title`.
+	 */
+	seoTitle: z.string().min(1).optional(),
 	date: z.coerce.date(),
 	summary: z.string().optional(),
 	tags: z.array(z.string()).default([]),

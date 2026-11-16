@@ -3,10 +3,10 @@ import type { Dictionary } from "./en";
 /** Turkish copy. Terms match the extension's own Turkish interface. */
 export const tr: Dictionary = {
 	meta: {
-		title: "Unfolks – Instagram'da Seni Geri Takip Etmeyenleri Bul (Ücretsiz)",
+		title: "Instagram Geri Takip Etmeyenler Chrome Uzantısı | Unfolks",
 		tagline: "Instagram'da seni geri takip etmeyenleri bul",
 		description:
-			"Instagram'da seni geri takip etmeyenleri ücretsiz bul. Şifre yok. Listeyi incele ve takip etmeyenleri Chrome'da toplu olarak güvenli bir tempoda bırak.",
+			"Instagram'da geri takip etmeyenleri ücretsiz bul. Chrome uzantısı, şifre yok. Güvenli tempoda toplu takipten çık. Listeler bilgisayarında kalır.",
 		skipToContent: "İçeriğe geç",
 		keywords: [
 			"Instagram",
@@ -240,9 +240,9 @@ export const tr: Dictionary = {
 		play: "Hemen oyna",
 	},
 	blog: {
-		metaTitle: "Blog — Instagram Takipçi Rehberleri | Unfolks",
+		metaTitle: "Instagram Geri Takip Etmeyenler Rehberleri | Unfolks",
 		metaDescription:
-			"Instagram takipçi rehberleri: geri takip etmeyenleri bulma, güvenli tempoda toplu takipten çıkma, takip limitleri ve resmi veri indirme.",
+			"Instagram'da geri takip etmeyenleri bulma, güvenli toplu takipten çıkma ve takip limitleri üzerine 2026 rehberleri. Ücretsiz, şifre yok, Chrome'da çalışır.",
 		eyebrow: "Blog",
 		heading: "Instagram, tahmin yürütmeden",
 		intro:
@@ -257,10 +257,9 @@ export const tr: Dictionary = {
 			"Unfolks bunu doğrudan tarayıcında gösterir. Ücretsiz, şifre gerekmez.",
 	},
 	compare: {
-		metaTitle:
-			"Cobanov Instagram Unfollowers alternatifi: Unfolks ve konsol scripti",
+		metaTitle: "Cobanov Instagram Unfollowers Alternatifi | Unfolks",
 		metaDescription:
-			"Unfolks'un Cobanov Instagram Unfollowers ile karşılaştırması: nasıl çalıştıkları, ortak yönleri ve bir Chrome uzantısının nerede daha kolay olduğu.",
+			"Cobanov konsol scriptine ücretsiz bir Chrome alternatifi. Şifre yok, yapıştırılacak kod yok. Geri takip etmeyenleri gör ve güvenli tempoda takipten çık.",
 		eyebrow: "Karşılaştırma",
 		title: "Unfolks ve Cobanov Instagram Unfollowers",
 		intro:
@@ -489,6 +488,7 @@ export const tr: Dictionary = {
 	},
 	privacy: {
 		title: "Gizlilik politikası",
+		metaTitle: "Gizlilik politikası: Listeler sende kalır | Unfolks",
 		metaDescription:
 			"Unfolks bilgilerini nasıl topluyor, kullanıyor ve koruyor.",
 		effective: "Yürürlük tarihi: {date}",

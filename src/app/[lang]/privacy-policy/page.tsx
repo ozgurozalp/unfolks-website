@@ -4,7 +4,7 @@ import { PolicyEn } from "@/components/privacy/policy-en";
 import { PolicyTr } from "@/components/privacy/policy-tr";
 import { intlLocale } from "@/i18n/config";
 import { format } from "@/i18n/format";
-import { localizedPageMeta, socialTitle } from "@/i18n/seo";
+import { localizedPageMeta } from "@/i18n/seo";
 import { getDictionary, getLocale } from "@/i18n/server";
 
 /** When the policy text last changed, in both languages. */
@@ -18,8 +18,8 @@ export async function generateMetadata(): Promise<Metadata> {
 	return localizedPageMeta({
 		locale,
 		path: "/privacy-policy",
-		documentTitle: privacy.title,
-		title: socialTitle(privacy.title),
+		documentTitle: privacy.metaTitle,
+		title: privacy.metaTitle,
 		description: privacy.metaDescription,
 	});
 }

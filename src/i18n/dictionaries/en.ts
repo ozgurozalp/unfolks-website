@@ -5,10 +5,10 @@
  */
 export const en = {
 	meta: {
-		title: "Unfolks – See Who Doesn't Follow You Back on Instagram (Free)",
+		title: "Instagram Unfollowers Chrome Extension (Free) | Unfolks",
 		tagline: "Find who doesn't follow you back on Instagram",
 		description:
-			"See who doesn't follow you back on Instagram with Unfolks, a free Chrome extension. No password. Review non-followers and unfollow them in bulk at a safe pace.",
+			"Free Chrome extension that shows who doesn't follow you back on Instagram. No password. Unfollow in bulk at a safe pace. Lists stay on your computer.",
 		skipToContent: "Skip to content",
 		keywords: [
 			"Instagram",
@@ -246,9 +246,9 @@ export const en = {
 		play: "Play now",
 	},
 	blog: {
-		metaTitle: "Blog — Instagram Follower Guides | Unfolks",
+		metaTitle: "Instagram Unfollowers Guides, Free in 2026 | Unfolks",
 		metaDescription:
-			"Guides for Instagram follower management: who doesn't follow you back, how to bulk unfollow at a safe pace, follow limits, and the official data download.",
+			"Free 2026 guides on who doesn't follow you back, how to mass unfollow at a safe pace, and what an Instagram limit looks like. No password. Works in Chrome.",
 		eyebrow: "Blog",
 		heading: "Instagram, minus the guesswork",
 		intro:
@@ -263,10 +263,9 @@ export const en = {
 			"Unfolks shows you right in your browser. Free, no password needed.",
 	},
 	compare: {
-		metaTitle:
-			"Cobanov Instagram Unfollowers alternative: Unfolks vs the console script",
+		metaTitle: "Cobanov Instagram Unfollowers Alternative | Unfolks",
 		metaDescription:
-			"How Unfolks compares with Cobanov Instagram Unfollowers: how each one runs, what they share, and where a Chrome extension is easier.",
+			"Free Chrome alternative to the Cobanov Instagram Unfollowers script. No password and no console code. See who doesn't follow you back, then unfollow slowly.",
 		eyebrow: "Comparison",
 		title: "Unfolks vs Cobanov Instagram Unfollowers",
 		intro:
@@ -495,6 +494,7 @@ export const en = {
 	},
 	privacy: {
 		title: "Privacy policy",
+		metaTitle: "Privacy Policy: Lists Stay on Your Computer | Unfolks",
 		metaDescription:
 			"How Unfolks collects, uses, and protects your information.",
 		effective: "Effective date: {date}",
