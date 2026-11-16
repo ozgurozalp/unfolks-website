@@ -66,12 +66,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 	const {
 		title,
+		seoTitle,
 		summary = "",
 		date,
 		lang,
 		translation,
 		tags,
 	} = post.frontmatter;
+	const headline = seoTitle ?? title;
 	let alternates = singleLanguageAlternates(lang, `/blog/${post.slug}`);
 	if (translation) {
 		const other = await getPost(translation);
@@ -86,8 +88,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 	const metadata = localizedPageMeta({
 		locale: lang,
 		path: `/blog/${post.slug}`,
-		documentTitle: title,
-		title: socialTitle(title),
+		documentTitle: headline,
+		title: socialTitle(headline),
 		description: summary,
 		alternates,
 		article: {
@@ -122,7 +124,7 @@ export default async function BlogPostPage({ params }: Props) {
 	return (
 		<article lang={frontmatter.lang} className="px-4 py-14 sm:px-6 sm:py-20">
 			<ArticleJsonLd
-				title={frontmatter.title}
+				title={frontmatter.seoTitle ?? frontmatter.title}
 				description={frontmatter.summary}
 				datePublished={frontmatter.date.toISOString()}
 				inLanguage={intlLocale[frontmatter.lang]}
