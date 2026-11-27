@@ -1,4 +1,5 @@
 import Image from "next/image";
+import type { LucideIcon } from "lucide-react";
 import {
 	CalendarCheck,
 	Check,
@@ -24,8 +25,14 @@ export function SectionTitle({ children }: { children: React.ReactNode }) {
 	);
 }
 
-/** "Unfolks vs Cobanov" badge above the page title. */
-export function VersusBadge({ table }: { table: Compare["table"] }) {
+/** "Unfolks vs <competitor>" badge above the page title. */
+export function VersusBadge({
+	table,
+	icon: Icon = TerminalSquare,
+}: {
+	table: Pick<Compare["table"], "scriptName">;
+	icon?: LucideIcon;
+}) {
 	return (
 		<div className="inline-flex items-center gap-3 rounded-full border border-border bg-card/80 p-1.5 pr-4 shadow-sm backdrop-blur">
 			<span className="flex items-center gap-2 rounded-full bg-brand-500/10 py-1 pl-1 pr-3 text-sm font-semibold text-brand-700 dark:text-brand-300">
@@ -50,7 +57,7 @@ export function VersusBadge({ table }: { table: Compare["table"] }) {
 			</span>
 			<span className="flex items-center gap-2 text-sm font-semibold">
 				<span className="grid size-6 place-items-center rounded-full bg-zinc-900 text-zinc-100 dark:bg-zinc-100 dark:text-zinc-900">
-					<TerminalSquare className="size-3.5" aria-hidden />
+					<Icon className="size-3.5" aria-hidden />
 				</span>
 				{table.scriptName}
 			</span>
@@ -72,7 +79,11 @@ export function CheckedPill({ children }: { children: React.ReactNode }) {
 }
 
 /** The features both tools share, as a grid of checks. */
-export function SharedFeatures({ text }: { text: Compare }) {
+export function SharedFeatures({
+	text,
+}: {
+	text: Pick<Compare, "sharedTitle" | "sharedText" | "sharedItems">;
+}) {
 	return (
 		<section>
 			<SectionTitle>{text.sharedTitle}</SectionTitle>
@@ -99,12 +110,12 @@ export function SharedFeatures({ text }: { text: Compare }) {
 	);
 }
 
-/** When the script is the better pick, beside how to switch. */
+/** When the competitor is the better pick, beside how to switch. */
 export function FairAndSwitch({
 	text,
 	ctaLabel,
 }: {
-	text: Compare;
+	text: Pick<Compare, "fairTitle" | "fairText" | "switchTitle" | "switchSteps">;
 	ctaLabel: string;
 }) {
 	return (
@@ -147,7 +158,11 @@ export function FairAndSwitch({
 }
 
 /** The page's questions, in the same accordion as the home page FAQ. */
-export function CompareFaq({ text }: { text: Compare }) {
+export function CompareFaq({
+	text,
+}: {
+	text: Pick<Compare, "faqTitle" | "faq">;
+}) {
 	return (
 		<section>
 			<SectionTitle>{text.faqTitle}</SectionTitle>
