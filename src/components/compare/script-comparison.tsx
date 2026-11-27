@@ -5,8 +5,17 @@ import { siteConfig } from "@/lib/site";
 const UNFOLKS = "unfolks";
 const SCRIPT = "script";
 
-/** The uiarc comparison block, filled from the page dictionary. */
-export function ScriptComparison({ text }: { text: Dictionary["compare"]["table"] }) {
+/**
+ * The uiarc comparison block, filled from the page dictionary. The competitor
+ * column reads the `script*` keys on every comparison page.
+ */
+export function ScriptComparison({
+	text,
+}: {
+	text:
+		| Dictionary["compare"]["table"]
+		| Dictionary["compareUnfollowChecker"]["table"];
+}) {
 	return (
 		<ComparisonTable
 			title={text.title}

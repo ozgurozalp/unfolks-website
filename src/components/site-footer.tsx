@@ -6,7 +6,11 @@ import { GitHubIcon } from "@/components/icons";
 import { Logo } from "@/components/logo";
 import { getDictionary, getLocale } from "@/i18n/server";
 import { localizedPath } from "@/i18n/urls";
-import { comparePage, siteConfig } from "@/lib/site";
+import {
+	comparePage,
+	siteConfig,
+	unfollowCheckerComparePage,
+} from "@/lib/site";
 
 export async function SiteFooter() {
 	const [dict, locale] = await Promise.all([getDictionary(), getLocale()]);
@@ -24,6 +28,10 @@ export async function SiteFooter() {
 	const resourceLinks = [
 		{ href: href("/blog"), label: dict.nav.blog },
 		{ href: href(comparePage.path), label: dict.footer.compare },
+		{
+			href: href(unfollowCheckerComparePage.path),
+			label: dict.footer.compareUnfollowChecker,
+		},
 		{ href: href("/privacy-policy"), label: dict.footer.privacy },
 		{
 			href: `mailto:${siteConfig.author.email}`,

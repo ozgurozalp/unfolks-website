@@ -39,7 +39,7 @@ export const tr: Dictionary = {
 		titleHighlight: "geri takip etmeyenleri",
 		titleAfter: "gör",
 		intro:
-			"Unfolks takipçi ve takip listelerini doğrudan tarayıcında karşılaştırır, seni hiç geri takip etmeyen her hesabı bulur ve onları toplu olarak bırakmanı sağlar.",
+			"Unfolks takipçi ve takip listelerini doğrudan tarayıcında karşılaştırır, seni hiç geri takip etmeyen her hesabı bulur ve onları toplu olarak bırakmanı sağlar. İstersen Instagram'ın Bilgilerini indir dosyasını bırak, Instagram'a tek bir istek göndermeden kontrol et.",
 		howItWorks: "Nasıl çalışır",
 		rating: "{value}/5 · {users}+ kullanıcı",
 	},
@@ -229,6 +229,7 @@ export const tr: Dictionary = {
 		rights: "Tüm hakları saklıdır.",
 		builtBy: "Geliştiren:",
 		compare: "Unfolks ve Cobanov",
+		compareUnfollowChecker: "Unfolks ve UnfollowChecker",
 		sourceCode: "GitHub'daki kaynak kod",
 		email: "E-posta",
 	},
@@ -473,6 +474,223 @@ export const tr: Dictionary = {
 			"Aynı sorular, adım adım: geri takip etmeyenleri bulma, toplu takipten çıkma ve Instagram hesabı sınırlayınca ne yapacağın.",
 		disclaimer:
 			"Cobanov Instagram Unfollowers ve InstagramUnfollowers projesi kendi geliştiricilerine aittir; Unfolks'un onlarla bir bağlantısı yoktur. Bu sayfa, {date} tarihindeki herkese açık sürümlerini anlatır; o zamandan beri değişmiş olabilirler.",
+	},
+	compareUnfollowChecker: {
+		metaTitle: "UnfollowChecker Alternatifi, Tam Liste Ücretsiz | Unfolks",
+		metaDescription:
+			"UnfollowChecker'a ücretsiz alternatif. Unfolks Instagram veri dosyasını da okur, geri takip etmeyenlerin tam listesini ücretsiz gösterir ve yavaş tempoda takipten çıkar.",
+		title: "Unfolks ve UnfollowChecker",
+		intro:
+			"UnfollowChecker, Instagram'dan indirdiğin veri dosyasını okuyup seni geri takip etmeyenleri gösteren bir web sitesi. Unfolks ise aynı veri dosyasını okuyabilen ya da tarayıcında açık olan Instagram oturumunu tarayabilen, sonra yavaş bir tempoda takipten çıkaran ücretsiz bir Chrome uzantısı. İşte karşılaştırması.",
+		checked:
+			"{date} tarihinde UnfollowChecker'ın herkese açık web sitesiyle karşılaştırıldı.",
+		table: {
+			title: "Bir bakışta",
+			description:
+				"İki aracın aynı yaptığı şeyleri gizlemek için Sadece farklar'ı aç.",
+			unfolksCaption: "Chrome uzantısı",
+			scriptName: "UnfollowChecker",
+			scriptCaption: "Web sitesi",
+			cta: "Chrome'a ekle",
+			labels: {
+				feature: "Özellik",
+				included: "Var",
+				partial: "Kısmen",
+				notIncluded: "Yok",
+				onlyDifferences: "Sadece farklar",
+				compareWith: "{name} ile karşılaştır",
+				showingDifferences: "Yalnızca farklı satırlar gösteriliyor",
+				showingAll: "Tüm satırlar gösteriliyor",
+			},
+			sections: [
+				{
+					id: "setup",
+					title: "Başlarken",
+					rows: [
+						{
+							id: "lists",
+							feature: "Listelerini nereden alır",
+							unfolks: "Veri dosyandan ya da açık oturumunu tarayarak",
+							script: "Yalnızca veri dosyandan",
+						},
+						{
+							id: "install",
+							feature: "Ne kurarsın",
+							unfolks: "Bir kez, bir uzantı",
+							script: "Hiçbir şey",
+						},
+						{
+							id: "devices",
+							feature: "Nerede çalışır",
+							unfolks: "Bilgisayarda Chrome, Edge, Brave",
+							script: "Her tarayıcıda, telefon dahil",
+						},
+						{
+							id: "wait",
+							feature: "Instagram'ın dışa aktarımını bekler",
+							hint: "Instagram önce dosyayı hazırlar. Bu birkaç dakika da sürebilir, saatler de.",
+							unfolks: "Yalnızca veri dosyasını kullanırsan",
+							script: "Her seferinde",
+						},
+					],
+				},
+				{
+					id: "features",
+					title: "Özellikler",
+					rows: [
+						{
+							id: "nonfollowers",
+							feature: "Geri takip etmeyenlerin tam listesi",
+							unfolks: "Ücretsiz",
+							script: "Tek seferlik 2,99 $",
+						},
+						{
+							id: "datafile",
+							feature: "Veri dosyasıyla kontrol",
+							hint: "Dosyayı tarayıcında okur, Instagram'a hiçbir istek göndermez.",
+							unfolks: true,
+							script: true,
+						},
+						{
+							id: "unfollowed",
+							feature: "Seni takipten çıkmış olabilecekler",
+							unfolks: "Her yenilemeden sonra bir sayı",
+							script: "İki dışa aktarımı karşılaştırarak",
+						},
+						{
+							id: "unfollow",
+							feature: "Listeden yavaş tempoda takipten çıkma",
+							unfolks: true,
+							script: false,
+						},
+						{
+							id: "hide",
+							feature: "Toplu takipten çıkmanın atlayacağı hesapları gizleme",
+							unfolks: true,
+							script: false,
+						},
+						{
+							id: "mutuals",
+							feature: "Karşılıklı takipler ve hayranlar",
+							unfolks: false,
+							script: "3 $ ek paket",
+						},
+						{
+							id: "csv",
+							feature: "CSV indirme",
+							unfolks: false,
+							script: true,
+						},
+						{
+							id: "otherApps",
+							feature: "Threads ve TikTok dışa aktarımları",
+							unfolks: false,
+							script: true,
+						},
+					],
+				},
+				{
+					id: "trust",
+					title: "Gizlilik ve fiyat",
+					rows: [
+						{
+							id: "password",
+							feature: "Şifren olmadan çalışır",
+							unfolks: true,
+							script: true,
+						},
+						{
+							id: "local",
+							feature: "Listeler tarayıcında kalır",
+							unfolks: true,
+							script: true,
+						},
+						{
+							id: "account",
+							feature: "Hesap açmak gerekmez",
+							unfolks: true,
+							script: true,
+						},
+						{
+							id: "price",
+							feature: "Fiyat",
+							unfolks: "Ücretsiz, ücretli paket yok",
+							script: "Ücretsiz paket, ücretli listeler",
+						},
+					],
+				},
+			],
+		},
+		sharedTitle: "Ortak yanları",
+		sharedText:
+			"İkisi de Instagram'ın indirmene izin verdiği veri dosyasını okur, tarayıcında kontrol eder ve bunu yaparken Instagram'a hiçbir istek göndermez. İkisi de şifreni istemez, hesap açtırmaz.",
+		sharedItems: [
+			"Şifre yok",
+			"Hesap açmak yok",
+			"Listeler tarayıcında kalır",
+			"Veri dosyasıyla kontrol",
+		],
+		diffTitle: "Farkları",
+		diffs: [
+			{
+				title: "Veri dosyası ya da tarama, seçim senin",
+				text: "UnfollowChecker yalnızca dışa aktarımla çalışır; her kontrol Instagram'dan dosyayı isteyip beklemekle başlar. Unfolks aynı dosyayı okur ve Instagram'a hiçbir istek göndermez. Beklemek istemediğinde, tarayıcında zaten açık olan oturumu da tarayabilir.",
+			},
+			{
+				title: "Tam liste ücretsiz",
+				text: "UnfollowChecker sayıyı ve bir önizlemeyi ücretsiz gösterir; seni geri takip etmeyenlerin tam listesi için 2,99 $, karşılıklı takipler ve hayranlar için ayrıca 3 $ ister. Unfolks'ta ücretli paket yok: tam liste ücretsiz.",
+			},
+			{
+				title: "Listeyle bir şey yapabilirsin",
+				text: "UnfollowChecker isimleri gösterir, takipten çıkmayı tek tek profil açarak sana bırakır. Unfolks listeden yavaş bir tempoda takipten çıkar: her işlem arasında 4–6 saniye, her 5 işlemde 3 dakika mola; ikisi de ayarlanabilir. Gizlediğin hesaplar atlanır, işlemi istediğin an durdurabilirsin.",
+			},
+			{
+				title: "Neyin değiştiğini söyler",
+				text: "Seni kimin takipten çıktığını görmek için UnfollowChecker farklı zamanlarda indirdiğin iki dışa aktarımı karşılaştırır. Unfolks her yenilemeden sonra, son taramadan beri kaç hesabın seni takipten çıkmış olabileceğini söyler.",
+			},
+		],
+		fairTitle: "UnfollowChecker ne zaman mantıklı",
+		fairText:
+			"Her tarayıcıda çalıştığı için Unfolks'un çalışmadığı telefonlara, Firefox'a ve Safari'ye uyar. CSV dosyaları, karşılıklı takipler ve hayranlar da verir, Threads ve TikTok dışa aktarımlarını da okur; Unfolks bunları yapmaz. Yalnızca isimleri istiyorsan, bir araçla takipten çıkmak istemiyorsan ve dışa aktarımı beklemek sorun değilse bu işi görür.",
+		switchTitle: "Unfolks'u denemek bir dakika sürer",
+		switchSteps: [
+			"Unfolks'u Chrome Web Mağazası'ndan ekle.",
+			"Instagram'ı aç ve Unfolks simgesine tıkla.",
+			"Elindeki veri dosyasını bırak ya da Takip etmeyenleri göster'e tıkla.",
+		],
+		faqTitle: "Sorular",
+		faq: [
+			{
+				question: "Unfolks'u UnfollowChecker mı yapıyor?",
+				answer:
+					"Hayır. Unfolks'u Özgür Özalp geliştiriyor; UnfollowChecker ile bir bağlantısı yok.",
+			},
+			{
+				question: "Unfolks Instagram veri dosyamı okuyabilir mi?",
+				answer:
+					"Evet. Paneli aç, Veri dosyasıyla kontrol et'i seç ve Instagram'ın Bilgilerini indir bölümünden aldığın dosyayı seç. Dosya tarayıcında okunur ve Unfolks bu sırada Instagram'a hiçbir istek göndermez.",
+			},
+			{
+				question: "Tarama, veri dosyasından daha mı riskli?",
+				answer:
+					"Tarama sırasında listelerinin okunması, giriş yapmışken instagram.com'da listeleri kaydırmak gibidir. Hesapların sınırlanmasına yol açan şey, çok sayıda hesabı hızla takipten çıkmaktır; Unfolks bu yüzden işlemler arasında bekler ve her 5 işlemde mola verir. Hiç istek gönderilmesin istiyorsan veri dosyasını kullan.",
+			},
+			{
+				question: "Unfolks ücretli mi?",
+				answer:
+					"Hayır. Bütün özellikler ücretsiz; ücretli paket de, açılacak hesap da yok.",
+			},
+			{
+				question: "Unfolks telefonda çalışır mı?",
+				answer:
+					"Hayır. Unfolks bilgisayarda Chrome, Edge ya da Brave'in yan panelinde açılır. Telefonda, UnfollowChecker gibi veri dosyasını okuyan bir web sitesi seçenek olur.",
+			},
+		],
+		guidesTitle: "Rehberler",
+		guidesText:
+			"Aynı sorular, adım adım: geri takip etmeyenleri bulma, Instagram veri indirmesini kullanma ve güvenli tempoda toplu takipten çıkma.",
+		disclaimer:
+			"UnfollowChecker kendi sahiplerine aittir; Unfolks'un onunla bir bağlantısı yoktur. Bu sayfa, fiyatlar dahil, sitenin {date} tarihindeki herkese açık hâlini anlatır; o zamandan beri değişmiş olabilir.",
 	},
 	guides: {
 		eyebrow: "Rehberler",

@@ -41,7 +41,7 @@ export const en = {
 		titleHighlight: "follow you back",
 		titleAfter: "on Instagram",
 		intro:
-			"Unfolks compares your followers and following lists right inside your browser, flags every account that never followed back, and lets you unfollow them in bulk.",
+			"Unfolks compares your followers and following lists right inside your browser, flags every account that never followed back, and lets you unfollow them in bulk. Or drop in the file from Instagram's Download your information and check without sending Instagram a single request.",
 		howItWorks: "How it works",
 		rating: "{value}/5 · {users}+ users",
 	},
@@ -235,6 +235,7 @@ export const en = {
 		rights: "All rights reserved.",
 		builtBy: "Built by",
 		compare: "Unfolks vs Cobanov",
+		compareUnfollowChecker: "Unfolks vs UnfollowChecker",
 		sourceCode: "Source code on GitHub",
 		email: "Email",
 	},
@@ -479,6 +480,222 @@ export const en = {
 			"The same questions, written as steps: who doesn't follow you back, how to unfollow in bulk at a safe pace, and what to do when Instagram limits the account.",
 		disclaimer:
 			"Cobanov Instagram Unfollowers and the InstagramUnfollowers project belong to their authors, and Unfolks isn't affiliated with them. This page describes their public versions on {date}; they may have changed since.",
+	},
+	compareUnfollowChecker: {
+		metaTitle: "UnfollowChecker Alternative, Full List Free | Unfolks",
+		metaDescription:
+			"Free alternative to UnfollowChecker. Unfolks reads Instagram's data file too, shows the whole non-followers list free, and unfollows at a slow pace. No password.",
+		title: "Unfolks vs UnfollowChecker",
+		intro:
+			"UnfollowChecker is a website that reads the data export you download from Instagram and shows who doesn't follow you back. Unfolks is a free Chrome extension that can read the same data file, or scan the Instagram session already open in your browser, and then unfollow at a slow pace. Here is how they compare.",
+		checked: "Checked on {date} against UnfollowChecker's public website.",
+		table: {
+			title: "At a glance",
+			description:
+				"Switch on Only differences to hide what both tools do the same way.",
+			unfolksCaption: "Chrome extension",
+			scriptName: "UnfollowChecker",
+			scriptCaption: "Website",
+			cta: "Add to Chrome",
+			labels: {
+				feature: "Feature",
+				included: "Included",
+				partial: "Partial",
+				notIncluded: "Not included",
+				onlyDifferences: "Only differences",
+				compareWith: "Compare {name} with",
+				showingDifferences: "Showing only rows that differ",
+				showingAll: "Showing all rows",
+			},
+			sections: [
+				{
+					id: "setup",
+					title: "Getting started",
+					rows: [
+						{
+							id: "lists",
+							feature: "How it gets your lists",
+							unfolks: "Your data file, or a scan of your open session",
+							script: "Your data file only",
+						},
+						{
+							id: "install",
+							feature: "What you install",
+							unfolks: "An extension, once",
+							script: "Nothing",
+						},
+						{
+							id: "devices",
+							feature: "Where it runs",
+							unfolks: "Chrome, Edge, Brave on a computer",
+							script: "Any browser, phones included",
+						},
+						{
+							id: "wait",
+							feature: "Waits for Instagram's export",
+							hint: "Instagram prepares the export first. That can take minutes or many hours.",
+							unfolks: "Only if you use the data file",
+							script: "Every time",
+						},
+					],
+				},
+				{
+					id: "features",
+					title: "Features",
+					rows: [
+						{
+							id: "nonfollowers",
+							feature: "Full list of who doesn't follow you back",
+							unfolks: "Free",
+							script: "$2.99 one-time",
+						},
+						{
+							id: "datafile",
+							feature: "Data file check",
+							hint: "Reads the file in your browser and sends Instagram nothing.",
+							unfolks: true,
+							script: true,
+						},
+						{
+							id: "unfollowed",
+							feature: "Who may have unfollowed you",
+							unfolks: "A count after each refresh",
+							script: "By comparing two exports",
+						},
+						{
+							id: "unfollow",
+							feature: "Unfollow from the list, at a slow pace",
+							unfolks: true,
+							script: false,
+						},
+						{
+							id: "hide",
+							feature: "Hide accounts so a bulk unfollow skips them",
+							unfolks: true,
+							script: false,
+						},
+						{
+							id: "mutuals",
+							feature: "Mutuals and fans",
+							unfolks: false,
+							script: "$3 add-on",
+						},
+						{
+							id: "csv",
+							feature: "CSV download",
+							unfolks: false,
+							script: true,
+						},
+						{
+							id: "otherApps",
+							feature: "Threads and TikTok exports",
+							unfolks: false,
+							script: true,
+						},
+					],
+				},
+				{
+					id: "trust",
+					title: "Privacy and price",
+					rows: [
+						{
+							id: "password",
+							feature: "Works without your password",
+							unfolks: true,
+							script: true,
+						},
+						{
+							id: "local",
+							feature: "Lists stay in your browser",
+							unfolks: true,
+							script: true,
+						},
+						{
+							id: "account",
+							feature: "No account to create",
+							unfolks: true,
+							script: true,
+						},
+						{
+							id: "price",
+							feature: "Price",
+							unfolks: "Free, no paid tier",
+							script: "Free tier, paid lists",
+						},
+					],
+				},
+			],
+		},
+		sharedTitle: "What they have in common",
+		sharedText:
+			"Both read the data file Instagram lets you download, check it inside your browser, and send Instagram nothing while they do. Neither asks for your password or makes you create an account.",
+		sharedItems: [
+			"No password",
+			"No account to create",
+			"Lists stay in your browser",
+			"Data file check",
+		],
+		diffTitle: "Where they differ",
+		diffs: [
+			{
+				title: "The data file or a scan, your choice",
+				text: "UnfollowChecker works only from the export, so every check starts with asking Instagram for it and waiting. Unfolks reads the same file and sends Instagram nothing. When you don't want to wait, it can scan the session already open in your browser instead.",
+			},
+			{
+				title: "The whole list is free",
+				text: "UnfollowChecker shows the count and a preview for free, and charges $2.99 for the full list of who doesn't follow you back, plus $3 for mutuals and fans. Unfolks has no paid tier: the full list is free.",
+			},
+			{
+				title: "You can act on the list",
+				text: "UnfollowChecker shows the names and leaves the unfollowing to you, one profile at a time. Unfolks unfollows from the list at a slow pace: 4–6 seconds between unfollows and a 3 minute rest after every 5, both adjustable. Hidden accounts are skipped, and you can stop a batch at any time.",
+			},
+			{
+				title: "It tells you what changed",
+				text: "To see who unfollowed you, UnfollowChecker compares two exports you downloaded at different times. After each refresh, Unfolks tells you how many accounts may have unfollowed you since your last scan.",
+			},
+		],
+		fairTitle: "When UnfollowChecker makes sense",
+		fairText:
+			"It runs in any browser, so it suits phones, Firefox and Safari, where Unfolks doesn't run. It also gives you CSV files, mutuals and fans, and reads Threads and TikTok exports, which Unfolks doesn't. If you only want the names, never want to unfollow from a tool, and don't mind waiting for the export, it does that job.",
+		switchTitle: "Trying Unfolks takes a minute",
+		switchSteps: [
+			"Add Unfolks from the Chrome Web Store.",
+			"Open Instagram and click the Unfolks icon.",
+			"Drop in the data file you already have, or click Show unfollowers.",
+		],
+		faqTitle: "Questions",
+		faq: [
+			{
+				question: "Is Unfolks made by UnfollowChecker?",
+				answer:
+					"No. Unfolks is built by Özgür Özalp and isn't affiliated with UnfollowChecker.",
+			},
+			{
+				question: "Can Unfolks read my Instagram data export?",
+				answer:
+					"Yes. Open the panel, choose Check with your data file, and select the file from Instagram's Download your information. It is read in your browser and Unfolks sends Instagram nothing while it does.",
+			},
+			{
+				question: "Is a scan riskier than the data file?",
+				answer:
+					"Reading your lists during a scan works like scrolling them on instagram.com while you are signed in. What gets accounts limited is unfollowing many accounts quickly, which is why Unfolks waits between unfollows and rests after every 5. If you want no requests at all, use the data file.",
+			},
+			{
+				question: "Does Unfolks cost anything?",
+				answer:
+					"No. Every feature is free, there is no paid tier and no account to create.",
+			},
+			{
+				question: "Does Unfolks work on my phone?",
+				answer:
+					"No. Unfolks opens in the side panel of Chrome, Edge or Brave on a computer. On a phone, a website that reads the data export, such as UnfollowChecker, is the option.",
+			},
+		],
+		guidesTitle: "Guides",
+		guidesText:
+			"The same questions, written as steps: who doesn't follow you back, how to use Instagram's data download, and how to unfollow in bulk at a safe pace.",
+		disclaimer:
+			"UnfollowChecker belongs to its owners, and Unfolks isn't affiliated with it. This page describes its public website on {date}, including its prices; it may have changed since.",
 	},
 	guides: {
 		eyebrow: "Guides",

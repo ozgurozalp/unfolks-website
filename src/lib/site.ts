@@ -79,3 +79,13 @@ export const comparePage = {
 	checkedOn: new Date(Date.UTC(2026, 9, 21)),
 	scriptVersion: "2.4.1",
 } as const;
+
+/**
+ * The comparison page for people searching for UnfollowChecker
+ * (unfollow-checker.com), a web app that reads Instagram's data export.
+ */
+export const unfollowCheckerComparePage = {
+	path: "/alternatives/unfollow-checker",
+	/** When unfollow-checker.com was last checked. */
+	checkedOn: new Date(Date.UTC(2026, 10, 27)),
+} as const;

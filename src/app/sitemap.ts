@@ -4,7 +4,7 @@ import { locales } from "@/i18n/config";
 import { sitemapLanguages } from "@/i18n/seo";
 import { absoluteUrl, localizedPath } from "@/i18n/urls";
 import { getAllPosts } from "@/lib/posts";
-import { comparePage } from "@/lib/site";
+import { comparePage, unfollowCheckerComparePage } from "@/lib/site";
 
 const STATIC_PAGES: {
 	path: string;
@@ -14,6 +14,11 @@ const STATIC_PAGES: {
 	{ path: "/", changeFrequency: "monthly", priority: 1 },
 	{ path: "/blog", changeFrequency: "weekly", priority: 0.8 },
 	{ path: comparePage.path, changeFrequency: "monthly", priority: 0.7 },
+	{
+		path: unfollowCheckerComparePage.path,
+		changeFrequency: "monthly",
+		priority: 0.7,
+	},
 	{ path: "/privacy-policy", changeFrequency: "yearly", priority: 0.4 },
 ];
 
